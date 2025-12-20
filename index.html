@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark light" />
   <meta name="description" content="GowriShankar — DevOps Engineer. CI/CD, Kubernetes, Terraform, AWS. Production-minded automation with measurable outcomes." />
 
@@ -13,13 +13,16 @@
   <meta property="og:description" content="Production-minded DevOps: CI/CD, Kubernetes, Terraform, AWS. Case studies + measurable outcomes." />
   <meta property="og:type" content="website" />
 
-  <!-- Favicon (optional) -->
-  <!-- <link rel="icon" href="./assets/favicon.png" /> -->
-
   <style>
-    /* =========================
-       FAANG-style: calm, premium
-       ========================= */
+    /* ============================================================
+       Top-1% Mobile/Tablet/Desktop Responsive (FAANG-style polish)
+       - Mobile-first spacing & tap targets
+       - Sticky nav becomes bottom sheet menu on small screens
+       - Better typography scaling + line lengths
+       - Safer grid breakpoints (no cramped 3-col on tablets)
+       - Modal is fully mobile friendly (safe area, scroll, close)
+       - No hover-only interactions
+       ============================================================ */
 
     :root{
       --bg: #0b0f17;
@@ -35,7 +38,7 @@
       --shadow: 0 12px 40px rgba(0,0,0,0.45);
 
       --accent: #6aa5ff;
-      --accent2:#7cf0c2; /* subtle secondary */
+      --accent2:#7cf0c2;
       --warn:#ffcf5a;
 
       --radius-xl: 22px;
@@ -43,12 +46,16 @@
       --radius-md: 14px;
 
       --max: 1120px;
-      --pad: clamp(16px, 3vw, 28px);
+      --pad: clamp(14px, 3vw, 28px);
 
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
       --focus: 0 0 0 3px rgba(106,165,255,0.35), 0 0 0 1px rgba(106,165,255,0.65) inset;
+
+      /* mobile safe area support */
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     @media (prefers-color-scheme: light){
@@ -83,6 +90,7 @@
       text-rendering:optimizeLegibility;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
 
     a{color:inherit}
@@ -90,7 +98,7 @@
     .skip{
       position:absolute;
       left:-999px;
-      top:10px;
+      top:calc(10px + var(--safe-top));
       background:var(--bg);
       color:var(--text);
       border:1px solid var(--stroke2);
@@ -105,6 +113,7 @@
       position:sticky;
       top:0;
       z-index:50;
+      padding-top: var(--safe-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       background: linear-gradient(180deg, rgba(10,14,24,0.70), rgba(10,14,24,0.35));
@@ -112,22 +121,24 @@
     }
     @media (prefers-color-scheme: light){
       .top{
-        background: linear-gradient(180deg, rgba(247,248,251,0.80), rgba(247,248,251,0.40));
+        background: linear-gradient(180deg, rgba(247,248,251,0.84), rgba(247,248,251,0.45));
       }
     }
+
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:18px;
-      padding:14px 0;
+      gap:14px;
+      padding:12px 0 12px;
     }
+
     .brand{
       display:flex;
       gap:12px;
       align-items:center;
-      min-width:220px;
       text-decoration:none;
+      min-width: 0;
     }
     .mark{
       width:38px; height:38px;
@@ -137,9 +148,20 @@
         linear-gradient(135deg, rgba(106,165,255,0.95), rgba(124,240,194,0.85));
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       border:1px solid rgba(255,255,255,0.20);
+      flex:0 0 auto;
     }
-    .brand strong{display:block; font-size:14px; letter-spacing:0.2px}
-    .brand span{display:block; font-size:12px; color:var(--muted)}
+    .brandText{min-width:0}
+    .brand strong{
+      display:block; font-size:14px; letter-spacing:0.2px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      max-width: 36vw;
+    }
+    .brand span{
+      display:block; font-size:12px; color:var(--muted);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      max-width: 44vw;
+    }
+
     .links{
       display:flex;
       align-items:center;
@@ -147,6 +169,7 @@
       flex-wrap:wrap;
       justify-content:flex-end;
     }
+
     .pill{
       position:relative;
       text-decoration:none;
@@ -155,18 +178,19 @@
       padding:10px 12px;
       border-radius:999px;
       border:1px solid transparent;
+      min-height: 42px; /* tap target */
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
-    .pill:hover{
-      color:var(--text);
-      background:var(--surface);
-      border-color:var(--stroke);
-    }
+    .pill:hover{color:var(--text); background:var(--surface); border-color:var(--stroke)}
     .pill[aria-current="true"]{
       color:var(--text);
       background: linear-gradient(180deg, var(--surface2), var(--surface));
       border-color:var(--stroke2);
     }
-    .ctaRow{display:flex; align-items:center; gap:10px}
+
+    .ctaRow{display:flex; align-items:center; gap:10px; flex:0 0 auto}
     .btn{
       display:inline-flex;
       align-items:center;
@@ -182,6 +206,9 @@
       box-shadow: 0 8px 26px rgba(0,0,0,0.18);
       color:var(--text);
       cursor:pointer;
+      min-height: 44px; /* tap target */
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.22)}
     .btn:active{transform: translateY(0px)}
@@ -189,23 +216,38 @@
       border:1px solid rgba(106,165,255,0.45);
       background: linear-gradient(180deg, rgba(106,165,255,0.28), rgba(106,165,255,0.12));
     }
-    .btn.ghost{
-      background: transparent;
-      box-shadow:none;
-    }
+    .btn.ghost{background: transparent; box-shadow:none}
     .btn:focus{outline:none; box-shadow:var(--focus)}
 
+    /* Mobile nav button */
+    .navToggle{
+      display:none;
+      padding:10px 12px;
+      min-width: 44px;
+    }
+    .burger{
+      width:18px; height:12px; position:relative;
+    }
+    .burger span{
+      position:absolute; left:0; right:0; height:2px;
+      background: rgba(255,255,255,0.78);
+      border-radius:999px;
+    }
+    .burger span:nth-child(1){top:0}
+    .burger span:nth-child(2){top:5px}
+    .burger span:nth-child(3){top:10px}
+
+    @media (prefers-color-scheme: light){
+      .burger span{background: rgba(10,14,24,0.78)}
+    }
+
     /* Hero */
-    header.hero{padding: clamp(28px, 6vw, 60px) 0 24px}
+    header.hero{padding: clamp(20px, 5vw, 60px) 0 20px}
     .heroGrid{
       display:grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: clamp(16px, 3vw, 26px);
+      gap: clamp(14px, 3vw, 26px);
       align-items:stretch;
-    }
-    @media (max-width: 900px){
-      .heroGrid{grid-template-columns: 1fr}
-      .brand{min-width:unset}
     }
 
     .card{
@@ -215,7 +257,7 @@
       box-shadow: var(--shadow);
     }
 
-    .heroMain{padding: clamp(18px, 3vw, 26px)}
+    .heroMain{padding: clamp(16px, 3.2vw, 26px)}
     .kicker{
       display:inline-flex;
       align-items:center;
@@ -226,23 +268,26 @@
       background: rgba(255,255,255,0.03);
       padding:8px 12px;
       border-radius:999px;
+      max-width: 100%;
+      flex-wrap:wrap;
     }
     .dot{
       width:8px; height:8px;
       border-radius:999px;
       background: var(--accent2);
       box-shadow: 0 0 0 6px rgba(124,240,194,0.16);
+      flex:0 0 auto;
     }
     h1{
       margin:14px 0 10px;
-      font-size: clamp(28px, 4.3vw, 44px);
+      font-size: clamp(26px, 4.7vw, 44px);
       letter-spacing:-0.02em;
       line-height:1.10;
     }
     .lead{
       margin:0;
       color:var(--muted);
-      font-size: clamp(14px, 1.55vw, 17px);
+      font-size: clamp(14px, 1.8vw, 17px);
       max-width: 62ch;
     }
     .heroActions{
@@ -251,13 +296,14 @@
       flex-wrap:wrap;
       margin-top:18px;
     }
+    .heroActions .btn{flex: 0 0 auto}
     .icon{
       width:16px;
       height:16px;
       display:inline-block;
     }
 
-    .heroSide{padding: clamp(18px, 3vw, 26px)}
+    .heroSide{padding: clamp(16px, 3.2vw, 26px)}
     .miniTitle{
       display:flex;
       align-items:baseline;
@@ -311,14 +357,6 @@
       justify-content:space-between;
       gap:10px;
     }
-    .proofLeft{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      color:var(--muted);
-      font-size:12px;
-    }
     .proofBadge{
       display:inline-flex;
       align-items:center;
@@ -328,25 +366,25 @@
       border-radius:999px;
       background: rgba(255,255,255,0.03);
       color:var(--muted);
+      font-size:12px;
+      min-height: 36px;
     }
-    .proofRight{
+    .proofLeft, .proofRight{
       display:flex;
-      gap:8px;
       flex-wrap:wrap;
+      gap:8px;
       align-items:center;
-      justify-content:flex-end;
     }
 
     /* Sections */
-    section{
-      padding: 36px 0;
-    }
+    section{padding: 32px 0}
     .sectionHead{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
       gap:12px;
       margin-bottom: 14px;
+      flex-wrap:wrap;
     }
     .sectionHead h2{
       margin:0;
@@ -357,17 +395,14 @@
       margin:0;
       color:var(--muted);
       font-size:13px;
-      max-width: 65ch;
+      max-width: 72ch;
     }
 
     /* About */
     .aboutGrid{
       display:grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 16px;
-    }
-    @media (max-width: 900px){
-      .aboutGrid{grid-template-columns:1fr}
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 14px;
     }
     .box{padding: 18px}
     .box h3{margin:0 0 10px; font-size:14px}
@@ -386,21 +421,11 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
-    @media (max-width: 980px){
-      .grid3{grid-template-columns: 1fr 1fr}
-    }
-    @media (max-width: 640px){
-      .grid3{grid-template-columns: 1fr}
-    }
     .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
-    .projTop{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-    }
+    .projTop{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
     .proj h3{margin:0; font-size:15px; letter-spacing:-0.01em}
     .proj p{margin:0; color:var(--muted); font-size:13px}
+
     .metric{
       display:inline-flex;
       align-items:center;
@@ -412,8 +437,11 @@
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
+      min-height: 36px;
+      flex:0 0 auto;
     }
     .metric b{color:var(--text)}
+
     .badges{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
     .badge{
       font-size:12px;
@@ -422,7 +450,11 @@
       background: rgba(255,255,255,0.03);
       padding:7px 9px;
       border-radius:999px;
+      min-height: 34px;
+      display:inline-flex;
+      align-items:center;
     }
+
     .projFooter{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
     .proj .btn{padding:9px 11px; font-size:12px}
 
@@ -436,7 +468,7 @@
       font-size:12px;
       line-height:1.35;
       overflow:auto;
-      max-height: 142px;
+      max-height: 148px;
     }
 
     /* Skills */
@@ -444,12 +476,6 @@
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-    }
-    @media (max-width: 980px){
-      .skillsGrid{grid-template-columns: 1fr 1fr}
-    }
-    @media (max-width: 640px){
-      .skillsGrid{grid-template-columns: 1fr}
     }
     .skillCard{padding:16px}
     .skillCard h3{margin:0 0 10px; font-size:14px}
@@ -478,19 +504,15 @@
     /* Back to top */
     .toTop{
       position:fixed;
-      right: 18px;
-      bottom: 18px;
+      right: 16px;
+      bottom: calc(16px + var(--safe-bottom));
       z-index: 40;
       opacity:0;
       pointer-events:none;
       transform: translateY(8px);
       transition: opacity 250ms ease, transform 250ms ease;
     }
-    .toTop.show{
-      opacity:1;
-      pointer-events:auto;
-      transform:none;
-    }
+    .toTop.show{opacity:1; pointer-events:auto; transform:none}
 
     /* Modal */
     .modalOverlay{
@@ -501,18 +523,21 @@
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
+      padding: 14px;
+      padding-bottom: calc(14px + var(--safe-bottom));
+      padding-top: calc(14px + var(--safe-top));
     }
     .modalOverlay.open{display:flex}
     .modal{
       width:min(940px, 100%);
-      max-height: min(86vh, 860px);
+      max-height: min(88vh, 900px);
       overflow:auto;
       border-radius: var(--radius-xl);
       border:1px solid var(--stroke2);
       background: linear-gradient(180deg, var(--surface3), var(--surface));
       box-shadow: 0 24px 80px rgba(0,0,0,0.55);
       position:relative;
+      -webkit-overflow-scrolling: touch;
     }
     .modalHeader{
       position:sticky;
@@ -520,9 +545,9 @@
       z-index: 2;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(10,14,24,0.75), rgba(10,14,24,0.30));
+      background: linear-gradient(180deg, rgba(10,14,24,0.78), rgba(10,14,24,0.32));
       border-bottom: 1px solid var(--stroke);
-      padding: 16px 16px 14px;
+      padding: 14px;
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
@@ -530,23 +555,13 @@
     }
     @media (prefers-color-scheme: light){
       .modalHeader{
-        background: linear-gradient(180deg, rgba(247,248,251,0.92), rgba(247,248,251,0.55));
+        background: linear-gradient(180deg, rgba(247,248,251,0.94), rgba(247,248,251,0.58));
       }
     }
-    .modalHeader h3{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:-0.01em;
-    }
-    .modalHeader p{
-      margin:4px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      max-width: 70ch;
-    }
-    .modalBody{
-      padding: 14px 16px 18px;
-    }
+    .modalHeader h3{margin:0; font-size: 16px; letter-spacing:-0.01em}
+    .modalHeader p{margin:4px 0 0; color:var(--muted); font-size:13px; max-width: 70ch}
+
+    .modalBody{padding: 12px 14px 16px}
     .modalSection{
       border:1px solid var(--stroke);
       background: rgba(255,255,255,0.03);
@@ -561,21 +576,12 @@
       text-transform: uppercase;
       color: var(--subtle);
     }
-    .modalSection p, .modalSection li{
-      color:var(--muted);
-      font-size:13px;
-    }
-    .modalSection ul{
-      margin:8px 0 0;
-      padding-left: 18px;
-    }
-    .closeBtn{
-      flex:0 0 auto;
-    }
+    .modalSection p, .modalSection li{color:var(--muted); font-size:13px}
+    .modalSection ul{margin:8px 0 0; padding-left: 18px}
 
     /* Footer */
     footer{
-      padding: 26px 0 40px;
+      padding: 22px 0 calc(34px + var(--safe-bottom));
       color:var(--muted);
       font-size:12px;
     }
@@ -591,9 +597,106 @@
     .quietLink{color:var(--muted); text-decoration:none}
     .quietLink:hover{color:var(--text); text-decoration:underline}
 
-    /* Selection + focus */
     ::selection{background: rgba(106,165,255,0.28)}
     :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
+
+    /* ============================================================
+       Breakpoints (better mobile/tablet behavior)
+       ============================================================ */
+
+    /* Tablet: 2-column projects/skills, hero stacks sooner */
+    @media (max-width: 1024px){
+      .heroGrid{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr 1fr}
+      .skillsGrid{grid-template-columns: 1fr 1fr}
+      .aboutGrid{grid-template-columns: 1fr}
+      .brand strong{max-width: 52vw}
+      .brand span{max-width: 62vw}
+    }
+
+    /* Mobile: simplify top nav, show menu button */
+    @media (max-width: 720px){
+      .links{display:none}
+      .navToggle{display:inline-flex}
+      .ctaRow .btn.ghost{display:none} /* hide LinkedIn text button for space */
+      .brand strong{max-width: 52vw}
+      .brand span{max-width: 60vw}
+      .heroActions .btn{flex: 1 1 160px} /* nicer action wrapping */
+      .statGrid{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      .skillsGrid{grid-template-columns: 1fr}
+      section{padding: 28px 0}
+    }
+
+    /* Small phones: slightly tighter paddings */
+    @media (max-width: 380px){
+      .heroMain, .heroSide{padding: 14px}
+      .box{padding: 14px}
+      .proj{padding: 14px}
+      .skillCard{padding: 14px}
+      .btn{padding: 10px 11px}
+    }
+
+    /* ============================================================
+       Mobile drawer menu (bottom sheet)
+       ============================================================ */
+    .drawerOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0.45);
+      z-index: 55;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding: 10px;
+      padding-bottom: calc(10px + var(--safe-bottom));
+    }
+    .drawerOverlay.open{display:flex}
+    .drawer{
+      width: min(640px, 100%);
+      border-radius: 22px;
+      border:1px solid var(--stroke2);
+      background: linear-gradient(180deg, var(--surface3), var(--surface));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      overflow:hidden;
+    }
+    .drawerTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px 10px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .drawerTop strong{font-size: 13px}
+    .drawerLinks{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      padding: 12px;
+    }
+    .drawerLinks a{
+      text-decoration:none;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 46px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color: var(--text);
+      font-weight:600;
+      font-size:13px;
+    }
+    .drawerLinks a span{color: var(--muted); font-weight:600}
+    .drawerActions{
+      display:flex;
+      gap:10px;
+      padding: 0 12px 12px;
+      flex-wrap:wrap;
+    }
+    .drawerActions .btn{flex:1 1 170px}
   </style>
 </head>
 
@@ -604,9 +707,9 @@
   <div class="top">
     <div class="container">
       <nav class="nav" aria-label="Primary">
-        <a class="brand" href="#home">
+        <a class="brand" href="#home" aria-label="Go to top">
           <span class="mark" aria-hidden="true"></span>
-          <span>
+          <span class="brandText">
             <strong>GowriShankar</strong>
             <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
           </span>
@@ -620,16 +723,43 @@
         </div>
 
         <div class="ctaRow">
-          <!-- Replace the placeholder -->
+          <button class="btn navToggle" id="navToggle" type="button" aria-label="Open menu" aria-haspopup="dialog">
+            <span class="burger" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </button>
+
+          <!-- Replace placeholder -->
           <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">
-            <span class="icon" aria-hidden="true">in</span>
             LinkedIn
           </a>
+
           <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">
             Resume
           </a>
         </div>
       </nav>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="drawerOverlay" id="drawerOverlay" role="presentation">
+    <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <div class="drawerTop">
+        <strong id="drawerTitle">Menu</strong>
+        <button class="btn" id="closeDrawer" type="button" aria-label="Close menu">Close</button>
+      </div>
+      <div class="drawerLinks">
+        <a href="#about" data-drawer-link>About <span>→</span></a>
+        <a href="#projects" data-drawer-link>Projects <span>→</span></a>
+        <a href="#skills" data-drawer-link>Skills <span>→</span></a>
+        <a href="#contact" data-drawer-link>Contact <span>→</span></a>
+      </div>
+      <div class="drawerActions">
+        <a class="btn" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
     </div>
   </div>
 
@@ -651,18 +781,9 @@
             </p>
 
             <div class="heroActions">
-              <a class="btn primary" href="#projects">
-                View projects
-                <span aria-hidden="true">→</span>
-              </a>
-              <a class="btn" href="#contact">
-                Contact me
-                <span aria-hidden="true">✉</span>
-              </a>
-              <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">
-                GitHub
-                <span aria-hidden="true">↗</span>
-              </a>
+              <a class="btn primary" href="#projects">View projects <span aria-hidden="true">→</span></a>
+              <a class="btn" href="#contact">Contact me <span aria-hidden="true">✉</span></a>
+              <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
             </div>
 
             <div class="proof" aria-label="Proof strip">
@@ -723,7 +844,7 @@
       <div class="container">
         <div class="sectionHead">
           <h2>About</h2>
-          <p>Short, specific, and recruiter-friendly. Keep this crisp and outcome-oriented.</p>
+          <p>Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
         </div>
 
         <div class="aboutGrid">
@@ -735,7 +856,7 @@
             <ul class="bullets">
               <li>Automate “boring” but critical reliability steps.</li>
               <li>Prefer small, reversible changes with fast feedback.</li>
-              <li>Document decisions so teams can move faster.</li>
+              <li>Document decisions so teams move faster.</li>
             </ul>
           </div>
 
@@ -759,7 +880,7 @@
       <div class="container">
         <div class="sectionHead">
           <h2>Projects</h2>
-          <p>Each project has a measurable “micro-proof” + a case study. Replace metrics with your real numbers as you validate.</p>
+          <p>Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
         </div>
 
         <div class="grid3">
@@ -881,7 +1002,7 @@ Reusable for environments
       <div class="container">
         <div class="sectionHead">
           <h2>Skills</h2>
-          <p>Keep this grouped like a product spec: tools, strengths, and what you can reliably ship.</p>
+          <p>Grouped like a product spec: what you can reliably ship.</p>
         </div>
 
         <div class="skillsGrid">
@@ -923,7 +1044,7 @@ Reusable for environments
       <div class="container">
         <div class="sectionHead">
           <h2>Contact</h2>
-          <p>Make it easy for recruiters to act in 10 seconds.</p>
+          <p>Make it easy to act in 10 seconds.</p>
         </div>
 
         <div class="card box reveal">
@@ -957,7 +1078,7 @@ Reusable for environments
     </footer>
   </main>
 
-  <!-- Back to top button -->
+  <!-- Back to top -->
   <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">
     ↑ Top
   </button>
@@ -970,11 +1091,9 @@ Reusable for environments
           <h3 id="modalTitle">Case Study</h3>
           <p id="modalDesc">Problem → Architecture → What I built → Results → Failure modes.</p>
         </div>
-        <button class="btn closeBtn" id="closeModal" type="button" aria-label="Close case study">Close</button>
+        <button class="btn" id="closeModal" type="button" aria-label="Close case study">Close</button>
       </div>
-      <div class="modalBody" id="modalBody">
-        <!-- injected -->
-      </div>
+      <div class="modalBody" id="modalBody"></div>
     </div>
   </div>
 
@@ -988,8 +1107,7 @@ Reusable for environments
     // Year
     $("#year").textContent = new Date().getFullYear();
 
-    // Smooth scroll offset for sticky nav
-    // (Native smooth scrolling is enabled in CSS; this just fixes focus + offsets.)
+    // Scroll to ID with sticky offset (works everywhere)
     function scrollToId(id){
       const el = document.getElementById(id);
       if(!el) return;
@@ -1001,18 +1119,21 @@ Reusable for environments
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
-    // Nav link clicks (use offset scrolling)
-    $$("#navLinks a").forEach(a => {
-      a.addEventListener("click", (e) => {
-        const href = a.getAttribute("href") || "";
-        if(href.startsWith("#")){
-          e.preventDefault();
-          scrollToId(href.slice(1));
-        }
+    // Desktop nav link clicks
+    const navLinks = $("#navLinks");
+    if(navLinks){
+      $$("#navLinks a").forEach(a => {
+        a.addEventListener("click", (e) => {
+          const href = a.getAttribute("href") || "";
+          if(href.startsWith("#")){
+            e.preventDefault();
+            scrollToId(href.slice(1));
+          }
+        });
       });
-    });
+    }
 
-    // Scrollspy
+    // Scrollspy (active nav highlight)
     const sections = ["about","projects","skills","contact"]
       .map(id => document.getElementById(id))
       .filter(Boolean);
@@ -1025,15 +1146,16 @@ Reusable for environments
       });
     };
 
-    const spy = new IntersectionObserver((entries)=>{
-      // Pick the most visible intersecting section
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if(visible?.target?.id) setActive(visible.target.id);
-    }, { root: null, threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
+    if(sections.length && navItems.length){
+      const spy = new IntersectionObserver((entries)=>{
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if(visible?.target?.id) setActive(visible.target.id);
+      }, { root: null, threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
 
-    sections.forEach(s => spy.observe(s));
+      sections.forEach(s => spy.observe(s));
+    }
 
     // Reveal animations
     const revealEls = $$(".reveal");
@@ -1048,7 +1170,6 @@ Reusable for environments
           }
         });
       }, { threshold: 0.14 });
-
       revealEls.forEach(el => io.observe(el));
     } else {
       revealEls.forEach(el => el.classList.add("in"));
@@ -1062,8 +1183,42 @@ Reusable for environments
     };
     window.addEventListener("scroll", toggleToTop, { passive: true });
     toggleToTop();
-
     toTop.addEventListener("click", () => scrollToId("home"));
+
+    // ======================
+    // Mobile Drawer Menu
+    // ======================
+    const drawerOverlay = $("#drawerOverlay");
+    const navToggle = $("#navToggle");
+    const closeDrawer = $("#closeDrawer");
+
+    function openDrawer(){
+      drawerOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      closeDrawer.focus({ preventScroll: true });
+    }
+    function closeDrawerFn(){
+      drawerOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+      navToggle.focus({ preventScroll: true });
+    }
+
+    navToggle.addEventListener("click", openDrawer);
+    closeDrawer.addEventListener("click", closeDrawerFn);
+    drawerOverlay.addEventListener("click", (e) => {
+      if(e.target === drawerOverlay) closeDrawerFn();
+    });
+
+    $$("[data-drawer-link]").forEach(a => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href") || "";
+        if(href.startsWith("#")){
+          e.preventDefault();
+          closeDrawerFn();
+          setTimeout(() => scrollToId(href.slice(1)), 0);
+        }
+      });
+    });
 
     // ======================
     // Case study modal (A11y focus trap)
@@ -1078,37 +1233,26 @@ Reusable for environments
         title: "DevOps CI/CD — Jenkins Pipeline",
         subtitle: "Reliable pipeline: build → test → artifact → deploy with safety checks.",
         sections: [
-          {
-            h: "Problem",
-            p: "Teams ship slower when builds are manual, environments drift, and deployments don’t have safety rails."
-          },
-          {
-            h: "Architecture",
-            ul: [
+          { h: "Problem", p: "Teams ship slower when builds are manual, environments drift, and deployments don’t have safety rails." },
+          { h: "Architecture", ul: [
               "Pipeline stages: checkout → build → test → package → publish → deploy",
               "Gates: unit tests + artifact versioning + environment variables",
               "Post steps: notifications + cleanup + rollback path"
             ]
           },
-          {
-            h: "What I built",
-            ul: [
+          { h: "What I built", ul: [
               "A Jenkins pipeline that produces repeatable artifacts (or images) from source.",
               "Clear stage boundaries and logs so failures are obvious and actionable.",
               "Deployment step designed for safety (health checks + quick rollback)."
             ]
           },
-          {
-            h: "Results (replace with your real numbers)",
-            ul: [
+          { h: "Results (replace with your real numbers)", ul: [
               "Reduced deployment time by ~60% (target).",
               "Fewer “works on my machine” incidents via consistent build steps.",
               "Faster debugging due to structured logs per stage."
             ]
           },
-          {
-            h: "Failure modes I considered",
-            ul: [
+          { h: "Failure modes I considered", ul: [
               "Broken builds due to dependency drift → lock versions where possible.",
               "Flaky tests → isolate and retry carefully (avoid hiding real failures).",
               "Bad deploy → health checks + rollback strategy."
@@ -1120,37 +1264,26 @@ Reusable for environments
         title: "Kubernetes Deployments Ops",
         subtitle: "Operational manifests: rollouts, probes, scaling, and safer changes.",
         sections: [
-          {
-            h: "Problem",
-            p: "K8s deployments fail in production when health checks, rollout strategy, and config practices are missing."
-          },
-          {
-            h: "Architecture",
-            ul: [
+          { h: "Problem", p: "K8s deployments fail in production when health checks, rollout strategy, and config practices are missing." },
+          { h: "Architecture", ul: [
               "Workloads: Deployment + Service (+ Ingress when applicable)",
               "Operational controls: resource requests/limits, probes, rollout strategy",
               "Config handling: ConfigMaps/Secrets patterns"
             ]
           },
-          {
-            h: "What I built",
-            ul: [
+          { h: "What I built", ul: [
               "Deployments with readiness/liveness probes to prevent bad pods from receiving traffic.",
               "Rolling updates tuned for safer release behavior.",
               "A repo layout that makes changes auditable and reproducible."
             ]
           },
-          {
-            h: "Results (replace with your real numbers)",
-            ul: [
+          { h: "Results (replace with your real numbers)", ul: [
               "More predictable rollouts and fewer surprise outages (goal: 99.9%+).",
               "Faster triage with consistent manifest patterns.",
               "Cleaner separation between config and code."
             ]
           },
-          {
-            h: "Failure modes I considered",
-            ul: [
+          { h: "Failure modes I considered", ul: [
               "CrashLoop due to config errors → validate + staged rollout.",
               "Traffic to unhealthy pods → probes + proper service selectors.",
               "Resource starvation → requests/limits + scaling strategy."
@@ -1162,37 +1295,26 @@ Reusable for environments
         title: "Terraform AWS Baseline",
         subtitle: "Reusable baseline for environments with safe defaults and least-privilege thinking.",
         sections: [
-          {
-            h: "Problem",
-            p: "Cloud projects get messy when the foundation isn’t standardized: inconsistent networking, IAM sprawl, and hard-to-reuse setups."
-          },
-          {
-            h: "Architecture",
-            ul: [
+          { h: "Problem", p: "Cloud projects get messy when the foundation isn’t standardized: inconsistent networking, IAM sprawl, and hard-to-reuse setups." },
+          { h: "Architecture", ul: [
               "Networking: VPC + subnets + route tables (baseline pattern)",
               "Identity: IAM roles/policies with least privilege",
               "Outputs: clear module outputs for downstream stacks"
             ]
           },
-          {
-            h: "What I built",
-            ul: [
+          { h: "What I built", ul: [
               "An opinionated Terraform baseline you can reuse across dev/stage/prod.",
               "Structure that encourages safe composition (modules + outputs).",
               "A drift-aware mindset (state handling + repeatable applies)."
             ]
           },
-          {
-            h: "Results (replace with your real numbers)",
-            ul: [
+          { h: "Results (replace with your real numbers)", ul: [
               "Reduced initial environment setup time by ~40% (target).",
               "Improved consistency across environments.",
               "Clearer audit trail for infrastructure changes."
             ]
           },
-          {
-            h: "Failure modes I considered",
-            ul: [
+          { h: "Failure modes I considered", ul: [
               "State drift/conflicts → remote state best practices (where applicable).",
               "Over-permissioned IAM → least privilege + review boundaries.",
               "Unclear dependencies → explicit outputs + module contracts."
@@ -1202,28 +1324,6 @@ Reusable for environments
       }
     };
 
-    function renderCase(caseKey){
-      const data = CASES[caseKey];
-      if(!data) return;
-
-      $("#modalTitle").textContent = data.title;
-      $("#modalDesc").textContent = data.subtitle;
-
-      const parts = data.sections.map(s => {
-        const items = s.ul ? `<ul>${s.ul.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : "";
-        const para = s.p ? `<p>${escapeHtml(s.p)}</p>` : "";
-        return `
-          <section class="modalSection">
-            <h4>${escapeHtml(s.h)}</h4>
-            ${para}
-            ${items}
-          </section>
-        `;
-      }).join("");
-
-      modalBody.innerHTML = parts;
-    }
-
     function escapeHtml(str){
       return String(str)
         .replaceAll("&","&amp;")
@@ -1231,6 +1331,25 @@ Reusable for environments
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+    }
+
+    function renderCase(caseKey){
+      const data = CASES[caseKey];
+      if(!data) return;
+      $("#modalTitle").textContent = data.title;
+      $("#modalDesc").textContent = data.subtitle;
+
+      modalBody.innerHTML = data.sections.map(s => {
+        const para = s.p ? `<p>${escapeHtml(s.p)}</p>` : "";
+        const list = s.ul ? `<ul>${s.ul.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : "";
+        return `
+          <section class="modalSection">
+            <h4>${escapeHtml(s.h)}</h4>
+            ${para}
+            ${list}
+          </section>
+        `;
+      }).join("");
     }
 
     function getFocusable(root){
@@ -1249,11 +1368,10 @@ Reusable for environments
       lastFocus = document.activeElement;
       renderCase(caseKey);
       overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
 
       const focusables = getFocusable(overlay);
       (focusables[0] || closeBtn).focus({ preventScroll: true });
-
-      document.body.style.overflow = "hidden";
     }
 
     function closeModal(){
@@ -1263,20 +1381,22 @@ Reusable for environments
       if(lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
     }
 
-    // Case study buttons
     $$("button[data-case]").forEach(btn => {
       btn.addEventListener("click", () => openModal(btn.dataset.case));
     });
 
-    // Close handlers
     closeBtn.addEventListener("click", closeModal);
     overlay.addEventListener("click", (e) => {
-      // click outside modal closes
       if(e.target === overlay) closeModal();
     });
 
-    // ESC close + focus trap
     document.addEventListener("keydown", (e) => {
+      if(drawerOverlay.classList.contains("open") && e.key === "Escape"){
+        e.preventDefault();
+        closeDrawerFn();
+        return;
+      }
+
       if(!overlay.classList.contains("open")) return;
 
       if(e.key === "Escape"){
@@ -1288,7 +1408,6 @@ Reusable for environments
       if(e.key === "Tab"){
         const focusables = getFocusable(overlay);
         if(focusables.length === 0) return;
-
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
 
