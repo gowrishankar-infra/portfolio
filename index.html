@@ -6,21 +6,20 @@
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0B1220" />
   <meta name="description" content="GowriShankar — DevOps Engineer. CI/CD, Kubernetes, Terraform, AWS. Production-minded automation with measurable outcomes." />
-
   <title>GowriShankar | DevOps Engineer</title>
 
   <style>
     :root{
-      /* ✅ #1 FAANG-safe palette (Graphite / Off-white / Arctic Blue) */
+      /* ✅ FAANG-safe palette (Graphite / Off-white / Arctic Blue) */
       --bg:    #0B1220;
       --bg2:   #060A12;
 
-      /* ✅ AA-ish small text contrast boost (final pass) */
+      /* ✅ AA-ish small text contrast */
       --text:  #F4F6FA;
-      --muted: #D2D8E2;   /* brighter = easier on laptops */
-      --subtle:#B6C0CE;   /* helper text, nav labels */
+      --muted: #D2D8E2;
+      --subtle:#B6C0CE;
 
-      /* Surfaces (slightly more legible) */
+      /* Surfaces */
       --surface:  rgba(255,255,255,0.078);
       --surface2: rgba(255,255,255,0.104);
       --surface3: rgba(255,255,255,0.125);
@@ -43,16 +42,16 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      /* ✅ Reduce "glow haze": tighter shadow */
+      /* ✅ Reduced haze shadow */
       --shadow: 0 14px 48px rgba(0,0,0,0.52);
 
-      /* ✅ Clear, consistent focus */
+      /* ✅ Focus */
       --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.86) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
 
-      /* ✅ Micro-polish knobs */
+      /* Micro knobs */
       --card-texture-opacity: 0.07;
       --card-highlight-opacity: 0.18;
       --sig-border-opacity: 0.78;
@@ -60,7 +59,7 @@
       /* ✅ Tap target minimum */
       --tap: 44px;
 
-      /* ✅ Section rhythm (fix empty band) */
+      /* ✅ Section rhythm */
       --sectionY: clamp(22px, 3.4vw, 34px);
       --sectionGap: clamp(10px, 1.8vw, 14px);
     }
@@ -90,7 +89,6 @@
       margin:0;
       font-family:var(--font);
       color:var(--muted);
-      /* ✅ Reduce glow haze: slightly lower radial intensity */
       background:
         radial-gradient(860px 590px at 16% 12%, rgba(191,223,255,0.10), transparent 62%),
         radial-gradient(760px 520px at 86% 18%, rgba(255,255,255,0.05), transparent 62%),
@@ -110,7 +108,7 @@
       inset:0;
       pointer-events:none;
       z-index:0;
-      opacity:0.034; /* slightly lower */
+      opacity:0.034;
       background:
         repeating-linear-gradient(
           0deg,
@@ -146,7 +144,6 @@
       padding-top: var(--safe-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      /* ✅ Slightly stronger separation for UX clarity */
       background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.56));
       border-bottom: 1px solid rgba(255,255,255,0.16);
     }
@@ -346,7 +343,7 @@
       font-size:12px;
       color:var(--subtle);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045); /* slightly stronger for legibility */
+      background: rgba(255,255,255,0.045);
       padding:8px 12px;
       border-radius:999px;
       max-width: 100%;
@@ -383,7 +380,7 @@
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040); /* readability bump */
+      background: rgba(255,255,255,0.040);
       border-radius: var(--radius-xl);
       padding: 12px 14px;
       display:flex;
@@ -427,7 +424,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045); /* legibility bump */
+      background: rgba(255,255,255,0.045);
       padding:8px 10px;
       border-radius:999px;
       min-height: var(--tap);
@@ -459,7 +456,7 @@
     .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-0.01em; color: var(--text)}
     .sectionHead p{margin:0; color:var(--muted); font-size:13px; max-width: 72ch}
 
-    /* ✅ Subtle divider between major blocks (prevents "did page end?" moment) */
+    /* ✅ Subtle divider */
     .divider{
       border:0;
       height:1px;
@@ -479,6 +476,7 @@
     .bullets li{margin: 6px 0}
 
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
+
     .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
     .projTop{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
     .proj h3{margin:0; font-size:15px; letter-spacing:-0.01em; color: var(--text)}
@@ -491,7 +489,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045); /* legibility bump */
+      background: rgba(255,255,255,0.045);
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
@@ -505,7 +503,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040); /* legibility bump */
+      background: rgba(255,255,255,0.040);
       padding:7px 9px;
       border-radius:999px;
       min-height: var(--tap);
@@ -569,7 +567,6 @@
     .modalOverlay{
       position:fixed;
       inset:0;
-      /* ✅ Reduce haze: slightly lighter overlay */
       background: rgba(0,0,0,0.54);
       z-index: 60;
       display:none;
@@ -626,7 +623,7 @@
     .modalSection ul{margin:8px 0 0; padding-left: 18px}
 
     footer{
-      padding: 18px 0 calc(28px + var(--safe-bottom)); /* slightly tighter */
+      padding: 18px 0 calc(28px + var(--safe-bottom));
       color:var(--subtle);
       font-size:12px;
     }
@@ -662,7 +659,7 @@
       .statGrid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
       .skillsGrid{grid-template-columns: 1fr}
-      section{padding: clamp(18px, 4.2vw, 28px) 0} /* tighter on mobile */
+      section{padding: clamp(18px, 4.2vw, 28px) 0}
     }
     @media (max-width: 380px){
       .heroMain, .heroSide{padding: 14px}
@@ -675,7 +672,7 @@
     .drawerOverlay{
       position:fixed;
       inset:0;
-      background: rgba(0,0,0,0.44); /* slightly reduced */
+      background: rgba(0,0,0,0.44);
       z-index: 55;
       display:none;
       align-items:flex-end;
@@ -729,6 +726,53 @@
       flex-wrap:wrap;
     }
     .drawerActions .btn{flex:1 1 170px; min-height: var(--tap)}
+
+    /* =========================================================
+       ✅ FINAL FIX: Projects alignment (box/text positions)
+       ========================================================= */
+
+    /* Make top row consistent: text left, metric right */
+    .projTop{
+      display: grid !important;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+    }
+    .projTop > div:first-child{min-width:0}
+
+    /* Lock title height (2 lines) */
+    .proj h3{
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      min-height: calc(1.25em * 2);
+    }
+
+    /* Lock description height (4 lines) */
+    .proj p{
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      min-height: calc(1.55em * 4);
+    }
+
+    /* Keep badges block consistent */
+    .proj .badges{
+      min-height: 52px; /* ~2 rows */
+      align-content: start;
+    }
+
+    /* Equalize arch boxes */
+    .proj .arch{
+      min-height: 150px;
+    }
+
+    /* Footer always aligned at bottom */
+    .projFooter{margin-top:auto}
   </style>
 </head>
 
@@ -879,7 +923,6 @@
           </div>
         </div>
 
-        <!-- ✅ Subtle transition divider: prevents "dead space" feel -->
         <hr class="divider" />
       </div>
     </section>
@@ -924,7 +967,7 @@ Health checks + rollback</pre>
           <article class="card proj reveal">
             <div class="projTop">
               <div>
-                <h3>Kubernetes Deployments Ops</h3>
+                <h3>Kubernetes Deployments + Ops</h3>
                 <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
               </div>
               <div class="metric" title="Replace with your real metric"><b>99.9%</b> uptime goal</div>
@@ -1084,7 +1127,6 @@ Reusable baseline outputs</pre>
     const main = $("#main");
     const topbar = document.querySelector(".top");
 
-    /* ✅ Robust inert fallback */
     function setInert(isInert){
       const supportsInert = "inert" in HTMLElement.prototype;
       if (supportsInert) {
@@ -1147,7 +1189,6 @@ Reusable baseline outputs</pre>
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
-    /* Smooth scroll for desktop nav */
     $$("#navLinks a").forEach(a => {
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
@@ -1158,7 +1199,6 @@ Reusable baseline outputs</pre>
       });
     });
 
-    /* Scrollspy */
     const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
     const navItems = $$("#navLinks a");
     const setActive = (id) => {
@@ -1178,7 +1218,6 @@ Reusable baseline outputs</pre>
       sections.forEach(s => spy.observe(s));
     }
 
-    /* Reveal */
     const revealEls = $$(".reveal");
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(!prefersReduced){
@@ -1195,7 +1234,6 @@ Reusable baseline outputs</pre>
       revealEls.forEach(el => el.classList.add("in"));
     }
 
-    /* To top */
     const toTop = $("#toTop");
     const toggleToTop = () => {
       const show = window.scrollY > 700;
@@ -1205,7 +1243,6 @@ Reusable baseline outputs</pre>
     toggleToTop();
     toTop.addEventListener("click", () => scrollToId("home"));
 
-    /* Drawer */
     const drawerOverlay = $("#drawerOverlay");
     const navToggle = $("#navToggle");
     const closeDrawer = $("#closeDrawer");
@@ -1242,7 +1279,6 @@ Reusable baseline outputs</pre>
       });
     });
 
-    /* Modal */
     const overlay = $("#modalOverlay");
     const modalBody = $("#modalBody");
     const closeBtn = $("#closeModal");
@@ -1258,7 +1294,7 @@ Reusable baseline outputs</pre>
           { h: "Failure modes considered", ul: ["Dependency drift → pin versions where possible.", "Flaky tests → isolate + retry carefully.", "Bad deploy → health checks + rollback."] }
         ]
       },
-      k8s: { title: "Kubernetes Deployments Ops", subtitle: "Operational manifests: rollouts, probes, scaling, safer changes.",
+      k8s: { title: "Kubernetes Deployments + Ops", subtitle: "Operational manifests: rollouts, probes, scaling, safer changes.",
         sections: [
           { h: "Problem", p: "K8s deployments fail in production when probes, rollout strategy, and config practices are missing." },
           { h: "Architecture", ul: ["Deployment + Service (+ Ingress)", "Requests/limits, probes, rollout strategy", "ConfigMaps/Secrets patterns"] },
@@ -1299,8 +1335,6 @@ Reusable baseline outputs</pre>
       overlay.classList.add("open");
       document.body.style.overflow = "hidden";
       setInert(true);
-
-      /* ✅ keyboard order: focus close button first */
       closeBtn.focus({ preventScroll: true });
     }
     function closeModal(){
@@ -1315,7 +1349,6 @@ Reusable baseline outputs</pre>
     closeBtn.addEventListener("click", closeModal);
     overlay.addEventListener("click", (e) => { if(e.target === overlay) closeModal(); });
 
-    /* Global key handling: Escape + focus trap */
     document.addEventListener("keydown", (e) => {
       if(drawerOverlay.classList.contains("open")){
         if(e.key === "Escape"){ e.preventDefault(); closeDrawerFn(); return; }
