@@ -2,1362 +2,1343 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#0B1220" />
-  <meta name="description" content="GowriShankar — DevOps Engineer. CI/CD, Kubernetes, Terraform, AWS. Production-minded automation with measurable outcomes." />
-  <title>GowriShankar | DevOps Engineer</title>
+  <title>GowriShankar — DevOps Engineer</title>
+  <meta name="description" content="DevOps Engineer — CI/CD, Kubernetes, Terraform. Production-minded delivery systems with measurable outcomes." />
 
   <style>
+    /* ---------------------------
+      10/10 Visual System (FAANG-safe)
+      Graphite / Off-white / Arctic Blue
+    ---------------------------- */
     :root{
-      /* ✅ FAANG-safe palette (Graphite / Off-white / Arctic Blue) */
-      --bg:    #0B1220;
-      --bg2:   #060A12;
+      --bg: #0B1220;          /* deep graphite navy */
+      --bg2:#08101C;
+      --text:#EDEFF2;         /* off-white */
+      --muted:#B9C0C7;        /* muted gray */
+      --muted2:#98A2AE;
+      --accent:#BFDFFF;       /* arctic blue */
+      --accent2:#93C9FF;
+      --good:#40D37C;
 
-      /* ✅ AA-ish small text contrast */
-      --text:  #F4F6FA;
-      --muted: #D2D8E2;
-      --subtle:#B6C0CE;
+      --surface: rgba(255,255,255,.07);
+      --surface2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.18);
 
-      /* Surfaces */
-      --surface:  rgba(255,255,255,0.078);
-      --surface2: rgba(255,255,255,0.104);
-      --surface3: rgba(255,255,255,0.125);
+      --shadow: 0 10px 40px rgba(0,0,0,.45);
+      --shadow2: 0 12px 55px rgba(0,0,0,.55);
 
-      /* Strokes */
-      --stroke:  rgba(255,255,255,0.18);
-      --stroke2: rgba(255,255,255,0.30);
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+      --r24: 24px;
 
-      /* Accent */
-      --accent:  #BFDFFF;
-      --accent2: #E9F4FF;
-
-      /* Layout */
-      --radius-xl: 22px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
       --max: 1120px;
-      --pad: clamp(14px, 3vw, 28px);
 
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-      /* ✅ Reduced haze shadow */
-      --shadow: 0 14px 48px rgba(0,0,0,0.52);
-
-      /* ✅ Focus */
-      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.86) inset;
-
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-
-      /* Micro knobs */
-      --card-texture-opacity: 0.07;
-      --card-highlight-opacity: 0.18;
-      --sig-border-opacity: 0.78;
-
-      /* ✅ Tap target minimum */
-      --tap: 44px;
-
-      /* ✅ Section rhythm */
-      --sectionY: clamp(22px, 3.4vw, 34px);
-      --sectionGap: clamp(10px, 1.8vw, 14px);
+      --tap: 44px; /* tap target minimum */
     }
 
+    /* Prefer more contrast if user asks for it */
     @media (prefers-contrast: more){
       :root{
-        --surface:  rgba(255,255,255,0.13);
-        --surface2: rgba(255,255,255,0.18);
-        --surface3: rgba(255,255,255,0.22);
-        --stroke:  rgba(255,255,255,0.28);
-        --stroke2: rgba(255,255,255,0.44);
-        --muted: #F0F3F7;
-        --subtle:#D8DFEA;
-        --text:#FFFFFF;
-        --focus: 0 0 0 3px rgba(191,223,255,0.36), 0 0 0 1px rgba(191,223,255,0.94) inset;
+        --surface: rgba(255,255,255,.10);
+        --surface2: rgba(255,255,255,.14);
+        --stroke: rgba(255,255,255,.18);
+        --stroke2: rgba(255,255,255,.24);
+        --muted: #C9D0D7;
+        --muted2:#B8C0C9;
       }
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-
-    /* ✅ FIX: anchor targets not hidden under sticky header */
-    :target{ scroll-margin-top: 96px; }
-    section[id], header[id]{ scroll-margin-top: 96px; }
-
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family:var(--font);
-      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(860px 590px at 16% 12%, rgba(191,223,255,0.10), transparent 62%),
-        radial-gradient(760px 520px at 86% 18%, rgba(255,255,255,0.05), transparent 62%),
+        radial-gradient(1000px 600px at 20% 10%, rgba(191,223,255,.10), transparent 60%),
+        radial-gradient(900px 540px at 80% 25%, rgba(147,201,255,.08), transparent 55%),
+        radial-gradient(1200px 700px at 50% 95%, rgba(255,255,255,.05), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg2));
-      min-height:100vh;
-      line-height:1.55;
-      text-rendering:optimizeLegibility;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-      position:relative;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      opacity:0.034;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.08) 0px,
-          rgba(255,255,255,0.08) 1px,
-          rgba(255,255,255,0.00) 2px,
-          rgba(255,255,255,0.00) 4px
-        );
-      mix-blend-mode: overlay;
-    }
-
-    a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad); position:relative; z-index:1}
-
-    .skip{
-      position:absolute; left:-999px;
-      top:calc(10px + var(--safe-top));
-      background:var(--bg2);
       color:var(--text);
-      border:1px solid var(--stroke2);
-      padding:10px 12px;
-      border-radius:12px;
-      z-index:9999;
-      min-height: var(--tap);
-      display:inline-flex; align-items:center;
+      line-height:1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    .skip:focus{left:12px; outline:none; box-shadow:var(--focus)}
 
-    .top{
-      position:sticky;
-      top:0;
-      z-index:50;
-      padding-top: var(--safe-top);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.56));
-      border-bottom: 1px solid rgba(255,255,255,0.16);
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    /* Skip link */
+    .skip{
+      position:absolute; left:-999px; top:0;
+      padding:10px 12px; border-radius:10px;
+      background:rgba(255,255,255,.14);
+      border:1px solid var(--stroke2);
+      color:var(--text);
+      z-index:9999;
     }
+    .skip:focus{ left:12px; top:12px; outline:none; box-shadow:0 0 0 3px rgba(191,223,255,.35); }
+
+    /* Focus states */
+    :focus-visible{
+      outline: 3px solid rgba(191,223,255,.45);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
+    /* Layout */
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 28px 20px 80px; }
+    @media (max-width: 520px){
+      .wrap{ padding: 18px 14px 84px; }
+    }
+
+    /* Top nav */
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:12px 0 12px;
+      position:sticky; top:0; z-index:1000;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(11,18,32,.78), rgba(11,18,32,.56));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:0 auto;
+      padding: 14px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
     }
 
     .brand{
-      display:flex; gap:12px; align-items:center;
-      text-decoration:none; min-width:0;
-      min-height: var(--tap);
+      display:flex; align-items:center; gap:12px; min-width: 200px;
     }
-    .mark{
-      width:38px; height:38px;
-      border-radius:14px;
+    .avatar{
+      width:38px; height:38px; border-radius:14px;
       background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.16), transparent 58%),
-        linear-gradient(135deg, rgba(255,255,255,0.20), rgba(191,223,255,0.18));
-      box-shadow: 0 10px 28px rgba(0,0,0,0.32);
-      border:1px solid rgba(255,255,255,0.16);
-      flex:0 0 auto;
-      position:relative;
-      overflow:hidden;
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      flex: 0 0 auto;
     }
-    .mark::after{
-      content:"";
-      position:absolute; inset:-10px;
-      background:
-        radial-gradient(50px 30px at 25% 25%, rgba(255,255,255,0.16), transparent 60%),
-        radial-gradient(60px 40px at 70% 75%, rgba(191,223,255,0.16), transparent 60%);
-      opacity:0.80;
-      pointer-events:none;
+    .brand b{ font-size:14px; letter-spacing:.2px; display:block; line-height:1.15; }
+    .brand span{ font-size:12px; color:var(--muted2); display:block; margin-top:2px; }
+
+    .nav-links{
+      display:flex; align-items:center; gap: 6px;
+    }
+    .nav-links a{
+      height: var(--tap);
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 0 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.08);
+      color: var(--text);
+    }
+    .nav-links a.active{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.14);
+      color: var(--text);
     }
 
-    .brandText{min-width:0}
-    .brand strong{
-      display:block;
-      font-size:14px;
-      letter-spacing:0.2px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-      max-width: 36vw;
-      color:var(--text);
-    }
-    .brand span{
-      display:block;
-      font-size:12px;
-      color:var(--subtle);
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-      max-width: 44vw;
-    }
-
-    .links{
+    .nav-cta{
       display:flex; align-items:center; gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
     }
-
-    /* ✅ Tap targets ≥44px */
-    .pill{
-      text-decoration:none;
-      font-size:13px;
-      color:var(--subtle);
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid transparent;
-      min-height: var(--tap);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .pill:hover{color:var(--text); background:var(--surface); border-color:var(--stroke)}
-    .pill[aria-current="page"]{
-      color:var(--text);
-      background: linear-gradient(180deg, rgba(191,223,255,0.14), var(--surface));
-      border-color: rgba(191,223,255,0.34);
-    }
-
-    .ctaRow{display:flex; align-items:center; gap:10px; flex:0 0 auto}
 
     .btn{
+      height: var(--tap);
       display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      text-decoration:none;
-      font-weight:650;
-      font-size:13px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid var(--stroke2);
-      background: linear-gradient(180deg, var(--surface2), var(--surface));
-      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
-      color:var(--text);
-      cursor:pointer;
-      min-height: var(--tap);
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform 140ms ease, border-color 140ms ease, filter 140ms ease, box-shadow 140ms ease;
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.34); filter: brightness(1.04)}
-    .btn:active{transform: translateY(0px); filter:none}
-    .btn.primary{
-      border:1px solid rgba(191,223,255,0.80);
-      background: linear-gradient(180deg, rgba(191,223,255,0.28), rgba(191,223,255,0.12));
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
       color: var(--text);
-      box-shadow: 0 14px 40px rgba(191,223,255,0.12), 0 10px 26px rgba(0,0,0,0.22);
+      font-weight: 600;
+      font-size: 13px;
+      gap: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      user-select:none;
+      cursor:pointer;
     }
-    .btn.ghost{background: transparent; box-shadow:none; color: var(--text)}
-    .btn:focus{outline:none}
+    .btn:hover{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.22);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+    .btn.primary{
+      border-color: rgba(191,223,255,.32);
+      background: linear-gradient(180deg, rgba(191,223,255,.16), rgba(255,255,255,.06));
+    }
+    .btn.ghost{
+      background: transparent;
+      border-color: rgba(255,255,255,.12);
+      color: var(--muted);
+    }
+    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.06); }
 
-    /* ✅ Keyboard-only visible focus */
-    :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
-
-    @media (hover:none){
-      .btn:hover{transform:none}
-      .pill:hover{background:transparent; border-color:transparent}
+    /* Mobile menu */
+    .menu-btn{ display:none; }
+    @media (max-width: 920px){
+      .nav-links{ display:none; }
+      .menu-btn{ display:inline-flex; }
     }
 
-    .navToggle{display:none; padding:10px 12px; min-width: var(--tap)}
-    .burger{width:18px; height:12px; position:relative}
-    .burger span{
-      position:absolute; left:0; right:0; height:2px;
-      background: rgba(244,246,250,0.90);
-      border-radius:999px;
+    /* Drawer overlay */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      z-index: 2000;
     }
-    .burger span:nth-child(1){top:0}
-    .burger span:nth-child(2){top:5px}
-    .burger span:nth-child(3){top:10px}
+    .overlay.open{ display:block; }
+    .drawer{
+      position:fixed; left:50%; transform: translateX(-50%);
+      top: 12px;
+      width: min(520px, calc(100% - 24px));
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.07));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow2);
+      padding: 10px;
+      display:none;
+      z-index: 2001;
+      backdrop-filter: blur(16px);
+    }
+    .drawer.open{ display:block; }
+    .drawer-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 8px 10px 10px;
+    }
+    .drawer-head b{ font-size: 13px; color: var(--muted); }
+    .drawer-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px;
+    }
+    .drawer a{
+      height: var(--tap);
+      display:flex; align-items:center; justify-content:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      font-weight: 650;
+      font-size: 13px;
+    }
+    .drawer a:hover{ background: rgba(255,255,255,.08); }
 
+    /* Sections */
+    section{ scroll-margin-top: 90px; }
+
+    .section{
+      padding: 36px 0;
+    }
+
+    /* Consistent section header alignment */
+    .section-head{
+      display:flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 0 0 14px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 520px;
+    }
+
+    /* Cards */
     .card{
       position:relative;
-      border-radius: var(--radius-xl);
+      border-radius: var(--r24);
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       box-shadow: var(--shadow);
-      background: linear-gradient(180deg, var(--surface2), var(--surface));
       overflow:hidden;
-      border: 1px solid transparent;
+      backdrop-filter: blur(18px);
     }
     .card::before{
       content:"";
       position:absolute; inset:0;
       border-radius: inherit;
       padding: 1px;
-      background:
-        linear-gradient(135deg,
-          rgba(191,223,255, calc(0.38 * var(--sig-border-opacity))),
-          rgba(255,255,255, calc(0.18 * var(--sig-border-opacity))) 35%,
-          rgba(255,255,255, calc(0.10 * var(--sig-border-opacity))) 65%,
-          rgba(191,223,255, calc(0.24 * var(--sig-border-opacity)))
-        );
-      pointer-events:none;
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      background: linear-gradient(135deg, rgba(191,223,255,.32), rgba(255,255,255,.10), rgba(191,223,255,.12));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      opacity: 0.95;
+              mask-composite: exclude;
+      pointer-events:none;
+      opacity:.65;
     }
     .card::after{
       content:"";
       position:absolute; inset:0;
       border-radius: inherit;
-      pointer-events:none;
       background:
-        radial-gradient(860px 240px at 20% 0%,
-          rgba(255,255,255, var(--card-highlight-opacity)),
-          transparent 58%),
-        radial-gradient(520px 220px at 85% 35%,
-          rgba(191,223,255, calc(0.10 * var(--card-highlight-opacity))),
-          transparent 62%),
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255, calc(0.10 * var(--card-texture-opacity))) 0px,
-          rgba(255,255,255, calc(0.10 * var(--card-texture-opacity))) 1px,
-          rgba(255,255,255, 0) 3px,
-          rgba(255,255,255, 0) 7px
-        ),
-        radial-gradient(1200px 600px at 50% 100%,
-          rgba(0,0,0,0.28),
-          transparent 58%);
+          rgba(255,255,255,.05) 0px,
+          rgba(255,255,255,.02) 1px,
+          rgba(255,255,255,0) 4px
+        );
+      opacity: .18;
+      pointer-events:none;
       mix-blend-mode: overlay;
     }
-    .card > *{position:relative; z-index:1}
 
-    header.hero{padding: clamp(18px, 4.6vw, 56px) 0 var(--sectionGap)}
-    .heroGrid{
+    .muted{ color: var(--muted); }
+    .tiny{ font-size:12px; color: var(--muted2); }
+
+    /* Grid */
+    .grid-2{
       display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: clamp(14px, 3vw, 26px);
-      align-items:stretch;
+      grid-template-columns: 1.4fr .9fr;
+      gap: 18px;
+      align-items: stretch;
     }
-    .heroMain{padding: clamp(16px, 3.2vw, 26px)}
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-size:12px;
-      color:var(--subtle);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045);
-      padding:8px 12px;
-      border-radius:999px;
-      max-width: 100%;
-      flex-wrap:wrap;
+    @media (max-width: 980px){
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+
+    .hero h1{
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 4.6vw, 54px);
+      line-height: 1.06;
+      letter-spacing: -0.6px;
+    }
+    .hero .lead{
+      margin: 0 0 14px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #D7DCE2; /* boosted for small text contrast */
+      max-width: 64ch;
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: 12px;
       min-height: var(--tap);
     }
     .dot{
-      width:8px; height:8px;
-      border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(191,223,255,0.10);
-      flex:0 0 auto;
-    }
-    h1{
-      margin:14px 0 10px;
-      font-size: clamp(26px, 4.7vw, 44px);
-      letter-spacing:-0.02em;
-      line-height:1.10;
-      color: var(--text);
-    }
-    .lead{
-      margin:0;
-      color:var(--muted);
-      font-size: clamp(14px, 1.8vw, 17px);
-      max-width: 62ch;
-    }
-    .heroActions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:18px;
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(191,223,255,.8);
+      box-shadow: 0 0 0 4px rgba(191,223,255,.12);
     }
 
-    .proof{
+    .btn-row{ display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 10px; }
+
+    .proof-strip{
       margin-top: 14px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040);
-      border-radius: var(--radius-xl);
-      padding: 12px 14px;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .proofBadge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid var(--stroke);
-      padding:8px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,0.040);
-      color:var(--muted);
-      font-size:12px;
-      min-height: var(--tap);
-    }
-    .proofLeft, .proofRight{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
-    }
-
-    .heroSide{padding: clamp(16px, 3.2vw, 26px)}
-    .miniTitle{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:10px;
-      margin:0 0 12px;
-    }
-    .miniTitle strong{font-size:14px; color: var(--text)}
-    .miniTitle span{font-size:12px; color:var(--subtle)}
-
-    .stack{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
-    .chip{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045);
-      padding:8px 10px;
-      border-radius:999px;
-      min-height: var(--tap);
-      display:inline-flex;
-      align-items:center;
-    }
-
-    .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
-    .stat{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040);
-      border-radius:16px;
-      padding:12px;
-      min-height: var(--tap);
-    }
-    .stat b{display:block; font-size:14px; color: var(--text)}
-    .stat small{color:var(--subtle)}
-
-    /* ✅ FIX empty band: tighter section padding + consistent rhythm */
-    section{padding: var(--sectionY) 0}
-    .sectionHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: var(--sectionGap);
-      flex-wrap:wrap;
-    }
-    .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-0.01em; color: var(--text)}
-    .sectionHead p{margin:0; color:var(--muted); font-size:13px; max-width: 72ch}
-
-    /* ✅ Subtle divider */
-    .divider{
-      border:0;
-      height:1px;
-      margin: calc(var(--sectionY) * 0.35) 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
-    }
-
-    .aboutGrid{
-      display:grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 14px;
-    }
-    .box{padding: 18px}
-    .box h3{margin:0 0 10px; font-size:14px; color: var(--text)}
-    .box p{margin:0; color:var(--muted); font-size:13px}
-    .bullets{margin: 10px 0 0; padding-left: 18px; color:var(--muted); font-size:13px}
-    .bullets li{margin: 6px 0}
-
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
-
-    .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
-    .projTop{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
-    .proj h3{margin:0; font-size:15px; letter-spacing:-0.01em; color: var(--text)}
-    .proj p{margin:0; color:var(--muted); font-size:13px}
-
-    .metric{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.045);
-      padding:8px 10px;
-      border-radius:999px;
-      white-space:nowrap;
-      min-height: var(--tap);
-      flex:0 0 auto;
-    }
-    .metric b{color:var(--text)}
-
-    .badges{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
-    .badge{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040);
-      padding:7px 9px;
-      border-radius:999px;
-      min-height: var(--tap);
-      display:inline-flex;
-      align-items:center;
-    }
-
-    .projFooter{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
-    .proj .btn{padding:10px 12px; font-size:12px; min-height: var(--tap)}
-
-    .arch{
-      border:1px dashed rgba(255,255,255,0.28);
-      background: rgba(255,255,255,0.028);
-      border-radius: 16px;
       padding: 12px;
-      color:var(--muted);
-      font-family: var(--mono);
-      font-size:12px;
-      line-height:1.35;
-      overflow:auto;
-      max-height: 148px;
-    }
-
-    .skillsGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
-    .skillCard{padding:16px}
-    .skillCard h3{margin:0 0 10px; font-size:14px; color: var(--text)}
-    .skillCard ul{margin:0; padding-left:18px; color:var(--muted); font-size:13px}
-    .skillCard li{margin: 6px 0}
-
-    .contactRow{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
+      gap: 10px 12px;
       align-items:center;
-      justify-content:space-between;
     }
-    .contactRow p{margin:0; color:var(--muted); font-size:13px}
-
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity 700ms ease, transform 700ms ease}
-    .reveal.in{opacity:1; transform:none}
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .reveal{opacity:1; transform:none; transition:none}
-      .btn:hover{transform:none}
-      .card::after{display:none}
-    }
-
-    .toTop{
-      position:fixed;
-      right: 16px;
-      bottom: calc(16px + var(--safe-bottom));
-      z-index: 40;
-      opacity:0;
-      pointer-events:none;
-      transform: translateY(8px);
-      transition: opacity 250ms ease, transform 250ms ease;
+    .proof{
+      display:flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-size: 12px;
+      color:#DCE2E9;
       min-height: var(--tap);
     }
-    .toTop.show{opacity:1; pointer-events:auto; transform:none}
-
-    .modalOverlay{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.54);
-      z-index: 60;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 14px;
-      padding-bottom: calc(14px + var(--safe-bottom));
-      padding-top: calc(14px + var(--safe-top));
-    }
-    .modalOverlay.open{display:flex}
-    .modal{
-      width:min(940px, 100%);
-      max-height: min(88vh, 900px);
-      overflow:auto;
-      border-radius: var(--radius-xl);
-      border:1px solid rgba(255,255,255,0.22);
-      background: linear-gradient(180deg, var(--surface3), var(--surface));
-      box-shadow: 0 26px 92px rgba(0,0,0,0.62);
-      position:relative;
-      -webkit-overflow-scrolling: touch;
-    }
-    .modalHeader{
-      position:sticky;
-      top:0;
-      z-index: 2;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.56));
-      border-bottom: 1px solid var(--stroke);
-      padding: 14px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .modalHeader h3{margin:0; font-size: 16px; letter-spacing:-0.01em; color: var(--text)}
-    .modalHeader p{margin:4px 0 0; color:var(--muted); font-size:13px; max-width: 70ch}
-    .modalBody{padding: 12px 14px 16px}
-    .modalSection{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040);
-      border-radius: 18px;
-      padding: 14px;
-      margin: 12px 0;
-    }
-    .modalSection h4{
-      margin:0 0 8px;
-      font-size: 13px;
-      letter-spacing: 0.2px;
-      text-transform: uppercase;
-      color: var(--subtle);
-    }
-    .modalSection p, .modalSection li{color:var(--muted); font-size:13px}
-    .modalSection ul{margin:8px 0 0; padding-left: 18px}
-
-    footer{
-      padding: 18px 0 calc(28px + var(--safe-bottom));
-      color:var(--subtle);
-      font-size:12px;
-    }
-    .foot{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      border-top:1px solid var(--stroke);
-      padding-top: 14px;
-    }
-    .quietLink{color:var(--muted); text-decoration:none}
-    .quietLink:hover{color:var(--text); text-decoration:underline}
-
-    ::selection{background: rgba(191,223,255,0.18)}
-
-    @media (max-width: 1024px){
-      .heroGrid{grid-template-columns: 1fr}
-      .grid3{grid-template-columns: 1fr 1fr}
-      .skillsGrid{grid-template-columns: 1fr 1fr}
-      .aboutGrid{grid-template-columns: 1fr}
-      .brand strong{max-width: 52vw}
-      .brand span{max-width: 62vw}
-    }
-    @media (max-width: 720px){
-      .links{display:none}
-      .navToggle{display:inline-flex}
-      .ctaRow .btn.ghost{display:none}
-      .brand strong{max-width: 52vw}
-      .brand span{max-width: 60vw}
-      .heroActions .btn{flex: 1 1 160px}
-      .statGrid{grid-template-columns: 1fr}
-      .grid3{grid-template-columns: 1fr}
-      .skillsGrid{grid-template-columns: 1fr}
-      section{padding: clamp(18px, 4.2vw, 28px) 0}
-    }
-    @media (max-width: 380px){
-      .heroMain, .heroSide{padding: 14px}
-      .box{padding: 14px}
-      .proj{padding: 14px}
-      .skillCard{padding: 14px}
-      .btn{padding: 10px 11px}
+    .check{
+      width:14px; height:14px; border-radius:4px;
+      background: rgba(64,211,124,.20);
+      border: 1px solid rgba(64,211,124,.55);
+      display:grid; place-items:center;
+      color: rgba(64,211,124,.95);
+      font-weight: 900;
+      font-size: 11px;
+      line-height: 1;
     }
 
-    .drawerOverlay{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,0.44);
-      z-index: 55;
-      display:none;
-      align-items:flex-end;
-      justify-content:center;
-      padding: 10px;
-      padding-bottom: calc(10px + var(--safe-bottom));
+    /* Snapshot panel */
+    .chips{
+      display:flex; flex-wrap:wrap; gap: 10px;
+      margin: 8px 0 14px;
     }
-    .drawerOverlay.open{display:flex}
-    .drawer{
-      width: min(640px, 100%);
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,0.22);
-      background: linear-gradient(180deg, var(--surface3), var(--surface));
-      box-shadow: 0 26px 92px rgba(0,0,0,0.60);
-      overflow:hidden;
-      position:relative;
+    .chip{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 8px 12px;
+      min-height: var(--tap);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      color: #DCE2E9;
+      font-size: 12px;
+      white-space: nowrap;
     }
-    .drawerTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 12px 12px 10px;
-      border-bottom: 1px solid var(--stroke);
-    }
-    .drawerTop strong{font-size: 13px; color: var(--text)}
-    .drawerLinks{
+
+    .mini-grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
-      padding: 12px;
+      gap: 12px;
+      margin-top: 10px;
     }
-    .drawerLinks a{
-      text-decoration:none;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.040);
-      border-radius: 14px;
-      padding: 12px;
-      min-height: var(--tap);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      color: var(--text);
-      font-weight:650;
-      font-size:13px;
+    @media (max-width: 520px){
+      .mini-grid{ grid-template-columns: 1fr; }
     }
-    .drawerActions{
-      display:flex;
-      gap:10px;
-      padding: 0 12px 12px;
-      flex-wrap:wrap;
+    .mini{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      min-height: 74px;
     }
-    .drawerActions .btn{flex:1 1 170px; min-height: var(--tap)}
+    .mini b{ display:block; font-size: 14px; margin-bottom: 2px; }
+    .mini span{ color:#D7DCE2; font-size: 12.5px; }
 
-    /* =========================================================
-       ✅ FINAL FIX: Projects alignment (box/text positions)
-       ========================================================= */
+    /* About grid */
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .about-grid{ grid-template-columns: 1fr; }
+    }
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: #D7DCE2;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .list li{ margin: 6px 0; }
+    .bold{ font-weight: 700; color: var(--text); }
 
-    /* Make top row consistent: text left, metric right */
-    .projTop{
-      display: grid !important;
+    /* Projects */
+    .proj-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 1100px){
+      .proj-grid{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px){
+      .proj-grid{ grid-template-columns: 1fr; }
+    }
+
+    .proj{
+      display:flex;
+      flex-direction: column;
+      min-height: 520px;
+    }
+    @media (max-width: 720px){
+      .proj{ min-height: unset; }
+    }
+
+    /* Project header alignment */
+    .proj-top{
+      display:grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items: start;
+      margin-bottom: 10px;
     }
-    .projTop > div:first-child{min-width:0}
-
-    /* Lock title height (2 lines) */
     .proj h3{
+      margin: 0;
+      font-size: 18px;
       line-height: 1.25;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      min-height: calc(1.25em * 2);
+      letter-spacing: .2px;
+    }
+    .proj .desc{
+      margin: 4px 0 10px;
+      color:#D7DCE2;
+      font-size: 13.5px;
+      line-height: 1.65;
     }
 
-    /* Lock description height (4 lines) */
-    .proj p{
+    .metric{
+      justify-self: end;
+      align-self: start;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      min-height: var(--tap);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: #E6EBF0;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .metric .k{ font-weight: 800; color: var(--text); }
+
+    .tag-row{
+      display:flex; flex-wrap:wrap; gap: 10px;
+      margin: 10px 0 12px;
+    }
+    .tag{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 8px 12px;
+      min-height: var(--tap);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: #DCE2E9;
+      font-size: 12px;
+    }
+
+    .codebox{
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px dashed rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: #DCE2E9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
       line-height: 1.55;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
-      overflow: hidden;
-      min-height: calc(1.55em * 4);
+      flex: 1 1 auto;
+      min-height: 160px;
+      overflow:auto;
     }
 
-    /* Keep badges block consistent */
-    .proj .badges{
-      min-height: 52px; /* ~2 rows */
-      align-content: start;
+    .proj-actions{
+      display:flex; gap: 10px; flex-wrap:wrap;
+      margin-top: 14px;
     }
 
-    /* Equalize arch boxes */
-    .proj .arch{
-      min-height: 150px;
+    /* Skills */
+    .skills-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .skills-grid{ grid-template-columns: 1fr; }
+    }
+    .skills h3{ margin: 0 0 8px; font-size: 16px; }
+    .bullets{
+      margin: 0;
+      padding-left: 18px;
+      color:#D7DCE2;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .bullets li{ margin: 6px 0; }
+
+    /* Contact */
+    .contact-row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .contact-row .left{
+      color: #D7DCE2;
+      font-size: 13.5px;
+    }
+    .footer{
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; gap: 14px; flex-wrap:wrap;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+    .footer a{ color: var(--muted); }
+    .footer a:hover{ color: var(--text); }
+
+    /* Reveal animation */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior: auto; }
+      .reveal{ transition: none; transform:none; opacity:1; }
+      .reveal.show{ transform:none; }
+      .btn, .nav-links a{ transition:none; }
+      .btn:hover{ transform:none; }
     }
 
-    /* Footer always aligned at bottom */
-    .projFooter{margin-top:auto}
+    /* To top */
+    .toTop{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 1500;
+      display:none;
+    }
+    .toTop.show{ display:block; }
+
+    /* Modal (dialog) */
+    dialog{
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+    dialog::backdrop{
+      background: rgba(0,0,0,.6);
+    }
+    .modal{
+      width: min(860px, calc(100vw - 24px));
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      backdrop-filter: blur(16px);
+    }
+    .modal-head{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 12px;
+      padding: 16px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .modal-head b{ font-size: 14px; color: var(--muted); display:block; margin-top: 2px; }
+    .modal-title{
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .modal-body{
+      padding: 16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 860px){
+      .modal-body{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .panel h4{
+      margin: 0 0 6px;
+      font-size: 13px;
+      letter-spacing: .2px;
+      color: var(--text);
+    }
+    .panel p, .panel ul{
+      margin: 0;
+      color: #D7DCE2;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+    .panel ul{ padding-left: 18px; margin-top: 6px; }
+    .panel li{ margin: 6px 0; }
+
+    .icon-btn{
+      height: var(--tap);
+      width: var(--tap);
+      display:grid; place-items:center;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      color: var(--text);
+      cursor:pointer;
+      user-select:none;
+    }
+    .icon-btn:hover{ background: rgba(255,255,255,.08); }
   </style>
 </head>
 
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#home">Skip to content</a>
 
-  <div class="top">
-    <div class="container">
-      <nav class="nav" aria-label="Primary">
-        <a class="brand" href="#home" aria-label="Go to top">
-          <span class="mark" aria-hidden="true"></span>
-          <span class="brandText">
-            <strong>GowriShankar</strong>
-            <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
-          </span>
-        </a>
-
-        <div class="links" id="navLinks">
-          <a class="pill" href="#about">About</a>
-          <a class="pill" href="#projects">Projects</a>
-          <a class="pill" href="#skills">Skills</a>
-          <a class="pill" href="#contact">Contact</a>
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Go to top">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <b>GowriShankar</b>
+          <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
         </div>
+      </a>
 
-        <div class="ctaRow">
-          <button class="btn navToggle" id="navToggle" type="button"
-            aria-label="Open menu" aria-haspopup="dialog" aria-controls="drawerOverlay" aria-expanded="false">
-            <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
-          </button>
-
-          <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-        </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about" data-link="about">About</a>
+        <a href="#projects" data-link="projects">Projects</a>
+        <a href="#skills" data-link="skills">Skills</a>
+        <a href="#contact" data-link="contact">Contact</a>
       </nav>
-    </div>
-  </div>
 
-  <!-- Mobile Drawer -->
-  <div class="drawerOverlay" id="drawerOverlay" role="presentation">
-    <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
-      <div class="drawerTop">
-        <strong id="drawerTitle">Menu</strong>
-        <button class="btn" id="closeDrawer" type="button" aria-label="Close menu">Close</button>
-      </div>
-      <div class="drawerLinks">
-        <a href="#about" data-drawer-link>About <span aria-hidden="true">→</span></a>
-        <a href="#projects" data-drawer-link>Projects <span aria-hidden="true">→</span></a>
-        <a href="#skills" data-drawer-link>Skills <span aria-hidden="true">→</span></a>
-        <a href="#contact" data-drawer-link>Contact <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="drawerActions">
-        <a class="btn" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <div class="nav-cta">
+        <button class="btn ghost menu-btn" id="menuBtn" type="button"
+          aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">
+          Menu
+        </button>
+
+        <!-- TODO: replace URLs -->
+        <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-        <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="overlay" id="overlay" hidden></div>
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
+    <div class="drawer-head">
+      <b>Navigate</b>
+      <button class="icon-btn" id="drawerClose" type="button" aria-label="Close menu">✕</button>
+    </div>
+    <div class="drawer-grid">
+      <a href="#about" data-drawerlink>About</a>
+      <a href="#projects" data-drawerlink>Projects</a>
+      <a href="#skills" data-drawerlink>Skills</a>
+      <a href="#contact" data-drawerlink>Contact</a>
     </div>
   </div>
 
-  <main id="main">
-    <header id="home" class="hero">
-      <div class="container">
-        <div class="heroGrid">
-          <div class="card heroMain reveal">
-            <div class="kicker">
-              <span class="dot" aria-hidden="true"></span>
-              Production-minded DevOps • measurable outcomes • clean architecture
-            </div>
-
-            <h1>Building reliable delivery pipelines and cloud platforms that scale.</h1>
-            <p class="lead">
-              I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
-              fast feedback loops, safe rollouts, and observability-driven reliability.
-            </p>
-
-            <div class="heroActions">
-              <a class="btn primary" href="#projects">View projects <span aria-hidden="true">→</span></a>
-              <a class="btn" href="#contact">Contact me <span aria-hidden="true">✉</span></a>
-              <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-            </div>
-
-            <div class="proof" aria-label="Proof strip">
-              <div class="proofLeft">
-                <span class="proofBadge">✅ Hands-on repos</span>
-                <span class="proofBadge">✅ Realistic architectures</span>
-                <span class="proofBadge">✅ Case studies</span>
-              </div>
-              <div class="proofRight">
-                <span class="proofBadge">Kubernetes</span>
-                <span class="proofBadge">Terraform</span>
-                <span class="proofBadge">Jenkins</span>
-                <span class="proofBadge">AWS</span>
-              </div>
-            </div>
+  <main class="wrap" id="home" tabindex="-1">
+    <!-- HERO -->
+    <section class="section hero reveal" aria-label="Hero">
+      <div class="grid-2">
+        <div class="card">
+          <div class="pill" aria-label="Positioning statement">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Production-minded DevOps • measurable outcomes • clean architecture</span>
           </div>
 
-          <aside class="card heroSide reveal" aria-label="Snapshot">
-            <div class="miniTitle">
-              <strong>Snapshot</strong>
-              <span>what I deliver</span>
-            </div>
+          <h1>Building reliable delivery pipelines and cloud platforms that scale.</h1>
 
-            <ul class="stack" aria-label="Core areas">
-              <li class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</li>
-              <li class="chip">Kubernetes deployments + ops</li>
-              <li class="chip">Terraform IaC baselines</li>
-              <li class="chip">Cloud fundamentals (AWS)</li>
-              <li class="chip">Observability mindset</li>
-              <li class="chip">Security-by-default</li>
-            </ul>
+          <p class="lead">
+            I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
+            fast feedback loops, safe rollouts, and observability-driven reliability.
+          </p>
 
-            <div class="statGrid" role="list" aria-label="Highlights">
-              <div class="stat" role="listitem"><b>Clean Docs</b><small>README + screenshots + steps</small></div>
-              <div class="stat" role="listitem"><b>Case Studies</b><small>Problem → Architecture → Results</small></div>
-              <div class="stat" role="listitem"><b>Safe Delivery</b><small>repeatable, auditable deployments</small></div>
-              <div class="stat" role="listitem"><b>Ops Thinking</b><small>failure modes + runbooks</small></div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </header>
-
-    <section id="about">
-      <div class="container">
-        <div class="sectionHead">
-          <h2>About</h2>
-          <p>Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
-        </div>
-
-        <div class="aboutGrid">
-          <div class="card box reveal">
-            <h3>What I’m focused on</h3>
-            <p>Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run, easy to audit, and safe to change.</p>
-            <ul class="bullets">
-              <li>Automate “boring” but critical reliability steps.</li>
-              <li>Prefer small, reversible changes with fast feedback.</li>
-              <li>Document decisions so teams move faster.</li>
-            </ul>
+          <div class="btn-row">
+            <a class="btn primary" href="#projects">View projects →</a>
+            <a class="btn" href="#contact">Contact me</a>
+            <!-- TODO: replace GitHub -->
+            <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           </div>
 
-          <div class="card box reveal">
-            <h3>How I work</h3>
-            <p>I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.</p>
-            <ul class="bullets">
-              <li><b style="color:var(--text)">Architecture clarity:</b> diagrams + clean repo structure.</li>
-              <li><b style="color:var(--text)">Proof-driven:</b> screenshots, outputs, and repeatable steps.</li>
-              <li><b style="color:var(--text)">Production mindset:</b> security, rollback, drift, and cost awareness.</li>
-            </ul>
+          <div class="proof-strip" aria-label="Proof points">
+            <div class="proof"><span class="check" aria-hidden="true">✓</span>Hands-on repos</div>
+            <div class="proof"><span class="check" aria-hidden="true">✓</span>Realistic architectures</div>
+            <div class="proof"><span class="check" aria-hidden="true">✓</span>Case studies</div>
+            <div class="tag">Kubernetes</div>
+            <div class="tag">Terraform</div>
+            <div class="tag">Jenkins</div>
+            <div class="tag">AWS</div>
           </div>
         </div>
 
-        <hr class="divider" />
+        <aside class="card" aria-label="Snapshot panel">
+          <div class="section-head" style="margin-bottom:8px;">
+            <h2 style="font-size:16px;">Snapshot</h2>
+            <p class="tiny" style="max-width:none;">what I deliver</p>
+          </div>
+
+          <div class="chips" aria-label="Capabilities">
+            <div class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</div>
+            <div class="chip">Kubernetes deployments + ops</div>
+            <div class="chip">Terraform IaC baselines</div>
+            <div class="chip">Cloud fundamentals (AWS)</div>
+            <div class="chip">Observability mindset</div>
+            <div class="chip">Security-by-default</div>
+          </div>
+
+          <div class="mini-grid" aria-label="Highlights">
+            <div class="mini">
+              <b>Clean Docs</b>
+              <span>README + screenshots + steps</span>
+            </div>
+            <div class="mini">
+              <b>Case Studies</b>
+              <span>Problem → Architecture → Results</span>
+            </div>
+            <div class="mini">
+              <b>Safe Delivery</b>
+              <span>repeatable, auditable deployments</span>
+            </div>
+            <div class="mini">
+              <b>Ops Thinking</b>
+              <span>failure modes + runbooks</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <section id="projects">
-      <div class="container">
-        <div class="sectionHead">
-          <h2>Projects</h2>
-          <p>Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
+    <!-- ABOUT -->
+    <section class="section reveal" id="about" aria-label="About">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card">
+          <h3 style="margin:0 0 8px; font-size:16px;">What I’m focused on</h3>
+          <p class="muted" style="margin:0; font-size:13.5px; line-height:1.65; color:#D7DCE2;">
+            Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run,
+            easy to audit, and safe to change.
+          </p>
+          <ul class="list">
+            <li>Automate “boring” but critical reliability steps.</li>
+            <li>Prefer small, reversible changes with fast feedback.</li>
+            <li>Document decisions so teams move faster.</li>
+          </ul>
         </div>
 
-        <div class="grid3">
-          <article class="card proj reveal">
-            <div class="projTop">
-              <div>
-                <h3>DevOps CI/CD — Jenkins Pipeline</h3>
-                <p>End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
-              </div>
-              <div class="metric" title="Replace with your real metric"><b>↓ 60%</b> deploy time</div>
+        <div class="card">
+          <h3 style="margin:0 0 8px; font-size:16px;">How I work</h3>
+          <p class="muted" style="margin:0; font-size:13.5px; line-height:1.65; color:#D7DCE2;">
+            I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
+          </p>
+          <ul class="list">
+            <li><span class="bold">Architecture clarity:</span> diagrams + clean repo structure.</li>
+            <li><span class="bold">Proof-driven:</span> screenshots, outputs, and repeatable steps.</li>
+            <li><span class="bold">Production mindset:</span> security, rollback, drift, and cost awareness.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section reveal" id="projects" aria-label="Projects">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
+      </div>
+
+      <div class="proj-grid">
+        <!-- Project 1 -->
+        <article class="card proj">
+          <div class="proj-top">
+            <div>
+              <h3>DevOps CI/CD — Jenkins Pipeline</h3>
+              <p class="desc">End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
             </div>
+            <div class="metric" aria-label="Metric: deployment time improvement">
+              <span class="k">↓ 60%</span> <span class="muted">deploy time</span>
+            </div>
+          </div>
 
-            <ul class="badges" aria-label="Project tags">
-              <li class="badge">Jenkins</li><li class="badge">Docker</li><li class="badge">CI/CD</li><li class="badge">Quality Gates</li>
-            </ul>
+          <div class="tag-row" aria-label="Tags">
+            <div class="tag">Jenkins</div>
+            <div class="tag">Docker</div>
+            <div class="tag">CI/CD</div>
+            <div class="tag">Quality Gates</div>
+          </div>
 
-            <pre class="arch" aria-label="Architecture sketch">Developer → Git Push
-   ↓
+          <div class="codebox" aria-label="Architecture sketch">
+Developer → Git Push
+  ↓
 Jenkins (Pipeline)
-   ↓        ↓
-Build     Tests
-   ↓
+  ↓
+Build    Tests
+  ↓
 Artifact/Image → Deploy (staged)
-   ↓
-Health checks + rollback</pre>
+  ↓
+Rollback-ready releases
+          </div>
 
-            <div class="projFooter">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="jenkins" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
+          <div class="proj-actions">
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <button class="btn" type="button" data-open-modal="case-jenkins" aria-haspopup="dialog">Case Study</button>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card proj">
+          <div class="proj-top">
+            <div>
+              <h3>Kubernetes Deployments + Ops</h3>
+              <p class="desc">Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
             </div>
-          </article>
-
-          <article class="card proj reveal">
-            <div class="projTop">
-              <div>
-                <h3>Kubernetes Deployments + Ops</h3>
-                <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
-              </div>
-              <div class="metric" title="Replace with your real metric"><b>99.9%</b> uptime goal</div>
+            <div class="metric" aria-label="Metric: uptime goal">
+              <span class="k">99.9%</span> <span class="muted">uptime goal</span>
             </div>
+          </div>
 
-            <ul class="badges" aria-label="Project tags">
-              <li class="badge">Kubernetes</li><li class="badge">Rollouts</li><li class="badge">Health Probes</li><li class="badge">Ops</li>
-            </ul>
+          <div class="tag-row" aria-label="Tags">
+            <div class="tag">Kubernetes</div>
+            <div class="tag">Rollouts</div>
+            <div class="tag">Health Probes</div>
+            <div class="tag">Ops</div>
+          </div>
 
-            <pre class="arch" aria-label="Architecture sketch">Client → Ingress/Service
-          ↓
-      Deployment
-      /   |    \
- Pod A  Pod B  Pod C
-   ↓      ↓      ↓
-Probes + rolling updates</pre>
+          <div class="codebox" aria-label="Architecture sketch">
+Client → Ingress/Service
+  ↓
+Deployment
+ /  |  \
+Pod A Pod B Pod C
+  ↓
+Readiness/Liveness probes
+Rolling updates + rollback
+          </div>
 
-            <div class="projFooter">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="k8s" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
+          <div class="proj-actions">
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <button class="btn" type="button" data-open-modal="case-k8s" aria-haspopup="dialog">Case Study</button>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="card proj">
+          <div class="proj-top">
+            <div>
+              <h3>Terraform AWS Baseline</h3>
+              <p class="desc">Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
             </div>
-          </article>
-
-          <article class="card proj reveal">
-            <div class="projTop">
-              <div>
-                <h3>Terraform AWS Baseline</h3>
-                <p>Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
-              </div>
-              <div class="metric" title="Replace with your real metric"><b>↓ 40%</b> setup time</div>
+            <div class="metric" aria-label="Metric: setup time improvement">
+              <span class="k">↓ 40%</span> <span class="muted">setup time</span>
             </div>
+          </div>
 
-            <ul class="badges" aria-label="Project tags">
-              <li class="badge">Terraform</li><li class="badge">AWS</li><li class="badge">IaC</li><li class="badge">Drift-safe</li>
-            </ul>
+          <div class="tag-row" aria-label="Tags">
+            <div class="tag">Terraform</div>
+            <div class="tag">AWS</div>
+            <div class="tag">IaC</div>
+            <div class="tag">Drift-safe</div>
+          </div>
 
-            <pre class="arch" aria-label="Architecture sketch">Terraform Modules
-   ↓
+          <div class="codebox" aria-label="Architecture sketch">
+Terraform Modules
+  ↓
 VPC + Subnets + Routing
-   ↓
+  ↓
 IAM (least privilege)
-   ↓
-Reusable baseline outputs</pre>
+  ↓
+Reusable baseline outputs
+          </div>
 
-            <div class="projFooter">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="tf" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
-            </div>
-          </article>
-        </div>
-
-        <hr class="divider" />
+          <div class="proj-actions">
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
+            <button class="btn" type="button" data-open-modal="case-tf" aria-haspopup="dialog">Case Study</button>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section id="skills">
-      <div class="container">
-        <div class="sectionHead">
-          <h2>Skills</h2>
-          <p>Grouped like a product spec: what you can reliably ship.</p>
-        </div>
-
-        <div class="skillsGrid">
-          <div class="card skillCard reveal">
-            <h3>Delivery & Automation</h3>
-            <ul>
-              <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
-              <li>Build/test orchestration</li>
-              <li>Artifact/versioning discipline</li>
-              <li>Rollback-friendly releases</li>
-            </ul>
-          </div>
-
-          <div class="card skillCard reveal">
-            <h3>Kubernetes & Operations</h3>
-            <ul>
-              <li>Deployments, services, ingress basics</li>
-              <li>Readiness/liveness probes</li>
-              <li>Rollouts, scaling, failure modes</li>
-              <li>Ops documentation & runbooks</li>
-            </ul>
-          </div>
-
-          <div class="card skillCard reveal">
-            <h3>Infrastructure as Code</h3>
-            <ul>
-              <li>Terraform modules and environments</li>
-              <li>AWS fundamentals (networking, IAM)</li>
-              <li>Least-privilege thinking</li>
-              <li>Drift + state awareness</li>
-            </ul>
-          </div>
-        </div>
-
-        <hr class="divider" />
+    <!-- SKILLS -->
+    <section class="section reveal" id="skills" aria-label="Skills">
+      <div class="section-head">
+        <h2>Skills</h2>
+        <p>Grouped like a product spec: what you can reliably ship.</p>
       </div>
-    </section>
 
-    <section id="contact">
-      <div class="container">
-        <div class="sectionHead">
-          <h2>Contact</h2>
-          <p>Make it easy to act in 10 seconds.</p>
+      <div class="skills-grid skills">
+        <div class="card">
+          <h3>Delivery & Automation</h3>
+          <ul class="bullets">
+            <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
+            <li>Build/test orchestration</li>
+            <li>Artifact/versioning discipline</li>
+            <li>Rollback-friendly releases</li>
+          </ul>
         </div>
 
-        <div class="card box reveal">
-          <div class="contactRow">
-            <p>
-              Email: <a class="quietLink" href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>
-              <span aria-hidden="true"> · </span>
-              GitHub: <a class="quietLink" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">gowrishankar-infra</a>
-            </p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end">
-              <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
-              <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
-            </div>
-          </div>
+        <div class="card">
+          <h3>Kubernetes & Operations</h3>
+          <ul class="bullets">
+            <li>Deployments, services, ingress basics</li>
+            <li>Readiness/liveness probes</li>
+            <li>Rollouts, scaling, failure modes</li>
+            <li>Ops documentation & runbooks</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Infrastructure as Code</h3>
+          <ul class="bullets">
+            <li>Terraform modules and environments</li>
+            <li>AWS fundamentals (networking, IAM)</li>
+            <li>Least-privilege thinking</li>
+            <li>Drift + state awareness</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="container">
-        <div class="foot">
-          <div>© <span id="year"></span> GowriShankar</div>
-          <div>
-            <a class="quietLink" href="#home">Back to top</a>
-            <span aria-hidden="true"> · </span>
-            <a class="quietLink" href="https://github.com/gowrishankar-infra/portfolio" target="_blank" rel="noopener noreferrer">Portfolio repo</a>
+    <!-- CONTACT -->
+    <section class="section reveal" id="contact" aria-label="Contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Make it easy to act in 10 seconds.</p>
+      </div>
+
+      <div class="card">
+        <div class="contact-row">
+          <div class="left">
+            <!-- TODO: replace -->
+            Email: <span class="bold">YOUR_EMAIL_HERE</span> · GitHub: <span class="bold">gowrishankar-infra</span>
+          </div>
+          <div class="btn-row" style="margin:0;">
+            <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
+            <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
           </div>
         </div>
       </div>
-    </footer>
+
+      <div class="footer">
+        <div>© <span id="year"></span> GowriShankar</div>
+        <div>
+          <a href="#home">Back to top</a> ·
+          <a href="https://github.com/gowrishankar-infra/portfolio" target="_blank" rel="noopener noreferrer">Portfolio repo</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
-
-  <div class="modalOverlay" id="modalOverlay" role="presentation">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
-      <div class="modalHeader">
-        <div>
-          <h3 id="modalTitle">Case Study</h3>
-          <p id="modalDesc">Problem → Architecture → What I built → Results → Failure modes.</p>
-        </div>
-        <button class="btn" id="closeModal" type="button" aria-label="Close case study">Close</button>
-      </div>
-      <div class="modalBody" id="modalBody"></div>
-    </div>
+  <!-- To top -->
+  <div class="toTop" id="toTop">
+    <button class="btn" type="button" id="toTopBtn" aria-label="Back to top">↑ Top</button>
   </div>
 
+  <!-- Case Study Modals -->
+  <dialog id="case-jenkins" aria-label="Case study: Jenkins Pipeline">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title">Case Study — Jenkins CI/CD Pipeline</div>
+          <b>Problem → Architecture → What I built → Results → Failure modes</b>
+        </div>
+        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="panel">
+          <h4>Problem</h4>
+          <p>Slow and inconsistent deployments; hard to trust artifacts; manual steps caused drift.</p>
+        </div>
+        <div class="panel">
+          <h4>Architecture</h4>
+          <p>Pipeline stages with quality gates; artifact versioning; staged deployment with rollback hooks.</p>
+        </div>
+        <div class="panel">
+          <h4>What I built</h4>
+          <ul>
+            <li>Build/test separation + cached dependencies</li>
+            <li>Artifact/image promotion model</li>
+            <li>Repeatable deploy steps + audit-friendly logs</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Results</h4>
+          <ul>
+            <li>↓ deploy time (placeholder metric)</li>
+            <li>More consistent release flow</li>
+            <li>Clear rollback path</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Failure modes + mitigations</h4>
+          <ul>
+            <li>Bad config → validate early</li>
+            <li>Test flakiness → quarantine + rerun strategy</li>
+            <li>Rollback safety → versioned artifacts</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Links</h4>
+          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="case-k8s" aria-label="Case study: Kubernetes Ops">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title">Case Study — Kubernetes Deployments + Ops</div>
+          <b>Problem → Architecture → What I built → Results → Failure modes</b>
+        </div>
+        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="panel">
+          <h4>Problem</h4>
+          <p>Deployments lacked readiness gates and repeatable rollout patterns; ops lacked clarity.</p>
+        </div>
+        <div class="panel">
+          <h4>Architecture</h4>
+          <p>Services + Deployments with probes; safe rollout settings; rollback strategy; config separation.</p>
+        </div>
+        <div class="panel">
+          <h4>What I built</h4>
+          <ul>
+            <li>Readiness/liveness probes + resource requests/limits</li>
+            <li>Rollout patterns + verification steps</li>
+            <li>Ops notes/runbook style docs</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Results</h4>
+          <ul>
+            <li>Improved rollout reliability</li>
+            <li>Clearer operational behavior</li>
+            <li>Uptime target framing (placeholder)</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Failure modes + mitigations</h4>
+          <ul>
+            <li>CrashLoopBackOff → probes + logs</li>
+            <li>Bad rollout → maxUnavailable tuning</li>
+            <li>Config drift → versioned manifests</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Links</h4>
+          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="case-tf" aria-label="Case study: Terraform AWS Baseline">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <div>
+          <div class="modal-title">Case Study — Terraform AWS Baseline</div>
+          <b>Problem → Architecture → What I built → Results → Failure modes</b>
+        </div>
+        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="panel">
+          <h4>Problem</h4>
+          <p>Infrastructure setup was inconsistent; IAM/network defaults were unsafe; environments drifted.</p>
+        </div>
+        <div class="panel">
+          <h4>Architecture</h4>
+          <p>Module-based baseline producing reusable outputs; least-privilege IAM; environment separation.</p>
+        </div>
+        <div class="panel">
+          <h4>What I built</h4>
+          <ul>
+            <li>Networking baseline + routing</li>
+            <li>IAM with secure defaults</li>
+            <li>Outputs designed for downstream stacks</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Results</h4>
+          <ul>
+            <li>↓ setup time (placeholder metric)</li>
+            <li>More consistent environments</li>
+            <li>Reduced drift risk</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Failure modes + mitigations</h4>
+          <ul>
+            <li>State mismatch → workflow discipline</li>
+            <li>IAM mistakes → least privilege patterns</li>
+            <li>Drift → plan checks + review gates</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Links</h4>
+          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <script>
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    $("#year").textContent = new Date().getFullYear();
-
-    const main = $("#main");
-    const topbar = document.querySelector(".top");
-
-    function setInert(isInert){
-      const supportsInert = "inert" in HTMLElement.prototype;
-      if (supportsInert) {
-        main.inert = isInert;
-        if (topbar) topbar.inert = isInert;
-      } else {
-        const focusables = $$("a, button, input, select, textarea, [tabindex]", main);
-        focusables.forEach(el => {
-          if (isInert) {
-            if (!el.hasAttribute("data-prev-tabindex")) {
-              el.setAttribute("data-prev-tabindex", el.getAttribute("tabindex") ?? "");
-            }
-            el.setAttribute("tabindex", "-1");
-          } else {
-            const prev = el.getAttribute("data-prev-tabindex");
-            el.removeAttribute("data-prev-tabindex");
-            if (prev === "") el.removeAttribute("tabindex");
-            else el.setAttribute("tabindex", prev);
-          }
-        });
-      }
-      if (topbar) topbar.setAttribute("aria-hidden", isInert ? "true" : "false");
-      main.setAttribute("aria-hidden", isInert ? "true" : "false");
-    }
-
-    function getFocusable(root){
-      const selectors = [
-        "a[href]",
-        "button:not([disabled])",
-        "input:not([disabled])",
-        "select:not([disabled])",
-        "textarea:not([disabled])",
-        "[tabindex]:not([tabindex='-1'])"
-      ];
-      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
-    }
-
-    function trapTab(e, container){
-      if(e.key !== "Tab") return;
-      const focusables = getFocusable(container);
-      if(focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if(e.shiftKey && document.activeElement === first){
-        e.preventDefault(); last.focus();
-      } else if(!e.shiftKey && document.activeElement === last){
-        e.preventDefault(); first.focus();
-      }
-    }
-
-    function scrollToId(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      const topBar = document.querySelector(".top");
-      const y = el.getBoundingClientRect().top + window.scrollY - (topBar?.offsetHeight ?? 0) - 10;
-      window.scrollTo({ top: y, behavior: "smooth" });
-
-      el.setAttribute("tabindex","-1");
-      el.focus({ preventScroll: true });
-      el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
-    }
-
-    $$("#navLinks a").forEach(a => {
-      a.addEventListener("click", (e) => {
-        const href = a.getAttribute("href") || "";
-        if(href.startsWith("#")){
-          e.preventDefault();
-          scrollToId(href.slice(1));
+    // Reveal on scroll
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      const revealEls = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) e.target.classList.add('show');
         }
-      });
-    });
-
-    const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
-    const navItems = $$("#navLinks a");
-    const setActive = (id) => {
-      navItems.forEach(a => {
-        const href = a.getAttribute("href");
-        if (href === "#" + id) a.setAttribute("aria-current", "page");
-        else a.removeAttribute("aria-current");
-      });
-    };
-    if(sections.length && navItems.length){
-      const spy = new IntersectionObserver((entries)=>{
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if(visible?.target?.id) setActive(visible.target.id);
-      }, { threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
-      sections.forEach(s => spy.observe(s));
-    }
-
-    const revealEls = $$(".reveal");
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if(!prefersReduced){
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            e.target.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.14 });
+      }, { threshold: 0.12 });
       revealEls.forEach(el => io.observe(el));
     } else {
-      revealEls.forEach(el => el.classList.add("in"));
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
     }
 
-    const toTop = $("#toTop");
-    const toggleToTop = () => {
-      const show = window.scrollY > 700;
-      toTop.classList.toggle("show", show);
-    };
-    window.addEventListener("scroll", toggleToTop, { passive: true });
-    toggleToTop();
-    toTop.addEventListener("click", () => scrollToId("home"));
+    // Scrollspy
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sectionIds = ['about','projects','skills','contact'];
+    const sections = sectionIds.map(id => document.getElementById(id));
 
-    const drawerOverlay = $("#drawerOverlay");
-    const navToggle = $("#navToggle");
-    const closeDrawer = $("#closeDrawer");
-    let lastFocusDrawer = null;
-
-    function openDrawer(){
-      lastFocusDrawer = document.activeElement;
-      drawerOverlay.classList.add("open");
-      document.body.style.overflow = "hidden";
-      navToggle.setAttribute("aria-expanded","true");
-      setInert(true);
-      closeDrawer.focus({ preventScroll: true });
-    }
-    function closeDrawerFn(){
-      drawerOverlay.classList.remove("open");
-      document.body.style.overflow = "";
-      navToggle.setAttribute("aria-expanded","false");
-      setInert(false);
-      if(lastFocusDrawer && typeof lastFocusDrawer.focus === "function") lastFocusDrawer.focus({ preventScroll: true });
-    }
-
-    navToggle.addEventListener("click", openDrawer);
-    closeDrawer.addEventListener("click", closeDrawerFn);
-    drawerOverlay.addEventListener("click", (e) => { if(e.target === drawerOverlay) closeDrawerFn(); });
-
-    $$("[data-drawer-link]").forEach(a => {
-      a.addEventListener("click", (e) => {
-        const href = a.getAttribute("href") || "";
-        if(href.startsWith("#")){
-          e.preventDefault();
-          closeDrawerFn();
-          setTimeout(() => scrollToId(href.slice(1)), 0);
-        }
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.link === id));
       });
+    }, { rootMargin: '-35% 0px -60% 0px', threshold: 0.01 });
+
+    sections.forEach(sec => sec && spy.observe(sec));
+
+    // ToTop visibility
+    const toTopWrap = document.getElementById('toTop');
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', () => {
+      const show = window.scrollY > 700;
+      toTopWrap.classList.toggle('show', show);
+    }, { passive:true });
+
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
     });
 
-    const overlay = $("#modalOverlay");
-    const modalBody = $("#modalBody");
-    const closeBtn = $("#closeModal");
-    let lastFocusModal = null;
+    // Drawer (mobile menu) with focus trap
+    const overlay = document.getElementById('overlay');
+    const drawer = document.getElementById('drawer');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawerClose = document.getElementById('drawerClose');
+    const drawerLinks = drawer.querySelectorAll('[data-drawerlink]');
+    let lastFocus = null;
 
-    const CASES = {
-      jenkins: { title: "DevOps CI/CD — Jenkins Pipeline", subtitle: "Reliable pipeline: build → test → artifact → deploy with safety checks.",
-        sections: [
-          { h: "Problem", p: "Teams ship slower when builds are manual, environments drift, and deployments don’t have safety rails." },
-          { h: "Architecture", ul: ["Pipeline: checkout → build → test → package → publish → deploy", "Gates: tests + versioning + environment configs", "Post: notifications + cleanup + rollback path"] },
-          { h: "What I built", ul: ["Repeatable artifacts/images from source.", "Clear stage logs for fast debugging.", "Deployment safety: health checks + quick rollback."] },
-          { h: "Results (replace with real numbers)", ul: ["Reduced deployment time by ~60% (target).", "Fewer env drift issues via consistent build steps.", "Faster triage with structured logs."] },
-          { h: "Failure modes considered", ul: ["Dependency drift → pin versions where possible.", "Flaky tests → isolate + retry carefully.", "Bad deploy → health checks + rollback."] }
-        ]
-      },
-      k8s: { title: "Kubernetes Deployments + Ops", subtitle: "Operational manifests: rollouts, probes, scaling, safer changes.",
-        sections: [
-          { h: "Problem", p: "K8s deployments fail in production when probes, rollout strategy, and config practices are missing." },
-          { h: "Architecture", ul: ["Deployment + Service (+ Ingress)", "Requests/limits, probes, rollout strategy", "ConfigMaps/Secrets patterns"] },
-          { h: "What I built", ul: ["Readiness/liveness probes to prevent bad pods receiving traffic.", "Rolling updates tuned for safer releases.", "Repo layout for auditability."] },
-          { h: "Results (replace with real numbers)", ul: ["More predictable rollouts (goal: 99.9%+).", "Faster triage via consistent manifests.", "Cleaner config separation."] },
-          { h: "Failure modes considered", ul: ["Config errors → validate + staged rollout.", "Traffic to unhealthy pods → probes + selectors.", "Resource issues → requests/limits + scaling."] }
-        ]
-      },
-      tf: { title: "Terraform AWS Baseline", subtitle: "Reusable baseline with safe defaults + least-privilege IAM.",
-        sections: [
-          { h: "Problem", p: "Cloud gets messy without standardized foundations: inconsistent networking, IAM sprawl, hard-to-reuse setups." },
-          { h: "Architecture", ul: ["VPC + subnets + routing baseline", "IAM roles/policies (least privilege)", "Module outputs for downstream stacks"] },
-          { h: "What I built", ul: ["Reusable baseline across dev/stage/prod.", "Module contracts with clear outputs.", "Drift-aware mindset (state handling + repeatable applies)."] },
-          { h: "Results (replace with real numbers)", ul: ["Reduced setup time by ~40% (target).", "Consistency across environments.", "Clear audit trail for infra changes."] },
-          { h: "Failure modes considered", ul: ["State conflicts → remote state best practices.", "Over-permissioned IAM → least privilege.", "Unclear dependencies → explicit outputs."] }
-        ]
+    function getFocusable(container){
+      return Array.from(container.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(el => !el.hasAttribute('disabled'));
+    }
+
+    function trapFocus(container, e){
+      if (e.key !== 'Tab') return;
+      const items = getFocusable(container);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    function openDrawer(){
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      overlay.classList.add('open');
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden','false');
+      menuBtn.setAttribute('aria-expanded','true');
+
+      // focus first link for clean keyboard order
+      setTimeout(() => drawerLinks[0]?.focus(), 0);
+
+      document.addEventListener('keydown', onDrawerKeydown);
+      overlay.addEventListener('click', closeDrawer, { once:true });
+    }
+
+    function closeDrawer(){
+      overlay.classList.remove('open');
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+      overlay.hidden = true;
+      menuBtn.setAttribute('aria-expanded','false');
+
+      document.removeEventListener('keydown', onDrawerKeydown);
+      if (lastFocus) lastFocus.focus();
+    }
+
+    function onDrawerKeydown(e){
+      if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
+      trapFocus(drawer, e);
+    }
+
+    menuBtn?.addEventListener('click', openDrawer);
+    drawerClose?.addEventListener('click', closeDrawer);
+    drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
+
+    // Dialog modals with focus trap
+    const openers = document.querySelectorAll('[data-open-modal]');
+    const closers = document.querySelectorAll('[data-close-dialog]');
+    let activeDialog = null;
+    let dialogLastFocus = null;
+
+    function openDialog(id){
+      const dlg = document.getElementById(id);
+      if (!dlg) return;
+
+      dialogLastFocus = document.activeElement;
+      activeDialog = dlg;
+
+      if (typeof dlg.showModal === 'function') {
+        dlg.showModal();
+      } else {
+        dlg.setAttribute('open','');
       }
-    };
 
-    function escapeHtml(str){
-      return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-    }
-    function renderCase(caseKey){
-      const data = CASES[caseKey];
-      if(!data) return;
-      $("#modalTitle").textContent = data.title;
-      $("#modalDesc").textContent = data.subtitle;
-      modalBody.innerHTML = data.sections.map(s => {
-        const para = s.p ? `<p>${escapeHtml(s.p)}</p>` : "";
-        const list = s.ul ? `<ul>${s.ul.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : "";
-        return `<section class="modalSection"><h4>${escapeHtml(s.h)}</h4>${para}${list}</section>`;
-      }).join("");
-    }
+      // focus close button first for predictable order
+      const closeBtn = dlg.querySelector('[data-close-dialog]');
+      setTimeout(() => closeBtn?.focus(), 0);
 
-    function openModal(caseKey){
-      lastFocusModal = document.activeElement;
-      renderCase(caseKey);
-      overlay.classList.add("open");
-      document.body.style.overflow = "hidden";
-      setInert(true);
-      closeBtn.focus({ preventScroll: true });
-    }
-    function closeModal(){
-      overlay.classList.remove("open");
-      modalBody.innerHTML = "";
-      document.body.style.overflow = "";
-      setInert(false);
-      if(lastFocusModal && typeof lastFocusModal.focus === "function") lastFocusModal.focus({ preventScroll: true });
+      dlg.addEventListener('keydown', onDialogKeydown);
+      dlg.addEventListener('click', (e) => {
+        // Click outside modal closes
+        const modal = dlg.querySelector('.modal');
+        if (!modal) return;
+        const rect = modal.getBoundingClientRect();
+        const inModal = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+        if (!inModal) closeDialog(dlg);
+      });
     }
 
-    $$("button[data-case]").forEach(btn => btn.addEventListener("click", () => openModal(btn.dataset.case)));
-    closeBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", (e) => { if(e.target === overlay) closeModal(); });
+    function closeDialog(dlg){
+      dlg.removeEventListener('keydown', onDialogKeydown);
+      if (typeof dlg.close === 'function') dlg.close();
+      else dlg.removeAttribute('open');
+      activeDialog = null;
+      if (dialogLastFocus) dialogLastFocus.focus();
+    }
 
-    document.addEventListener("keydown", (e) => {
-      if(drawerOverlay.classList.contains("open")){
-        if(e.key === "Escape"){ e.preventDefault(); closeDrawerFn(); return; }
-        trapTab(e, drawerOverlay);
-      }
-      if(overlay.classList.contains("open")){
-        if(e.key === "Escape"){ e.preventDefault(); closeModal(); return; }
-        trapTab(e, overlay);
-      }
+    function onDialogKeydown(e){
+      if (!activeDialog) return;
+      if (e.key === 'Escape') return; // native dialog handles Escape close
+      trapFocus(activeDialog, e);
+    }
+
+    openers.forEach(btn => {
+      btn.addEventListener('click', () => openDialog(btn.getAttribute('data-open-modal')));
+    });
+
+    closers.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dlg = btn.closest('dialog');
+        if (dlg) closeDialog(dlg);
+      });
     });
   </script>
 </body>
