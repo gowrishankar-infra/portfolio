@@ -3,606 +3,1303 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Gowri Shankar — DevOps | CI/CD | Kubernetes | AWS. Production-style projects with pipelines, IaC, and SRE-style ops notes." />
-  <title>Gowri Shankar — DevOps Portfolio</title>
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="GowriShankar — DevOps Engineer. CI/CD, Kubernetes, Terraform, AWS. Production-minded automation with measurable outcomes." />
 
-  <!-- Font (optional) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>GowriShankar | DevOps Engineer</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GowriShankar | DevOps Engineer" />
+  <meta property="og:description" content="Production-minded DevOps: CI/CD, Kubernetes, Terraform, AWS. Case studies + measurable outcomes." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon (optional) -->
+  <!-- <link rel="icon" href="./assets/favicon.png" /> -->
 
   <style>
+    /* =========================
+       FAANG-style: calm, premium
+       ========================= */
+
     :root{
-      /* Premium dark neutrals + single accent */
-      --bg0: #070b14;
-      --bg1: #0a1222;
+      --bg: #0b0f17;
+      --bg2:#070a10;
       --surface: rgba(255,255,255,0.06);
-      --surface2: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.10);
-
+      --surface2: rgba(255,255,255,0.085);
+      --surface3: rgba(255,255,255,0.11);
+      --stroke: rgba(255,255,255,0.10);
+      --stroke2: rgba(255,255,255,0.14);
       --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.72);
-      --dim: rgba(255,255,255,0.58);
+      --muted: rgba(255,255,255,0.70);
+      --subtle: rgba(255,255,255,0.55);
+      --shadow: 0 12px 40px rgba(0,0,0,0.45);
 
-      --accent: #3b82f6; /* blue (FAANG-ish) */
-      --accent2: rgba(59,130,246,0.25);
+      --accent: #6aa5ff;
+      --accent2:#7cf0c2; /* subtle secondary */
+      --warn:#ffcf5a;
 
-      --radius-xl: 20px;
-      --radius-lg: 16px;
-      --radius-md: 12px;
-
-      --shadow: 0 16px 40px rgba(0,0,0,0.45);
-      --shadow-soft: 0 10px 25px rgba(0,0,0,0.35);
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
 
       --max: 1120px;
+      --pad: clamp(16px, 3vw, 28px);
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --focus: 0 0 0 3px rgba(106,165,255,0.35), 0 0 0 1px rgba(106,165,255,0.65) inset;
     }
 
-    *{ box-sizing:border-box; }
-    html, body{ height:100%; }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f8fb;
+        --bg2:#eef1f7;
+        --surface: rgba(10,14,24,0.05);
+        --surface2: rgba(10,14,24,0.07);
+        --surface3: rgba(10,14,24,0.09);
+        --stroke: rgba(10,14,24,0.10);
+        --stroke2: rgba(10,14,24,0.14);
+        --text: rgba(10,14,24,0.92);
+        --muted: rgba(10,14,24,0.72);
+        --subtle: rgba(10,14,24,0.58);
+        --shadow: 0 12px 40px rgba(10,14,24,0.12);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background: radial-gradient(900px 500px at 15% 10%, rgba(59,130,246,0.16), transparent 60%),
-                  radial-gradient(900px 500px at 85% 15%, rgba(168,85,247,0.14), transparent 60%),
-                  radial-gradient(900px 500px at 55% 95%, rgba(34,211,238,0.10), transparent 60%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
-      /* toned-down glow: no heavy blur filters, low alpha gradients */
-      overflow-x:hidden;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 20% 10%, rgba(106,165,255,0.20), transparent 55%),
+        radial-gradient(900px 600px at 85% 15%, rgba(124,240,194,0.16), transparent 50%),
+        radial-gradient(700px 500px at 60% 90%, rgba(255,207,90,0.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+      line-height:1.55;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:none; }
-
-    .wrap{
-      width: min(var(--max), calc(100% - 32px));
-      margin: 28px auto 80px;
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      background:var(--bg);
+      color:var(--text);
+      border:1px solid var(--stroke2);
+      padding:10px 12px;
+      border-radius:12px;
+      z-index:9999;
     }
+    .skip:focus{left:12px; outline:none; box-shadow:var(--focus)}
 
-    /* Glass container */
-    .shell{
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
-      box-shadow: var(--shadow);
+    /* Top nav */
+    .top{
+      position:sticky;
+      top:0;
+      z-index:50;
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      overflow:hidden;
+      background: linear-gradient(180deg, rgba(10,14,24,0.70), rgba(10,14,24,0.35));
+      border-bottom: 1px solid var(--stroke);
     }
-
-    /* Top bar */
-    .top{
+    @media (prefers-color-scheme: light){
+      .top{
+        background: linear-gradient(180deg, rgba(247,248,251,0.80), rgba(247,248,251,0.40));
+      }
+    }
+    .nav{
       display:flex;
-      gap:16px;
       align-items:center;
       justify-content:space-between;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background: rgba(0,0,0,0.10);
+      gap:18px;
+      padding:14px 0;
     }
-
     .brand{
       display:flex;
       gap:12px;
       align-items:center;
-      min-width: 260px;
+      min-width:220px;
+      text-decoration:none;
     }
-    .avatar{
-      width:44px; height:44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: var(--shadow-soft);
+    .mark{
+      width:38px; height:38px;
+      border-radius:14px;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.22), transparent 55%),
+        linear-gradient(135deg, rgba(106,165,255,0.95), rgba(124,240,194,0.85));
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.20);
     }
-    .brand h1{
-      font-size: 18px;
-      margin:0;
-      line-height:1.1;
-      letter-spacing: 0.2px;
-    }
-    .brand p{
-      margin:4px 0 0;
-      font-size: 12.5px;
-      color: var(--dim);
-    }
-
-    .nav{
+    .brand strong{display:block; font-size:14px; letter-spacing:0.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted)}
+    .links{
       display:flex;
-      gap:10px;
       align-items:center;
+      gap:10px;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.05);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 13px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      user-select:none;
-      white-space:nowrap;
+      position:relative;
+      text-decoration:none;
+      font-size:13px;
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
     }
     .pill:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.14);
+      color:var(--text);
+      background:var(--surface);
+      border-color:var(--stroke);
     }
-
-    /* Primary CTA */
-    .pill.primary{
-      color: rgba(255,255,255,0.95);
-      background: linear-gradient(180deg, rgba(59,130,246,0.22), rgba(59,130,246,0.14));
-      border-color: rgba(59,130,246,0.40);
-      box-shadow: 0 10px 20px rgba(59,130,246,0.12);
+    .pill[aria-current="true"]{
+      color:var(--text);
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      border-color:var(--stroke2);
     }
-    .pill.primary:hover{
-      background: linear-gradient(180deg, rgba(59,130,246,0.28), rgba(59,130,246,0.16));
-    }
-
-    /* Layout sections */
-    .section{
-      padding: 18px;
-    }
-
-    .hero{
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-      justify-content:space-between;
-      padding: 18px;
-    }
-    .hero-left{
-      max-width: 720px;
-    }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 12.5px;
-    }
-    .hero h2{
-      margin: 12px 0 8px;
-      font-size: 32px;
-      letter-spacing: 0.2px;
-      line-height: 1.15;
-    }
-    .hero p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 15.5px;
-      max-width: 64ch;
-    }
-
-    .hero-right{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      min-width: 270px;
-    }
-
-    .subtle{
-      color: var(--dim);
-      font-size: 13px;
-      margin-top: 10px;
-    }
-
-    /* Chips */
-    .label{
-      color: rgba(255,255,255,0.55);
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      font-size: 12px;
-      text-transform: uppercase;
-      margin: 0 0 10px;
-    }
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    details{
-      margin-top: 12px;
-    }
-    summary{
-      cursor: pointer;
-      list-style: none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color: rgba(255,255,255,0.70);
-      font-weight: 700;
-      font-size: 13px;
-      padding: 6px 0;
-    }
-    summary::-webkit-details-marker { display:none; }
-
-    /* Cards grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .hero{ flex-direction:column; }
-      .hero-right{ justify-content:flex-start; }
-      .brand{ min-width: unset; }
-    }
-
-    .card{
-      border: 1px solid rgba(255,255,255,0.10);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      box-shadow: var(--shadow-soft);
-      min-height: 235px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
-
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing: 0.2px;
-    }
-    .card p{
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 14.5px;
-    }
-
-    .tags{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom: 14px;
-    }
-    .tag{
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(0,0,0,0.15);
-      color: rgba(255,255,255,0.72);
-      font-weight: 700;
-      font-size: 12.5px;
-    }
-
+    .ctaRow{display:flex; align-items:center; gap:10px}
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.90);
-      font-weight: 800;
-      font-size: 13.5px;
-      width: fit-content;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.16);
-    }
-
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(59,130,246,0.25), rgba(59,130,246,0.15));
-      border-color: rgba(59,130,246,0.45);
-    }
-
-    /* Contact */
-    .contact{
-      display:flex;
-      gap:18px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .contact h3{
-      margin:0 0 10px;
-      font-size: 22px;
-    }
-    .contact p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .contact-box{
-      flex: 1;
-      min-width: 320px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-    }
-    .kv{
-      margin: 0;
-      padding: 0;
-      list-style:none;
-      display:grid;
-      gap: 6px;
-      color: rgba(255,255,255,0.80);
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .kv span{
-      color: rgba(255,255,255,0.60);
-      font-weight: 700;
-    }
-
-    .actions{
-      display:flex;
       gap:10px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:13px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke2);
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.22)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      border:1px solid rgba(106,165,255,0.45);
+      background: linear-gradient(180deg, rgba(106,165,255,0.28), rgba(106,165,255,0.12));
+    }
+    .btn.ghost{
+      background: transparent;
+      box-shadow:none;
+    }
+    .btn:focus{outline:none; box-shadow:var(--focus)}
+
+    /* Hero */
+    header.hero{padding: clamp(28px, 6vw, 60px) 0 24px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: clamp(16px, 3vw, 26px);
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .heroGrid{grid-template-columns: 1fr}
+      .brand{min-width:unset}
+    }
+
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .heroMain{padding: clamp(18px, 3vw, 26px)}
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      padding:8px 12px;
+      border-radius:999px;
+    }
+    .dot{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: var(--accent2);
+      box-shadow: 0 0 0 6px rgba(124,240,194,0.16);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(28px, 4.3vw, 44px);
+      letter-spacing:-0.02em;
+      line-height:1.10;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.55vw, 17px);
+      max-width: 62ch;
+    }
+    .heroActions{
+      display:flex;
+      gap:12px;
       flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .icon{
+      width:16px;
+      height:16px;
+      display:inline-block;
+    }
+
+    .heroSide{padding: clamp(18px, 3vw, 26px)}
+    .miniTitle{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 12px;
+    }
+    .miniTitle strong{font-size:14px}
+    .miniTitle span{font-size:12px; color:var(--muted)}
+    .stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      padding:8px 10px;
+      border-radius:999px;
+    }
+    .statGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+    .stat{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius:16px;
+      padding:12px;
+    }
+    .stat b{display:block; font-size:14px}
+    .stat small{color:var(--muted)}
+
+    /* Proof strip */
+    .proof{
       margin-top: 14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius-xl);
+      padding: 12px 14px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .proofLeft{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .proofBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--stroke);
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.03);
+      color:var(--muted);
+    }
+    .proofRight{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
     }
 
-    /* Accessibility: focus ring */
-    a:focus, button:focus, summary:focus{
-      outline: none;
+    /* Sections */
+    section{
+      padding: 36px 0;
     }
-    a:focus-visible, button:focus-visible, summary:focus-visible{
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
-      border-color: rgba(59,130,246,0.60) !important;
-      border-radius: 12px;
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:-0.01em;
+    }
+    .sectionHead p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      max-width: 65ch;
     }
 
-    .footer{
-      padding: 14px 18px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.55);
-      font-size: 13px;
+    /* About */
+    .aboutGrid{
+      display:grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px){
+      .aboutGrid{grid-template-columns:1fr}
+    }
+    .box{padding: 18px}
+    .box h3{margin:0 0 10px; font-size:14px}
+    .box p{margin:0; color:var(--muted); font-size:13px}
+    .bullets{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .bullets li{margin: 6px 0}
+
+    /* Projects */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .grid3{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .grid3{grid-template-columns: 1fr}
+    }
+    .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
+    .projTop{
       display:flex;
       justify-content:space-between;
       gap:12px;
-      flex-wrap:wrap;
+      align-items:flex-start;
     }
+    .proj h3{margin:0; font-size:15px; letter-spacing:-0.01em}
+    .proj p{margin:0; color:var(--muted); font-size:13px}
+    .metric{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .metric b{color:var(--text)}
+    .badges{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
+    .badge{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      padding:7px 9px;
+      border-radius:999px;
+    }
+    .projFooter{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
+    .proj .btn{padding:9px 11px; font-size:12px}
+
+    .arch{
+      border:1px dashed var(--stroke2);
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      padding: 12px;
+      color:var(--muted);
+      font-family: var(--mono);
+      font-size:12px;
+      line-height:1.35;
+      overflow:auto;
+      max-height: 142px;
+    }
+
+    /* Skills */
+    .skillsGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .skillsGrid{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .skillsGrid{grid-template-columns: 1fr}
+    }
+    .skillCard{padding:16px}
+    .skillCard h3{margin:0 0 10px; font-size:14px}
+    .skillCard ul{margin:0; padding-left:18px; color:var(--muted); font-size:13px}
+    .skillCard li{margin: 6px 0}
+
+    /* Contact */
+    .contactRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .contactRow p{margin:0; color:var(--muted); font-size:13px}
+
+    /* Reveal animations */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity 700ms ease, transform 700ms ease}
+    .reveal.in{opacity:1; transform:none}
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .reveal{opacity:1; transform:none; transition:none}
+      .btn:hover{transform:none}
+    }
+
+    /* Back to top */
+    .toTop{
+      position:fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 40;
+      opacity:0;
+      pointer-events:none;
+      transform: translateY(8px);
+      transition: opacity 250ms ease, transform 250ms ease;
+    }
+    .toTop.show{
+      opacity:1;
+      pointer-events:auto;
+      transform:none;
+    }
+
+    /* Modal */
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,0.55);
+      z-index: 60;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .modalOverlay.open{display:flex}
+    .modal{
+      width:min(940px, 100%);
+      max-height: min(86vh, 860px);
+      overflow:auto;
+      border-radius: var(--radius-xl);
+      border:1px solid var(--stroke2);
+      background: linear-gradient(180deg, var(--surface3), var(--surface));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      position:relative;
+    }
+    .modalHeader{
+      position:sticky;
+      top:0;
+      z-index: 2;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(10,14,24,0.75), rgba(10,14,24,0.30));
+      border-bottom: 1px solid var(--stroke);
+      padding: 16px 16px 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    @media (prefers-color-scheme: light){
+      .modalHeader{
+        background: linear-gradient(180deg, rgba(247,248,251,0.92), rgba(247,248,251,0.55));
+      }
+    }
+    .modalHeader h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:-0.01em;
+    }
+    .modalHeader p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      max-width: 70ch;
+    }
+    .modalBody{
+      padding: 14px 16px 18px;
+    }
+    .modalSection{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius: 18px;
+      padding: 14px;
+      margin: 12px 0;
+    }
+    .modalSection h4{
+      margin:0 0 8px;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      color: var(--subtle);
+    }
+    .modalSection p, .modalSection li{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .modalSection ul{
+      margin:8px 0 0;
+      padding-left: 18px;
+    }
+    .closeBtn{
+      flex:0 0 auto;
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 40px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .foot{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-top:1px solid var(--stroke);
+      padding-top: 16px;
+    }
+    .quietLink{color:var(--muted); text-decoration:none}
+    .quietLink:hover{color:var(--text); text-decoration:underline}
+
+    /* Selection + focus */
+    ::selection{background: rgba(106,165,255,0.28)}
+    :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
   </style>
 </head>
 
 <body>
-  <main class="wrap">
-    <div class="shell" id="top">
+  <a class="skip" href="#main">Skip to content</a>
 
-      <!-- Top bar -->
-      <header class="top">
-        <div class="brand">
-          <div class="avatar" aria-hidden="true"></div>
-          <div>
-            <h1>GOWRI SHANKAR</h1>
-            <p>DevOps • CI/CD • Kubernetes • AWS</p>
-          </div>
-        </div>
+  <!-- Top Navigation -->
+  <div class="top">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#home">
+          <span class="mark" aria-hidden="true"></span>
+          <span>
+            <strong>GowriShankar</strong>
+            <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
+          </span>
+        </a>
 
-        <nav class="nav" aria-label="Primary navigation">
-          <a class="pill" href="#impact">Impact</a>
-          <a class="pill" href="#experience">Experience</a>
+        <div class="links" id="navLinks">
+          <a class="pill" href="#about">About</a>
           <a class="pill" href="#projects">Projects</a>
+          <a class="pill" href="#skills">Skills</a>
           <a class="pill" href="#contact">Contact</a>
-        </nav>
-      </header>
+        </div>
 
-      <!-- Hero / CTAs (FAANG-style trust signals) -->
-      <section class="hero">
-        <div class="hero-left">
-          <div class="kicker">Proof-first DevOps portfolio • 3 production-style projects</div>
-          <h2>Build fast, safe, repeatable delivery.</h2>
-          <p>
-            I build CI/CD pipelines, Kubernetes deployments, and AWS IaC baselines with practical SRE-style
-            operations notes—focused on reliability, security, and clean delivery workflows.
-          </p>
-          <div class="subtle">
-            Tip: recruiters look for working repos + screenshots + clear README “Problem → Solution → Results”.
+        <div class="ctaRow">
+          <!-- Replace the placeholder -->
+          <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">
+            <span class="icon" aria-hidden="true">in</span>
+            LinkedIn
+          </a>
+          <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">
+            Resume
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- Hero -->
+    <header id="home" class="hero">
+      <div class="container">
+        <div class="heroGrid">
+          <div class="card heroMain reveal">
+            <div class="kicker">
+              <span class="dot" aria-hidden="true"></span>
+              Production-minded DevOps • measurable outcomes • clean architecture
+            </div>
+
+            <h1>Building reliable delivery pipelines and cloud platforms that scale.</h1>
+            <p class="lead">
+              I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
+              fast feedback loops, safe rollouts, and observability-driven reliability.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn primary" href="#projects">
+                View projects
+                <span aria-hidden="true">→</span>
+              </a>
+              <a class="btn" href="#contact">
+                Contact me
+                <span aria-hidden="true">✉</span>
+              </a>
+              <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">
+                GitHub
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <div class="proof" aria-label="Proof strip">
+              <div class="proofLeft">
+                <span class="proofBadge">✅ Hands-on repos</span>
+                <span class="proofBadge">✅ Realistic architectures</span>
+                <span class="proofBadge">✅ Case studies</span>
+              </div>
+              <div class="proofRight">
+                <span class="proofBadge">Kubernetes</span>
+                <span class="proofBadge">Terraform</span>
+                <span class="proofBadge">Jenkins</span>
+                <span class="proofBadge">AWS</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="card heroSide reveal" aria-label="Snapshot">
+            <div class="miniTitle">
+              <strong>Snapshot</strong>
+              <span>what I deliver</span>
+            </div>
+
+            <ul class="stack" aria-label="Core areas">
+              <li class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</li>
+              <li class="chip">Kubernetes deployments + ops</li>
+              <li class="chip">Terraform IaC baselines</li>
+              <li class="chip">Cloud fundamentals (AWS)</li>
+              <li class="chip">Observability mindset</li>
+              <li class="chip">Security-by-default</li>
+            </ul>
+
+            <div class="statGrid" role="list" aria-label="Highlights">
+              <div class="stat" role="listitem">
+                <b>Clean Docs</b>
+                <small>README + screenshots + steps</small>
+              </div>
+              <div class="stat" role="listitem">
+                <b>Case Studies</b>
+                <small>Problem → Architecture → Results</small>
+              </div>
+              <div class="stat" role="listitem">
+                <b>Safe Delivery</b>
+                <small>repeatable, auditable deployments</small>
+              </div>
+              <div class="stat" role="listitem">
+                <b>Ops Thinking</b>
+                <small>failure modes + runbooks</small>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>About</h2>
+          <p>Short, specific, and recruiter-friendly. Keep this crisp and outcome-oriented.</p>
+        </div>
+
+        <div class="aboutGrid">
+          <div class="card box reveal">
+            <h3>What I’m focused on</h3>
+            <p>
+              Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run, easy to audit, and safe to change.
+            </p>
+            <ul class="bullets">
+              <li>Automate “boring” but critical reliability steps.</li>
+              <li>Prefer small, reversible changes with fast feedback.</li>
+              <li>Document decisions so teams can move faster.</li>
+            </ul>
+          </div>
+
+          <div class="card box reveal">
+            <h3>How I work</h3>
+            <p>
+              I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
+            </p>
+            <ul class="bullets">
+              <li><b>Architecture clarity:</b> diagrams + clean repo structure.</li>
+              <li><b>Proof-driven:</b> screenshots, outputs, and repeatable steps.</li>
+              <li><b>Production mindset:</b> security, rollback, drift, and cost awareness.</li>
+            </ul>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="hero-right">
-          <!-- ✅ Set your real resume path below -->
-          <a class="pill primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-
-          <!-- ✅ GitHub correct -->
-          <a class="pill" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
-
-          <!-- ✅ Replace with your real LinkedIn -->
-          <a class="pill" href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </div>
-      </section>
-
-      <!-- Skills -->
-      <section class="section" id="impact">
-        <p class="label">Core Skills</p>
-
-        <!-- Curated: fewer = more premium -->
-        <div class="chips" aria-label="Core skills">
-          <span class="chip">Linux</span>
-          <span class="chip">AWS</span>
-          <span class="chip">Kubernetes</span>
-          <span class="chip">Docker</span>
-          <span class="chip">Terraform</span>
-          <span class="chip">CI/CD</span>
-          <span class="chip">Jenkins</span>
-          <span class="chip">Git/GitHub</span>
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>Projects</h2>
+          <p>Each project has a measurable “micro-proof” + a case study. Replace metrics with your real numbers as you validate.</p>
         </div>
 
-        <!-- Optional: show the rest in a clean expandable -->
-        <details>
-          <summary>More skills</summary>
-          <div class="chips" style="margin-top:10px;">
-            <span class="chip">Ansible</span>
-            <span class="chip">Scripting</span>
-            <span class="chip">Maven</span>
-            <span class="chip">Tomcat</span>
-            <span class="chip">Nagios</span>
-            <span class="chip">Nginx</span>
-            <span class="chip">Monitoring/Alerting</span>
-          </div>
-        </details>
-      </section>
-
-      <!-- Experience (keep your existing content here if you already have it) -->
-      <section class="section" id="experience">
-        <p class="label">Experience</p>
-        <div style="color: var(--muted); line-height:1.7; font-size: 14.8px;">
-          <!-- Replace this block with your real experience points -->
-          <ul style="margin:0; padding-left: 18px;">
-            <li>Built CI/CD pipelines with quality gates and release-friendly workflows.</li>
-            <li>Deployed apps on Kubernetes with rollout/rollback, probes, and debugging notes (SRE-style).</li>
-            <li>Created reusable Terraform AWS baselines with clean modules and outputs.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Projects -->
-      <section class="section" id="projects">
-        <p class="label">Proof Projects</p>
-
-        <div class="grid">
+        <div class="grid3">
           <!-- Project 1 -->
-          <article class="card">
-            <div>
-              <h3>CI/CD: Jenkins → Docker → Deploy</h3>
-              <p>
-                Production-style pipeline with stages, artifacts, validations, and release-friendly flow.
-                Includes build/test, image build, and deploy steps.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Jenkins</span>
-                <span class="tag">Docker</span>
-                <span class="tag">Git</span>
+          <article class="card proj reveal">
+            <div class="projTop">
+              <div>
+                <h3>DevOps CI/CD — Jenkins Pipeline</h3>
+                <p>End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
+              </div>
+              <div class="metric" title="Example result (replace with your real metric)">
+                <b>↓ 60%</b> deploy time
               </div>
             </div>
 
-            <!-- ✅ Correct repo link -->
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">
-              View Repo
-            </a>
+            <ul class="badges" aria-label="Tech badges">
+              <li class="badge">Jenkins</li>
+              <li class="badge">Docker</li>
+              <li class="badge">CI/CD</li>
+              <li class="badge">Quality Gates</li>
+            </ul>
+
+            <pre class="arch" aria-label="Architecture preview">
+Developer → Git Push
+   ↓
+Jenkins (Pipeline)
+   ↓        ↓
+Build     Tests
+   ↓
+Image/Artifact → Deploy (staged)
+   ↓
+Health checks + rollback
+            </pre>
+
+            <div class="projFooter">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" type="button" data-case="jenkins" aria-haspopup="dialog">Case Study</button>
+            </div>
           </article>
 
           <!-- Project 2 -->
-          <article class="card">
-            <div>
-              <h3>Kubernetes: Deployments & Ops</h3>
-              <p>
-                Manifests + rollout/rollback + probes + debugging notes (SRE-style). Focus on operational clarity,
-                reliability, and practical workflows.
-              </p>
-
-              <div class="tags">
-                <span class="tag">K8s</span>
-                <span class="tag">YAML</span>
-                <span class="tag">SRE</span>
+          <article class="card proj reveal">
+            <div class="projTop">
+              <div>
+                <h3>Kubernetes Deployments Ops</h3>
+                <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
+              </div>
+              <div class="metric" title="Example result (replace with your real metric)">
+                <b>99.9%</b> uptime goal
               </div>
             </div>
 
-            <!-- ✅ Correct repo link -->
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">
-              View Repo
-            </a>
+            <ul class="badges" aria-label="Tech badges">
+              <li class="badge">Kubernetes</li>
+              <li class="badge">Rollouts</li>
+              <li class="badge">Health Probes</li>
+              <li class="badge">Ops</li>
+            </ul>
+
+            <pre class="arch" aria-label="Architecture preview">
+Client → Ingress/Service
+          ↓
+      Deployment
+      /   |    \
+ Pod A  Pod B  Pod C
+   ↓      ↓      ↓
+Readiness/Liveness probes
+Rolling updates + rollback
+            </pre>
+
+            <div class="projFooter">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" type="button" data-case="k8s" aria-haspopup="dialog">Case Study</button>
+            </div>
           </article>
 
           <!-- Project 3 -->
-          <article class="card">
-            <div>
-              <h3>Terraform: AWS Baseline Infra</h3>
-              <p>
-                Reusable modules + clean README + outputs + best practices (IaC-first).
-                Designed as a baseline you can extend for real environments.
-              </p>
-
-              <div class="tags">
-                <span class="tag">Terraform</span>
-                <span class="tag">AWS</span>
-                <span class="tag">IaC</span>
+          <article class="card proj reveal">
+            <div class="projTop">
+              <div>
+                <h3>Terraform AWS Baseline</h3>
+                <p>Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
+              </div>
+              <div class="metric" title="Example result (replace with your real metric)">
+                <b>↓ 40%</b> setup time
               </div>
             </div>
 
-            <!-- ✅ Correct repo link -->
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">
-              View Repo
-            </a>
-          </article>
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section class="section" id="contact">
-        <div class="contact">
-          <div>
-            <h3>Contact</h3>
-            <p>Make it effortless to reach you. Keep these links accurate and consistent across the site.</p>
-          </div>
-
-          <div class="contact-box">
-            <ul class="kv">
-              <li><span>Email:</span> <a href="mailto:gowrishankar@gowrishankar.dev">gowrishankar@gowrishankar.dev</a></li>
-              <li><span>GitHub:</span> <a href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">github.com/gowrishankar-infra</a></li>
-              <li><span>Portfolio:</span> <a href="https://gowrishankar.dev" target="_blank" rel="noopener noreferrer">gowrishankar.dev</a></li>
-              <li><span>LinkedIn:</span> <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">linkedin.com/in/YOUR-LINKEDIN-HANDLE</a></li>
+            <ul class="badges" aria-label="Tech badges">
+              <li class="badge">Terraform</li>
+              <li class="badge">AWS</li>
+              <li class="badge">IaC</li>
+              <li class="badge">Drift-safe</li>
             </ul>
 
-            <div class="actions">
-              <a class="btn" href="mailto:gowrishankar@gowrishankar.dev">Email me</a>
-              <a class="btn" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+            <pre class="arch" aria-label="Architecture preview">
+Terraform Modules
+   ↓
+VPC + Subnets + Routing
+   ↓
+IAM (least privilege)
+   ↓
+Baseline resources + outputs
+   ↓
+Reusable for environments
+            </pre>
+
+            <div class="projFooter">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" type="button" data-case="tf" aria-haspopup="dialog">Case Study</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>Skills</h2>
+          <p>Keep this grouped like a product spec: tools, strengths, and what you can reliably ship.</p>
+        </div>
+
+        <div class="skillsGrid">
+          <div class="card skillCard reveal">
+            <h3>Delivery & Automation</h3>
+            <ul>
+              <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
+              <li>Build/test orchestration</li>
+              <li>Artifact/versioning discipline</li>
+              <li>Rollback-friendly releases</li>
+            </ul>
+          </div>
+
+          <div class="card skillCard reveal">
+            <h3>Kubernetes & Operations</h3>
+            <ul>
+              <li>Deployments, services, ingress basics</li>
+              <li>Readiness/liveness probes</li>
+              <li>Rollouts, scaling, failure modes</li>
+              <li>Ops documentation & runbooks</li>
+            </ul>
+          </div>
+
+          <div class="card skillCard reveal">
+            <h3>Infrastructure as Code</h3>
+            <ul>
+              <li>Terraform modules and environments</li>
+              <li>AWS fundamentals (networking, IAM)</li>
+              <li>Least-privilege thinking</li>
+              <li>Drift + state awareness</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="sectionHead">
+          <h2>Contact</h2>
+          <p>Make it easy for recruiters to act in 10 seconds.</p>
+        </div>
+
+        <div class="card box reveal">
+          <div class="contactRow">
+            <p>
+              Email: <a class="quietLink" href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>
+              <span aria-hidden="true"> · </span>
+              GitHub: <a class="quietLink" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">gowrishankar-infra</a>
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end">
+              <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
+              <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <footer class="footer">
-        <span>© <span id="year"></span> Gowri Shankar</span>
-        <a class="pill" href="#top">Back to top</a>
-      </footer>
-    </div>
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="foot">
+          <div>© <span id="year"></span> GowriShankar</div>
+          <div>
+            <a class="quietLink" href="#home">Back to top</a>
+            <span aria-hidden="true"> · </span>
+            <a class="quietLink" href="https://github.com/gowrishankar-infra/portfolio" target="_blank" rel="noopener noreferrer">Portfolio repo</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <script>
-    // Current year
-    document.getElementById("year").textContent = new Date().getFullYear();
+  <!-- Back to top button -->
+  <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">
+    ↑ Top
+  </button>
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
+  <!-- Case Study Modal -->
+  <div class="modalOverlay" id="modalOverlay" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <div class="modalHeader">
+        <div>
+          <h3 id="modalTitle">Case Study</h3>
+          <p id="modalDesc">Problem → Architecture → What I built → Results → Failure modes.</p>
+        </div>
+        <button class="btn closeBtn" id="closeModal" type="button" aria-label="Close case study">Close</button>
+      </div>
+      <div class="modalBody" id="modalBody">
+        <!-- injected -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======================
+    // Tiny helpers
+    // ======================
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Year
+    $("#year").textContent = new Date().getFullYear();
+
+    // Smooth scroll offset for sticky nav
+    // (Native smooth scrolling is enabled in CSS; this just fixes focus + offsets.)
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const topBar = document.querySelector(".top");
+      const y = el.getBoundingClientRect().top + window.scrollY - (topBar?.offsetHeight ?? 0) - 10;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      el.setAttribute("tabindex","-1");
+      el.focus({ preventScroll: true });
+      el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
+    }
+
+    // Nav link clicks (use offset scrolling)
+    $$("#navLinks a").forEach(a => {
       a.addEventListener("click", (e) => {
-        const id = a.getAttribute("href");
-        const el = document.querySelector(id);
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const href = a.getAttribute("href") || "";
+        if(href.startsWith("#")){
+          e.preventDefault();
+          scrollToId(href.slice(1));
+        }
       });
+    });
+
+    // Scrollspy
+    const sections = ["about","projects","skills","contact"]
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+
+    const navItems = $$("#navLinks a");
+    const setActive = (id) => {
+      navItems.forEach(a => {
+        const href = a.getAttribute("href");
+        a.setAttribute("aria-current", href === "#" + id ? "true" : "false");
+      });
+    };
+
+    const spy = new IntersectionObserver((entries)=>{
+      // Pick the most visible intersecting section
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible?.target?.id) setActive(visible.target.id);
+    }, { root: null, threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
+
+    sections.forEach(s => spy.observe(s));
+
+    // Reveal animations
+    const revealEls = $$(".reveal");
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if(!prefersReduced){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.14 });
+
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add("in"));
+    }
+
+    // Back to top
+    const toTop = $("#toTop");
+    const toggleToTop = () => {
+      const show = window.scrollY > 700;
+      toTop.classList.toggle("show", show);
+    };
+    window.addEventListener("scroll", toggleToTop, { passive: true });
+    toggleToTop();
+
+    toTop.addEventListener("click", () => scrollToId("home"));
+
+    // ======================
+    // Case study modal (A11y focus trap)
+    // ======================
+    const overlay = $("#modalOverlay");
+    const modalBody = $("#modalBody");
+    const closeBtn = $("#closeModal");
+    let lastFocus = null;
+
+    const CASES = {
+      jenkins: {
+        title: "DevOps CI/CD — Jenkins Pipeline",
+        subtitle: "Reliable pipeline: build → test → artifact → deploy with safety checks.",
+        sections: [
+          {
+            h: "Problem",
+            p: "Teams ship slower when builds are manual, environments drift, and deployments don’t have safety rails."
+          },
+          {
+            h: "Architecture",
+            ul: [
+              "Pipeline stages: checkout → build → test → package → publish → deploy",
+              "Gates: unit tests + artifact versioning + environment variables",
+              "Post steps: notifications + cleanup + rollback path"
+            ]
+          },
+          {
+            h: "What I built",
+            ul: [
+              "A Jenkins pipeline that produces repeatable artifacts (or images) from source.",
+              "Clear stage boundaries and logs so failures are obvious and actionable.",
+              "Deployment step designed for safety (health checks + quick rollback)."
+            ]
+          },
+          {
+            h: "Results (replace with your real numbers)",
+            ul: [
+              "Reduced deployment time by ~60% (target).",
+              "Fewer “works on my machine” incidents via consistent build steps.",
+              "Faster debugging due to structured logs per stage."
+            ]
+          },
+          {
+            h: "Failure modes I considered",
+            ul: [
+              "Broken builds due to dependency drift → lock versions where possible.",
+              "Flaky tests → isolate and retry carefully (avoid hiding real failures).",
+              "Bad deploy → health checks + rollback strategy."
+            ]
+          }
+        ]
+      },
+      k8s: {
+        title: "Kubernetes Deployments Ops",
+        subtitle: "Operational manifests: rollouts, probes, scaling, and safer changes.",
+        sections: [
+          {
+            h: "Problem",
+            p: "K8s deployments fail in production when health checks, rollout strategy, and config practices are missing."
+          },
+          {
+            h: "Architecture",
+            ul: [
+              "Workloads: Deployment + Service (+ Ingress when applicable)",
+              "Operational controls: resource requests/limits, probes, rollout strategy",
+              "Config handling: ConfigMaps/Secrets patterns"
+            ]
+          },
+          {
+            h: "What I built",
+            ul: [
+              "Deployments with readiness/liveness probes to prevent bad pods from receiving traffic.",
+              "Rolling updates tuned for safer release behavior.",
+              "A repo layout that makes changes auditable and reproducible."
+            ]
+          },
+          {
+            h: "Results (replace with your real numbers)",
+            ul: [
+              "More predictable rollouts and fewer surprise outages (goal: 99.9%+).",
+              "Faster triage with consistent manifest patterns.",
+              "Cleaner separation between config and code."
+            ]
+          },
+          {
+            h: "Failure modes I considered",
+            ul: [
+              "CrashLoop due to config errors → validate + staged rollout.",
+              "Traffic to unhealthy pods → probes + proper service selectors.",
+              "Resource starvation → requests/limits + scaling strategy."
+            ]
+          }
+        ]
+      },
+      tf: {
+        title: "Terraform AWS Baseline",
+        subtitle: "Reusable baseline for environments with safe defaults and least-privilege thinking.",
+        sections: [
+          {
+            h: "Problem",
+            p: "Cloud projects get messy when the foundation isn’t standardized: inconsistent networking, IAM sprawl, and hard-to-reuse setups."
+          },
+          {
+            h: "Architecture",
+            ul: [
+              "Networking: VPC + subnets + route tables (baseline pattern)",
+              "Identity: IAM roles/policies with least privilege",
+              "Outputs: clear module outputs for downstream stacks"
+            ]
+          },
+          {
+            h: "What I built",
+            ul: [
+              "An opinionated Terraform baseline you can reuse across dev/stage/prod.",
+              "Structure that encourages safe composition (modules + outputs).",
+              "A drift-aware mindset (state handling + repeatable applies)."
+            ]
+          },
+          {
+            h: "Results (replace with your real numbers)",
+            ul: [
+              "Reduced initial environment setup time by ~40% (target).",
+              "Improved consistency across environments.",
+              "Clearer audit trail for infrastructure changes."
+            ]
+          },
+          {
+            h: "Failure modes I considered",
+            ul: [
+              "State drift/conflicts → remote state best practices (where applicable).",
+              "Over-permissioned IAM → least privilege + review boundaries.",
+              "Unclear dependencies → explicit outputs + module contracts."
+            ]
+          }
+        ]
+      }
+    };
+
+    function renderCase(caseKey){
+      const data = CASES[caseKey];
+      if(!data) return;
+
+      $("#modalTitle").textContent = data.title;
+      $("#modalDesc").textContent = data.subtitle;
+
+      const parts = data.sections.map(s => {
+        const items = s.ul ? `<ul>${s.ul.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : "";
+        const para = s.p ? `<p>${escapeHtml(s.p)}</p>` : "";
+        return `
+          <section class="modalSection">
+            <h4>${escapeHtml(s.h)}</h4>
+            ${para}
+            ${items}
+          </section>
+        `;
+      }).join("");
+
+      modalBody.innerHTML = parts;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function getFocusable(root){
+      const selectors = [
+        "a[href]",
+        "button:not([disabled])",
+        "input:not([disabled])",
+        "select:not([disabled])",
+        "textarea:not([disabled])",
+        "[tabindex]:not([tabindex='-1'])"
+      ];
+      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
+    }
+
+    function openModal(caseKey){
+      lastFocus = document.activeElement;
+      renderCase(caseKey);
+      overlay.classList.add("open");
+
+      const focusables = getFocusable(overlay);
+      (focusables[0] || closeBtn).focus({ preventScroll: true });
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      overlay.classList.remove("open");
+      modalBody.innerHTML = "";
+      document.body.style.overflow = "";
+      if(lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    }
+
+    // Case study buttons
+    $$("button[data-case]").forEach(btn => {
+      btn.addEventListener("click", () => openModal(btn.dataset.case));
+    });
+
+    // Close handlers
+    closeBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e) => {
+      // click outside modal closes
+      if(e.target === overlay) closeModal();
+    });
+
+    // ESC close + focus trap
+    document.addEventListener("keydown", (e) => {
+      if(!overlay.classList.contains("open")) return;
+
+      if(e.key === "Escape"){
+        e.preventDefault();
+        closeModal();
+        return;
+      }
+
+      if(e.key === "Tab"){
+        const focusables = getFocusable(overlay);
+        if(focusables.length === 0) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if(e.shiftKey && document.activeElement === first){
+          e.preventDefault();
+          last.focus();
+        } else if(!e.shiftKey && document.activeElement === last){
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
   </script>
 </body>
