@@ -9,40 +9,25 @@
 
   <title>GowriShankar | DevOps Engineer</title>
 
-  <meta property="og:title" content="GowriShankar | DevOps Engineer" />
-  <meta property="og:description" content="Production-minded DevOps: CI/CD, Kubernetes, Terraform, AWS. Case studies + measurable outcomes." />
-  <meta property="og:type" content="website" />
-
-  <link rel="icon" href='data:image/svg+xml;utf8,
-  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
-    <defs>
-      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="%23EDEFF2"/>
-        <stop offset="1" stop-color="%23BFDFFF"/>
-      </linearGradient>
-    </defs>
-    <rect rx="18" ry="18" width="64" height="64" fill="%230B1220"/>
-    <rect x="8" y="8" rx="14" ry="14" width="48" height="48" fill="url(%23g)" opacity="0.86"/>
-    <text x="50%" y="56%" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto" font-size="26" fill="%23060A12">G</text>
-  </svg>' />
-
   <style>
     :root{
-      /* ✅ FAANG-safe palette */
+      /* ✅ #1 FAANG-safe palette (Graphite / Off-white / Arctic Blue) */
       --bg:    #0B1220;
       --bg2:   #060A12;
-      --text:  #EDEFF2;
-      --muted: #B9C0C7;
-      --subtle:#99A3AF; /* ✅ slightly brighter for readability */
+
+      /* ✅ AA-ish small text contrast boost */
+      --text:  #F2F4F7;
+      --muted: #C7CDD6;   /* improved readability */
+      --subtle:#A8B1BE;   /* improved readability */
 
       /* Surfaces */
       --surface:  rgba(255,255,255,0.070);
-      --surface2: rgba(255,255,255,0.090);
-      --surface3: rgba(255,255,255,0.105);
+      --surface2: rgba(255,255,255,0.095);
+      --surface3: rgba(255,255,255,0.115);
 
-      /* Strokes */
-      --stroke:  rgba(255,255,255,0.14);
-      --stroke2: rgba(255,255,255,0.22);
+      /* ✅ Slight stroke boost for clarity */
+      --stroke:  rgba(255,255,255,0.16);
+      --stroke2: rgba(255,255,255,0.26);
 
       /* Accent */
       --accent:  #BFDFFF;
@@ -60,28 +45,32 @@
 
       --shadow: 0 18px 60px rgba(0,0,0,0.55);
 
-      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.72) inset;
+      /* ✅ Clear, consistent focus */
+      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.82) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
 
       /* ✅ Micro-polish knobs */
-      --card-texture-opacity: 0.08;   /* ✅ reduced (was stronger) */
-      --card-highlight-opacity: 0.20; /* ✅ slightly reduced */
+      --card-texture-opacity: 0.08;
+      --card-highlight-opacity: 0.20;
       --sig-border-opacity: 0.82;
+
+      /* ✅ Tap target minimum */
+      --tap: 44px;
     }
 
     @media (prefers-contrast: more){
       :root{
-        --surface:  rgba(255,255,255,0.10);
-        --surface2: rgba(255,255,255,0.13);
-        --surface3: rgba(255,255,255,0.16);
-        --stroke:  rgba(255,255,255,0.22);
-        --stroke2: rgba(255,255,255,0.34);
-        --muted: #D0D6DE;
-        --subtle:#B7C0CC;
+        --surface:  rgba(255,255,255,0.12);
+        --surface2: rgba(255,255,255,0.16);
+        --surface3: rgba(255,255,255,0.20);
+        --stroke:  rgba(255,255,255,0.26);
+        --stroke2: rgba(255,255,255,0.40);
+        --muted: #E3E7ED;
+        --subtle:#CBD3DE;
         --text:#FFFFFF;
-        --focus: 0 0 0 3px rgba(191,223,255,0.34), 0 0 0 1px rgba(191,223,255,0.86) inset;
+        --focus: 0 0 0 3px rgba(191,223,255,0.36), 0 0 0 1px rgba(191,223,255,0.92) inset;
       }
     }
 
@@ -139,6 +128,8 @@
       padding:10px 12px;
       border-radius:12px;
       z-index:9999;
+      min-height: var(--tap);
+      display:inline-flex; align-items:center;
     }
     .skip:focus{left:12px; outline:none; box-shadow:var(--focus)}
 
@@ -149,8 +140,9 @@
       padding-top: var(--safe-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.92), rgba(11,18,32,0.45));
-      border-bottom: 1px solid var(--stroke);
+      /* ✅ Slightly stronger separation for UX clarity */
+      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.55));
+      border-bottom: 1px solid rgba(255,255,255,0.16);
     }
     .nav{
       display:flex;
@@ -163,6 +155,7 @@
     .brand{
       display:flex; gap:12px; align-items:center;
       text-decoration:none; min-width:0;
+      min-height: var(--tap);
     }
     .mark{
       width:38px; height:38px;
@@ -209,6 +202,7 @@
       justify-content:flex-end;
     }
 
+    /* ✅ Tap targets ≥44px */
     .pill{
       text-decoration:none;
       font-size:13px;
@@ -216,7 +210,7 @@
       padding:10px 12px;
       border-radius:999px;
       border:1px solid transparent;
-      min-height: 42px;
+      min-height: var(--tap);
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -230,6 +224,7 @@
     }
 
     .ctaRow{display:flex; align-items:center; gap:10px; flex:0 0 auto}
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
@@ -243,7 +238,7 @@
       box-shadow: 0 10px 28px rgba(0,0,0,0.25);
       color:var(--text);
       cursor:pointer;
-      min-height: 44px;
+      min-height: var(--tap);
       user-select:none;
       -webkit-tap-highlight-color: transparent;
       transition: transform 140ms ease, border-color 140ms ease, filter 140ms ease, box-shadow 140ms ease;
@@ -251,25 +246,27 @@
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.34); filter: brightness(1.04)}
     .btn:active{transform: translateY(0px); filter:none}
     .btn.primary{
-      /* ✅ stronger primary CTA (5% more pop) */
       border:1px solid rgba(191,223,255,0.78);
       background: linear-gradient(180deg, rgba(191,223,255,0.28), rgba(191,223,255,0.12));
       color: var(--text);
       box-shadow: 0 16px 44px rgba(191,223,255,0.12), 0 10px 28px rgba(0,0,0,0.26);
     }
     .btn.ghost{background: transparent; box-shadow:none; color: var(--text)}
-    .btn:focus{outline:none; box-shadow:var(--focus)}
+    .btn:focus{outline:none}
+
+    /* ✅ Keyboard-only visible focus */
+    :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
     @media (hover:none){
       .btn:hover{transform:none}
       .pill:hover{background:transparent; border-color:transparent}
     }
 
-    .navToggle{display:none; padding:10px 12px; min-width: 44px}
+    .navToggle{display:none; padding:10px 12px; min-width: var(--tap)}
     .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0; height:2px;
-      background: rgba(237,239,242,0.86);
+      background: rgba(242,244,247,0.88);
       border-radius:999px;
     }
     .burger span:nth-child(1){top:0}
@@ -297,9 +294,7 @@
           rgba(191,223,255, calc(0.26 * var(--sig-border-opacity)))
         );
       pointer-events:none;
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
     }
@@ -349,6 +344,7 @@
       border-radius:999px;
       max-width: 100%;
       flex-wrap:wrap;
+      min-height: var(--tap);
     }
     .dot{
       width:8px; height:8px;
@@ -377,35 +373,6 @@
       margin-top:18px;
     }
 
-    .heroSide{padding: clamp(16px, 3.2vw, 26px)}
-    .miniTitle{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:10px;
-      margin:0 0 12px;
-    }
-    .miniTitle strong{font-size:14px; color: var(--text)}
-    .miniTitle span{font-size:12px; color:var(--subtle)}
-    .stack{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
-    .chip{
-      font-size:12px;
-      color:var(--muted);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-    .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
-    .stat{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
-      border-radius:16px;
-      padding:12px;
-    }
-    .stat b{display:block; font-size:14px; color: var(--text)}
-    .stat small{color:var(--subtle)}
-
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
@@ -428,7 +395,7 @@
       background: rgba(255,255,255,0.03);
       color:var(--muted);
       font-size:12px;
-      min-height: 36px;
+      min-height: var(--tap);
     }
     .proofLeft, .proofRight{
       display:flex;
@@ -436,6 +403,41 @@
       gap:8px;
       align-items:center;
     }
+
+    .heroSide{padding: clamp(16px, 3.2vw, 26px)}
+    .miniTitle{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin:0 0 12px;
+    }
+    .miniTitle strong{font-size:14px; color: var(--text)}
+    .miniTitle span{font-size:12px; color:var(--subtle)}
+
+    .stack{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      padding:8px 10px;
+      border-radius:999px;
+      min-height: var(--tap);
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
+    .stat{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      border-radius:16px;
+      padding:12px;
+      min-height: var(--tap);
+    }
+    .stat b{display:block; font-size:14px; color: var(--text)}
+    .stat small{color:var(--subtle)}
 
     section{padding: 32px 0}
     .sectionHead{
@@ -477,7 +479,7 @@
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
-      min-height: 36px;
+      min-height: var(--tap);
       flex:0 0 auto;
     }
     .metric b{color:var(--text)}
@@ -490,13 +492,13 @@
       background: rgba(255,255,255,0.03);
       padding:7px 9px;
       border-radius:999px;
-      min-height: 34px;
+      min-height: var(--tap);
       display:inline-flex;
       align-items:center;
     }
 
     .projFooter{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
-    .proj .btn{padding:9px 11px; font-size:12px}
+    .proj .btn{padding:10px 12px; font-size:12px; min-height: var(--tap)}
 
     .arch{
       border:1px dashed rgba(255,255,255,0.26);
@@ -544,6 +546,7 @@
       pointer-events:none;
       transform: translateY(8px);
       transition: opacity 250ms ease, transform 250ms ease;
+      min-height: var(--tap);
     }
     .toTop.show{opacity:1; pointer-events:auto; transform:none}
 
@@ -577,7 +580,7 @@
       z-index: 2;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.92), rgba(11,18,32,0.45));
+      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.55));
       border-bottom: 1px solid var(--stroke);
       padding: 14px;
       display:flex;
@@ -623,7 +626,6 @@
     .quietLink:hover{color:var(--text); text-decoration:underline}
 
     ::selection{background: rgba(191,223,255,0.18)}
-    :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
     @media (max-width: 1024px){
       .heroGrid{grid-template-columns: 1fr}
@@ -695,7 +697,7 @@
       background: rgba(255,255,255,0.03);
       border-radius: 14px;
       padding: 12px;
-      min-height: 46px;
+      min-height: var(--tap);
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -703,14 +705,13 @@
       font-weight:650;
       font-size:13px;
     }
-    .drawerLinks a span{color: var(--muted); font-weight:650}
     .drawerActions{
       display:flex;
       gap:10px;
       padding: 0 12px 12px;
       flex-wrap:wrap;
     }
-    .drawerActions .btn{flex:1 1 170px}
+    .drawerActions .btn{flex:1 1 170px; min-height: var(--tap)}
   </style>
 </head>
 
@@ -756,10 +757,10 @@
         <button class="btn" id="closeDrawer" type="button" aria-label="Close menu">Close</button>
       </div>
       <div class="drawerLinks">
-        <a href="#about" data-drawer-link>About <span>→</span></a>
-        <a href="#projects" data-drawer-link>Projects <span>→</span></a>
-        <a href="#skills" data-drawer-link>Skills <span>→</span></a>
-        <a href="#contact" data-drawer-link>Contact <span>→</span></a>
+        <a href="#about" data-drawer-link>About <span aria-hidden="true">→</span></a>
+        <a href="#projects" data-drawer-link>Projects <span aria-hidden="true">→</span></a>
+        <a href="#skills" data-drawer-link>Skills <span aria-hidden="true">→</span></a>
+        <a href="#contact" data-drawer-link>Contact <span aria-hidden="true">→</span></a>
       </div>
       <div class="drawerActions">
         <a class="btn" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -880,11 +881,11 @@
               <div class="metric" title="Replace with your real metric"><b>↓ 60%</b> deploy time</div>
             </div>
 
-            <ul class="badges">
+            <ul class="badges" aria-label="Project tags">
               <li class="badge">Jenkins</li><li class="badge">Docker</li><li class="badge">CI/CD</li><li class="badge">Quality Gates</li>
             </ul>
 
-            <pre class="arch">Developer → Git Push
+            <pre class="arch" aria-label="Architecture sketch">Developer → Git Push
    ↓
 Jenkins (Pipeline)
    ↓        ↓
@@ -896,7 +897,7 @@ Health checks + rollback</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="jenkins" aria-haspopup="dialog">Case Study</button>
+              <button class="btn" type="button" data-case="jenkins" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
             </div>
           </article>
 
@@ -909,11 +910,11 @@ Health checks + rollback</pre>
               <div class="metric" title="Replace with your real metric"><b>99.9%</b> uptime goal</div>
             </div>
 
-            <ul class="badges">
+            <ul class="badges" aria-label="Project tags">
               <li class="badge">Kubernetes</li><li class="badge">Rollouts</li><li class="badge">Health Probes</li><li class="badge">Ops</li>
             </ul>
 
-            <pre class="arch">Client → Ingress/Service
+            <pre class="arch" aria-label="Architecture sketch">Client → Ingress/Service
           ↓
       Deployment
       /   |    \
@@ -923,7 +924,7 @@ Probes + rolling updates</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="k8s" aria-haspopup="dialog">Case Study</button>
+              <button class="btn" type="button" data-case="k8s" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
             </div>
           </article>
 
@@ -936,11 +937,11 @@ Probes + rolling updates</pre>
               <div class="metric" title="Replace with your real metric"><b>↓ 40%</b> setup time</div>
             </div>
 
-            <ul class="badges">
+            <ul class="badges" aria-label="Project tags">
               <li class="badge">Terraform</li><li class="badge">AWS</li><li class="badge">IaC</li><li class="badge">Drift-safe</li>
             </ul>
 
-            <pre class="arch">Terraform Modules
+            <pre class="arch" aria-label="Architecture sketch">Terraform Modules
    ↓
 VPC + Subnets + Routing
    ↓
@@ -950,7 +951,7 @@ Reusable baseline outputs</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" type="button" data-case="tf" aria-haspopup="dialog">Case Study</button>
+              <button class="btn" type="button" data-case="tf" aria-haspopup="dialog" aria-controls="modalOverlay">Case Study</button>
             </div>
           </article>
         </div>
@@ -1057,15 +1058,57 @@ Reusable baseline outputs</pre>
     $("#year").textContent = new Date().getFullYear();
 
     const main = $("#main");
-    const topbar = $(".top");
+    const topbar = document.querySelector(".top");
 
+    /* ✅ Robust inert fallback */
     function setInert(isInert){
-      if ("inert" in HTMLElement.prototype) {
+      const supportsInert = "inert" in HTMLElement.prototype;
+      if (supportsInert) {
         main.inert = isInert;
         if (topbar) topbar.inert = isInert;
+      } else {
+        const focusables = $$("a, button, input, select, textarea, [tabindex]", main);
+        focusables.forEach(el => {
+          if (isInert) {
+            if (!el.hasAttribute("data-prev-tabindex")) {
+              el.setAttribute("data-prev-tabindex", el.getAttribute("tabindex") ?? "");
+            }
+            el.setAttribute("tabindex", "-1");
+          } else {
+            const prev = el.getAttribute("data-prev-tabindex");
+            el.removeAttribute("data-prev-tabindex");
+            if (prev === "") el.removeAttribute("tabindex");
+            else el.setAttribute("tabindex", prev);
+          }
+        });
       }
       if (topbar) topbar.setAttribute("aria-hidden", isInert ? "true" : "false");
       main.setAttribute("aria-hidden", isInert ? "true" : "false");
+    }
+
+    function getFocusable(root){
+      const selectors = [
+        "a[href]",
+        "button:not([disabled])",
+        "input:not([disabled])",
+        "select:not([disabled])",
+        "textarea:not([disabled])",
+        "[tabindex]:not([tabindex='-1'])"
+      ];
+      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
+    }
+
+    function trapTab(e, container){
+      if(e.key !== "Tab") return;
+      const focusables = getFocusable(container);
+      if(focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if(e.shiftKey && document.activeElement === first){
+        e.preventDefault(); last.focus();
+      } else if(!e.shiftKey && document.activeElement === last){
+        e.preventDefault(); first.focus();
+      }
     }
 
     function scrollToId(id){
@@ -1080,6 +1123,7 @@ Reusable baseline outputs</pre>
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
+    /* Smooth scroll for desktop nav */
     $$("#navLinks a").forEach(a => {
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
@@ -1090,12 +1134,14 @@ Reusable baseline outputs</pre>
       });
     });
 
+    /* Scrollspy */
     const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
     const navItems = $$("#navLinks a");
     const setActive = (id) => {
       navItems.forEach(a => {
         const href = a.getAttribute("href");
-        a.setAttribute("aria-current", (href === "#" + id) ? "page" : "false");
+        if (href === "#" + id) a.setAttribute("aria-current", "page");
+        else a.removeAttribute("aria-current");
       });
     };
     if(sections.length && navItems.length){
@@ -1108,6 +1154,7 @@ Reusable baseline outputs</pre>
       sections.forEach(s => spy.observe(s));
     }
 
+    /* Reveal */
     const revealEls = $$(".reveal");
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(!prefersReduced){
@@ -1124,6 +1171,7 @@ Reusable baseline outputs</pre>
       revealEls.forEach(el => el.classList.add("in"));
     }
 
+    /* To top */
     const toTop = $("#toTop");
     const toggleToTop = () => {
       const show = window.scrollY > 700;
@@ -1133,30 +1181,7 @@ Reusable baseline outputs</pre>
     toggleToTop();
     toTop.addEventListener("click", () => scrollToId("home"));
 
-    function getFocusable(root){
-      const selectors = [
-        "a[href]",
-        "button:not([disabled])",
-        "input:not([disabled])",
-        "select:not([disabled])",
-        "textarea:not([disabled])",
-        "[tabindex]:not([tabindex='-1'])"
-      ];
-      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
-    }
-    function trapTab(e, container){
-      if(e.key !== "Tab") return;
-      const focusables = getFocusable(container);
-      if(focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if(e.shiftKey && document.activeElement === first){
-        e.preventDefault(); last.focus();
-      } else if(!e.shiftKey && document.activeElement === last){
-        e.preventDefault(); first.focus();
-      }
-    }
-
+    /* Drawer */
     const drawerOverlay = $("#drawerOverlay");
     const navToggle = $("#navToggle");
     const closeDrawer = $("#closeDrawer");
@@ -1193,6 +1218,7 @@ Reusable baseline outputs</pre>
       });
     });
 
+    /* Modal */
     const overlay = $("#modalOverlay");
     const modalBody = $("#modalBody");
     const closeBtn = $("#closeModal");
@@ -1242,13 +1268,16 @@ Reusable baseline outputs</pre>
         return `<section class="modalSection"><h4>${escapeHtml(s.h)}</h4>${para}${list}</section>`;
       }).join("");
     }
+
     function openModal(caseKey){
       lastFocusModal = document.activeElement;
       renderCase(caseKey);
       overlay.classList.add("open");
       document.body.style.overflow = "hidden";
       setInert(true);
-      (getFocusable(overlay)[0] || closeBtn).focus({ preventScroll: true });
+
+      /* ✅ keyboard order: focus close button first */
+      closeBtn.focus({ preventScroll: true });
     }
     function closeModal(){
       overlay.classList.remove("open");
@@ -1262,6 +1291,7 @@ Reusable baseline outputs</pre>
     closeBtn.addEventListener("click", closeModal);
     overlay.addEventListener("click", (e) => { if(e.target === overlay) closeModal(); });
 
+    /* Global key handling: Escape + focus trap */
     document.addEventListener("keydown", (e) => {
       if(drawerOverlay.classList.contains("open")){
         if(e.key === "Escape"){ e.preventDefault(); closeDrawerFn(); return; }
