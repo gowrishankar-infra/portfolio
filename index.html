@@ -2,700 +2,608 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gowri Shankar — DevOps/SRE</title>
-  <meta name="description" content="Gowri Shankar — DevOps/SRE (4 yrs). CI/CD • Docker • Kubernetes • AWS • Terraform • Ansible." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gowri Shankar — DevOps | CI/CD | Kubernetes | AWS. Production-style projects with pipelines, IaC, and SRE-style ops notes." />
+  <title>Gowri Shankar — DevOps Portfolio</title>
+
+  <!-- Font (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg0:#060a12;
-      --bg1:#0b1221;
-      --stroke:rgba(255,255,255,.12);
-      --txt:#eaf0ff;
-      --muted:rgba(234,240,255,.72);
-      --muted2:rgba(234,240,255,.55);
-      --shadow: 0 16px 60px rgba(0,0,0,.55);
-      --radius:22px;
-      --radius2:16px;
-      --max:1120px;
+      /* Premium dark neutrals + single accent */
+      --bg0: #070b14;
+      --bg1: #0a1222;
+      --surface: rgba(255,255,255,0.06);
+      --surface2: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.10);
+
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --dim: rgba(255,255,255,0.58);
+
+      --accent: #3b82f6; /* blue (FAANG-ish) */
+      --accent2: rgba(59,130,246,0.25);
+
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+
+      --shadow: 0 16px 40px rgba(0,0,0,0.45);
+      --shadow-soft: 0 10px 25px rgba(0,0,0,0.35);
+
+      --max: 1120px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    html{ scroll-padding-top: 110px; }
-    section{ scroll-margin-top: 110px; }
-
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--txt);
-      background:
-        radial-gradient(900px 450px at 20% 10%, rgba(87,157,255,.16), transparent 55%),
-        radial-gradient(900px 450px at 85% 20%, rgba(170,90,255,.14), transparent 55%),
-        radial-gradient(900px 450px at 50% 85%, rgba(20,220,180,.08), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(900px 500px at 15% 10%, rgba(59,130,246,0.16), transparent 60%),
+                  radial-gradient(900px 500px at 85% 15%, rgba(168,85,247,0.14), transparent 60%),
+                  radial-gradient(900px 500px at 55% 95%, rgba(34,211,238,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      /* toned-down glow: no heavy blur filters, low alpha gradients */
       overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none}
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:none; }
 
-    .container{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:24px 16px 72px;
+    .wrap{
+      width: min(var(--max), calc(100% - 32px));
+      margin: 28px auto 80px;
     }
 
-    /* Sticky header */
-    .topWrap{
-      position:sticky;
-      top:12px;
-      z-index:50;
-      margin:10px 0 22px;
-    }
-    .topCard{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
+    /* Glass container */
+    .shell{
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+    }
+
+    /* Top bar */
+    .top{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.10);
     }
 
     .brand{
       display:flex;
-      align-items:center;
       gap:12px;
-      min-width: 220px;
+      align-items:center;
+      min-width: 260px;
     }
     .avatar{
-      width:46px; height:46px;
+      width:44px; height:44px;
       border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), rgba(255,255,255,.06));
-      border:1px solid var(--stroke);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      flex:0 0 auto;
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--shadow-soft);
     }
-    .name{
-      font-weight:900;
-      letter-spacing:.3px;
-      font-size:16px;
+    .brand h1{
+      font-size: 18px;
       margin:0;
       line-height:1.1;
+      letter-spacing: 0.2px;
     }
-    .tagline{
+    .brand p{
       margin:4px 0 0;
-      color:var(--muted2);
-      font-weight:800;
-      font-size:12.5px;
+      font-size: 12.5px;
+      color: var(--dim);
     }
 
     .nav{
       display:flex;
       gap:10px;
+      align-items:center;
       flex-wrap:wrap;
       justify-content:flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
       align-items:center;
-    }
-    .nav a{
-      padding:10px 14px;
+      gap:8px;
+      padding: 10px 14px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,240,255,.88);
-      font-weight:850;
-      font-size:13px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .nav a:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16)}
-    .nav a.active{background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24)}
-
-    /* Mobile menu button */
-    .menuBtn{
-      display:none;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      color: rgba(234,240,255,.92);
-      font-weight:900;
-      padding:10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
       user-select:none;
+      white-space:nowrap;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
     }
 
-    /* Hero */
+    /* Primary CTA */
+    .pill.primary{
+      color: rgba(255,255,255,0.95);
+      background: linear-gradient(180deg, rgba(59,130,246,0.22), rgba(59,130,246,0.14));
+      border-color: rgba(59,130,246,0.40);
+      box-shadow: 0 10px 20px rgba(59,130,246,0.12);
+    }
+    .pill.primary:hover{
+      background: linear-gradient(180deg, rgba(59,130,246,0.28), rgba(59,130,246,0.16));
+    }
+
+    /* Layout sections */
+    .section{
+      padding: 18px;
+    }
+
     .hero{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:space-between;
+      padding: 18px;
+    }
+    .hero-left{
+      max-width: 720px;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 12.5px;
+    }
+    .hero h2{
+      margin: 12px 0 8px;
+      font-size: 32px;
+      letter-spacing: 0.2px;
+      line-height: 1.15;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15.5px;
+      max-width: 64ch;
+    }
+
+    .hero-right{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      min-width: 270px;
+    }
+
+    .subtle{
+      color: var(--dim);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* Chips */
+    .label{
+      color: rgba(255,255,255,0.55);
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    details{
+      margin-top: 12px;
+    }
+    summary{
+      cursor: pointer;
+      list-style: none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color: rgba(255,255,255,0.70);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 6px 0;
+    }
+    summary::-webkit-details-marker { display:none; }
+
+    /* Cards grid */
+    .grid{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-      align-items:stretch;
-      margin-top:10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .hero{ flex-direction:column; }
+      .hero-right{ justify-content:flex-start; }
+      .brand{ min-width: unset; }
     }
 
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
-      border:1px solid var(--stroke);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 40px rgba(0,0,0,.42);
-      padding:18px;
-      backdrop-filter: blur(14px);
-    }
-    .card.small{border-radius: var(--radius2); padding:16px}
-
-    .kicker{
-      text-transform:uppercase;
-      letter-spacing:.9px;
-      color:rgba(234,240,255,.55);
-      font-weight:900;
-      font-size:12px;
-      margin:0 0 8px;
-    }
-    .big{
-      font-weight:950;
-      margin:0 0 8px;
-      font-size:22px;
-      letter-spacing:.2px;
-      line-height:1.18;
-    }
-    .cardTitle{
-      font-weight:900;
-      letter-spacing:.2px;
-      margin:0 0 8px;
-      font-size:16px;
-    }
-    .cardText{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-weight:650;
-      font-size:14.5px;
-    }
-
-    .pillRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-    .pill{
-      padding:9px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,240,255,.84);
-      font-weight:850;
-      font-size:12.5px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-    }
-    .pill.green{
-      border-color: rgba(40,255,180,.22);
-      background: rgba(40,255,180,.08);
-    }
-
-    /* Equal-height grid blocks */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
-      align-items:stretch;
-      margin-top:14px;
-    }
-    .span-4{grid-column: span 4;}
-    .span-6{grid-column: span 6;}
-    .span-8{grid-column: span 8;}
-    .span-12{grid-column: span 12;}
-
-    .grid .card{height:100%;}
-    .stack{
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      min-height: 235px;
       display:flex;
       flex-direction:column;
-      height:100%;
+      justify-content:space-between;
     }
-    .push{margin-top:auto;}
 
-    ul.clean{
-      margin:10px 0 0;
-      padding-left:18px;
-      color:var(--muted);
-      line-height:1.6;
-      font-weight:650;
-      font-size:14.5px;
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing: 0.2px;
     }
-    ul.clean li{margin:8px 0}
+    .card p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14.5px;
+    }
 
-    .btnRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .tags{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .tag{
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.15);
+      color: rgba(255,255,255,0.72);
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding:11px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      font-weight:900;
-      font-size:13.5px;
-      color: rgba(234,240,255,.92);
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.90);
+      font-weight: 800;
+      font-size: 13.5px;
+      width: fit-content;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+    }
+
     .btn.primary{
-      background: rgba(120,170,255,.14);
-      border-color: rgba(120,170,255,.22);
+      background: linear-gradient(180deg, rgba(59,130,246,0.25), rgba(59,130,246,0.15));
+      border-color: rgba(59,130,246,0.45);
     }
 
-    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
-    .tag{
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      color: rgba(234,240,255,.78);
-      font-weight:900;
-      font-size:12px;
+    /* Contact */
+    .contact{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .contact h3{
+      margin:0 0 10px;
+      font-size: 22px;
+    }
+    .contact p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .contact-box{
+      flex: 1;
+      min-width: 320px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .kv{
+      margin: 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 6px;
+      color: rgba(255,255,255,0.80);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .kv span{
+      color: rgba(255,255,255,0.60);
+      font-weight: 700;
     }
 
-    .note{
-      margin-top:12px;
-      color: rgba(234,240,255,.55);
-      font-weight:800;
-      font-size:12.5px;
-      line-height:1.55;
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
     }
 
-    .hr{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin:18px 0;
-      border-radius:999px;
+    /* Accessibility: focus ring */
+    a:focus, button:focus, summary:focus{
+      outline: none;
+    }
+    a:focus-visible, button:focus-visible, summary:focus-visible{
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
+      border-color: rgba(59,130,246,0.60) !important;
+      border-radius: 12px;
     }
 
-    /* Text clamp to keep cards visually even */
-    .clamp2{
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-    .clamp3{
-      display:-webkit-box;
-      -webkit-line-clamp:3;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-
-    .section{margin-top:44px}
-    .sectionHeader{
+    .footer{
+      padding: 14px 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
       display:flex;
       justify-content:space-between;
       gap:12px;
       flex-wrap:wrap;
-      align-items:flex-end;
-    }
-    .sectionHeader h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:.2px;
-    }
-    .subhead{
-      color:var(--muted2);
-      font-weight:800;
-      font-size:13px;
-      letter-spacing:.2px;
-    }
-
-    footer{
-      margin-top:46px;
-      color: rgba(234,240,255,.55);
-      font-weight:750;
-      font-size:12.5px;
-      text-align:center;
-    }
-
-    /* Tablet */
-    @media (max-width: 980px){
-      .hero{grid-template-columns:1fr;}
-      .span-4,.span-6,.span-8{grid-column: span 12;}
-      .topCard{align-items:flex-start;}
-    }
-
-    /* Mobile */
-    @media (max-width: 640px){
-      .container{padding:20px 14px 64px;}
-      .topCard{padding:12px;}
-      .avatar{width:42px; height:42px; border-radius:13px;}
-      .big{font-size:20px;}
-      .cardText, ul.clean{font-size:14px;}
-      .nav{display:none; width:100%;}
-      .nav.show{display:flex;}
-      .menuBtn{display:inline-flex;}
-      .brand{min-width:auto;}
-      .btn{width:100%;}
-      .btnRow{gap:10px;}
-      .pill{white-space:normal;}
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <main class="wrap">
+    <div class="shell" id="top">
 
-    <!-- Sticky header -->
-    <div class="topWrap">
-      <div class="topCard">
+      <!-- Top bar -->
+      <header class="top">
         <div class="brand">
           <div class="avatar" aria-hidden="true"></div>
           <div>
-            <p class="name">GOWRI SHANKAR</p>
-            <p class="tagline">DevOps • CI/CD • Kubernetes • AWS</p>
+            <h1>GOWRI SHANKAR</h1>
+            <p>DevOps • CI/CD • Kubernetes • AWS</p>
           </div>
         </div>
 
-        <button class="menuBtn" id="menuBtn" aria-expanded="false" aria-controls="nav">
-          Menu
-        </button>
-
-        <nav class="nav" id="nav" aria-label="Primary">
-          <a href="#impact">Impact</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+        <nav class="nav" aria-label="Primary navigation">
+          <a class="pill" href="#impact">Impact</a>
+          <a class="pill" href="#experience">Experience</a>
+          <a class="pill" href="#projects">Projects</a>
+          <a class="pill" href="#contact">Contact</a>
         </nav>
-      </div>
-    </div>
+      </header>
 
-    <!-- Hero -->
-    <div class="hero">
-      <div class="card">
-        <p class="kicker">Job-ready DevOps/SRE portfolio</p>
-        <h1 class="big">DevOps Engineer (4 years) — Mphasis (Client: FedEx)</h1>
-        <p class="cardText">
-          I build <b>repeatable CI/CD</b>, deliver <b>containerized deployments</b>, and support <b>Kubernetes operations</b> with strong
-          monitoring + runbooks. I focus on reliability, lower toil, and clean automation.
-        </p>
-
-        <div class="pillRow">
-          <span class="pill green">Open to DevOps / SRE roles</span>
-          <span class="pill">Mphasis • FedEx (Client)</span>
-          <span class="pill">Kubernetes • Jenkins • AWS</span>
-        </div>
-
-        <div class="btnRow">
-          <a class="btn primary" href="#projects">View proof projects</a>
-          <a class="btn" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="#contact">Contact</a>
-        </div>
-
-        <p class="note">
-          Metrics are approximate and measured using Jenkins build history averages and release run timings across multiple deployments.
-        </p>
-      </div>
-
-      <div class="card">
-        <p class="kicker">Fast summary</p>
-        <p class="cardText">
-          <b>CI/CD</b> • Docker • Kubernetes • Terraform<br/>
-          Ansible • Linux • Monitoring
-        </p>
-
-        <div class="hr"></div>
-
-        <p class="kicker">Projects at FedEx (via Mphasis)</p>
-        <ul class="clean">
-          <li><b>Project 1:</b> FedEx Class</li>
-          <li><b>Project 2:</b> Gemini 2.0</li>
-        </ul>
-
-        <div class="hr"></div>
-
-        <p class="kicker">Strengths</p>
-        <ul class="clean">
-          <li>Pipeline reliability + faster build/deploy</li>
-          <li>K8s rollouts, probes, troubleshooting</li>
-          <li>Automation with Terraform/Ansible + scripts</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Impact -->
-    <section id="impact" class="section">
-      <div class="sectionHeader">
-        <h2>Impact I deliver</h2>
-        <div class="subhead">Recruiters want proof. Show outcomes.</div>
-      </div>
-
-      <div class="grid">
-        <div class="card small span-4">
-          <div class="stack">
-            <p class="kicker">Release velocity</p>
-            <p class="big" style="font-size:18px;margin-top:0">Faster, safer deployments</p>
-            <p class="cardText clamp3">
-              Reduced CI pipeline runtime by ~30–40% (≈22 mins → 13–15 mins) by optimizing Jenkins pipelines
-              (parallelization, caching, Maven tuning).
-            </p>
-            <div class="push"></div>
-            <div class="tags">
-              <span class="tag">Jenkins</span><span class="tag">Maven</span><span class="tag">CI/CD</span>
-            </div>
+      <!-- Hero / CTAs (FAANG-style trust signals) -->
+      <section class="hero">
+        <div class="hero-left">
+          <div class="kicker">Proof-first DevOps portfolio • 3 production-style projects</div>
+          <h2>Build fast, safe, repeatable delivery.</h2>
+          <p>
+            I build CI/CD pipelines, Kubernetes deployments, and AWS IaC baselines with practical SRE-style
+            operations notes—focused on reliability, security, and clean delivery workflows.
+          </p>
+          <div class="subtle">
+            Tip: recruiters look for working repos + screenshots + clear README “Problem → Solution → Results”.
           </div>
         </div>
 
-        <div class="card small span-4">
-          <div class="stack">
-            <p class="kicker">Reliability</p>
-            <p class="big" style="font-size:18px;margin-top:0">Stability under load</p>
-            <p class="cardText clamp3">
-              Improved pipeline success rate from ~85–88% to ~95–97% by stabilizing flaky stages,
-              adding validations, and standardizing configurations.
-            </p>
-            <div class="push"></div>
-            <div class="tags">
-              <span class="tag">Quality</span><span class="tag">Validation</span><span class="tag">Standards</span>
-            </div>
-          </div>
+        <div class="hero-right">
+          <!-- ✅ Set your real resume path below -->
+          <a class="pill primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+
+          <!-- ✅ GitHub correct -->
+          <a class="pill" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+          <!-- ✅ Replace with your real LinkedIn -->
+          <a class="pill" href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="section" id="impact">
+        <p class="label">Core Skills</p>
+
+        <!-- Curated: fewer = more premium -->
+        <div class="chips" aria-label="Core skills">
+          <span class="chip">Linux</span>
+          <span class="chip">AWS</span>
+          <span class="chip">Kubernetes</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Terraform</span>
+          <span class="chip">CI/CD</span>
+          <span class="chip">Jenkins</span>
+          <span class="chip">Git/GitHub</span>
         </div>
 
-        <div class="card small span-4">
-          <div class="stack">
-            <p class="kicker">Efficiency</p>
-            <p class="big" style="font-size:18px;margin-top:0">Less toil, fewer tickets</p>
-            <p class="cardText clamp3">
-              Automated ~8–12 recurring operational tasks, saving ~6–10 hours/week via scripting/Ansible
-              and documented runbooks.
-            </p>
-            <div class="push"></div>
-            <div class="tags">
-              <span class="tag">Automation</span><span class="tag">Ansible</span><span class="tag">Runbooks</span>
-            </div>
+        <!-- Optional: show the rest in a clean expandable -->
+        <details>
+          <summary>More skills</summary>
+          <div class="chips" style="margin-top:10px;">
+            <span class="chip">Ansible</span>
+            <span class="chip">Scripting</span>
+            <span class="chip">Maven</span>
+            <span class="chip">Tomcat</span>
+            <span class="chip">Nagios</span>
+            <span class="chip">Nginx</span>
+            <span class="chip">Monitoring/Alerting</span>
           </div>
+        </details>
+      </section>
+
+      <!-- Experience (keep your existing content here if you already have it) -->
+      <section class="section" id="experience">
+        <p class="label">Experience</p>
+        <div style="color: var(--muted); line-height:1.7; font-size: 14.8px;">
+          <!-- Replace this block with your real experience points -->
+          <ul style="margin:0; padding-left: 18px;">
+            <li>Built CI/CD pipelines with quality gates and release-friendly workflows.</li>
+            <li>Deployed apps on Kubernetes with rollout/rollback, probes, and debugging notes (SRE-style).</li>
+            <li>Created reusable Terraform AWS baselines with clean modules and outputs.</li>
+          </ul>
         </div>
+      </section>
 
-        <div class="card small span-6">
-          <div class="stack">
-            <p class="kicker">My working style</p>
-            <p class="cardText">
-              I treat DevOps like a product: <b>repeatable</b>, <b>observable</b>, <b>secure-by-default</b>, and <b>documented</b>.
-              I automate the boring parts and write clean runbooks.
-            </p>
-            <div class="push"></div>
-            <div class="tags">
-              <span class="tag">SRE mindset</span><span class="tag">Docs</span><span class="tag">Reliability</span>
-            </div>
-          </div>
-        </div>
+      <!-- Projects -->
+      <section class="section" id="projects">
+        <p class="label">Proof Projects</p>
 
-        <div class="card small span-6">
-          <div class="stack">
-            <p class="kicker">What I’m best at</p>
-            <ul class="clean">
-              <li><b>CI/CD engineering</b> (Jenkins pipelines, build/test/package/deploy)</li>
-              <li><b>Container + K8s deployments</b> (rollout/rollback, probes)</li>
-              <li><b>IaC with Terraform</b> (reproducible infra + reusable modules)</li>
-            </ul>
-            <div class="push"></div>
-            <div class="tags">
-              <span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">Docker</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="grid">
+          <!-- Project 1 -->
+          <article class="card">
+            <div>
+              <h3>CI/CD: Jenkins → Docker → Deploy</h3>
+              <p>
+                Production-style pipeline with stages, artifacts, validations, and release-friendly flow.
+                Includes build/test, image build, and deploy steps.
+              </p>
 
-    <!-- Experience -->
-    <section id="experience" class="section">
-      <div class="sectionHeader">
-        <h2>Experience</h2>
-        <div class="subhead">Write it like a production engineer.</div>
-      </div>
-
-      <div class="grid">
-        <div class="card span-12">
-          <div class="stack">
-            <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-start;">
-              <div>
-                <div class="cardTitle">DevOps Engineer — Mphasis (Client: FedEx)</div>
-                <div class="subhead">Project 1: FedEx Class • Project 2: Gemini 2.0</div>
+              <div class="tags">
+                <span class="tag">Jenkins</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Git</span>
               </div>
-              <div class="pill" style="align-self:flex-start;">4 yrs • DevOps/SRE</div>
             </div>
 
-            <div class="hr"></div>
+            <!-- ✅ Correct repo link -->
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">
+              View Repo
+            </a>
+          </article>
 
-            <ul class="clean">
-              <li><b>CI/CD:</b> Reduced CI pipeline runtime by ~30–40% (≈22 mins → 13–15 mins) by optimizing Jenkins pipelines (parallelization, caching, Maven tuning).</li>
-              <li><b>Quality:</b> Improved pipeline success rate from ~85–88% to ~95–97% by stabilizing flaky stages, validations, and standardized configs.</li>
-              <li><b>Kubernetes:</b> Reduced rollback/recovery time from ~25–30 mins to ~8–12 mins by improving rollout strategy, probes, and deployment runbooks.</li>
-              <li><b>Automation:</b> Automated ~8–12 recurring tasks, saving ~6–10 hours/week via scripting/Ansible and documented runbooks.</li>
-              <li><b>Monitoring:</b> Reduced alert noise by ~30–40% by tuning thresholds and making alerts actionable with runbooks.</li>
+          <!-- Project 2 -->
+          <article class="card">
+            <div>
+              <h3>Kubernetes: Deployments & Ops</h3>
+              <p>
+                Manifests + rollout/rollback + probes + debugging notes (SRE-style). Focus on operational clarity,
+                reliability, and practical workflows.
+              </p>
+
+              <div class="tags">
+                <span class="tag">K8s</span>
+                <span class="tag">YAML</span>
+                <span class="tag">SRE</span>
+              </div>
+            </div>
+
+            <!-- ✅ Correct repo link -->
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">
+              View Repo
+            </a>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="card">
+            <div>
+              <h3>Terraform: AWS Baseline Infra</h3>
+              <p>
+                Reusable modules + clean README + outputs + best practices (IaC-first).
+                Designed as a baseline you can extend for real environments.
+              </p>
+
+              <div class="tags">
+                <span class="tag">Terraform</span>
+                <span class="tag">AWS</span>
+                <span class="tag">IaC</span>
+              </div>
+            </div>
+
+            <!-- ✅ Correct repo link -->
+            <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">
+              View Repo
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact">
+        <div class="contact">
+          <div>
+            <h3>Contact</h3>
+            <p>Make it effortless to reach you. Keep these links accurate and consistent across the site.</p>
+          </div>
+
+          <div class="contact-box">
+            <ul class="kv">
+              <li><span>Email:</span> <a href="mailto:gowrishankar@gowrishankar.dev">gowrishankar@gowrishankar.dev</a></li>
+              <li><span>GitHub:</span> <a href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">github.com/gowrishankar-infra</a></li>
+              <li><span>Portfolio:</span> <a href="https://gowrishankar.dev" target="_blank" rel="noopener noreferrer">gowrishankar.dev</a></li>
+              <li><span>LinkedIn:</span> <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">linkedin.com/in/YOUR-LINKEDIN-HANDLE</a></li>
             </ul>
 
-            <p class="note">
-              Interview line: “These are approximate numbers based on Jenkins build history averages and release run timings across multiple deployments.”
-            </p>
-
-            <div class="push"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section">
-      <div class="sectionHeader">
-        <h2>Projects</h2>
-        <div class="subhead">3 strong repos &gt; 20 weak ones</div>
-      </div>
-
-      <div class="grid">
-        <div class="card small span-12">
-          <div class="stack">
-            <p class="kicker">Core skills</p>
-            <div class="tags" style="margin-top:8px">
-              <span class="tag">Linux</span>
-              <span class="tag">Git/GitHub</span>
-              <span class="tag">Jenkins</span>
-              <span class="tag">Maven</span>
-              <span class="tag">Tomcat</span>
-              <span class="tag">Docker</span>
-              <span class="tag">Kubernetes</span>
-              <span class="tag">AWS</span>
-              <span class="tag">Terraform</span>
-              <span class="tag">Ansible</span>
-              <span class="tag">Scripting</span>
-              <span class="tag">Nagios</span>
+            <div class="actions">
+              <a class="btn" href="mailto:gowrishankar@gowrishankar.dev">Email me</a>
+              <a class="btn" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Replace these hrefs with your real repo links when you create them -->
-        <div class="card span-4">
-          <div class="stack">
-            <p class="cardTitle">CI/CD: Jenkins → Docker → Deploy</p>
-            <p class="cardText clamp3">
-              Production-style pipeline with stages, artifacts, validations, and release-friendly flow.
-            </p>
-            <div class="tags">
-              <span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">Git</span>
-            </div>
-            <div class="push"></div>
-            <div class="btnRow">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card span-4">
-          <div class="stack">
-            <p class="cardTitle">Kubernetes: Deployments & Ops</p>
-            <p class="cardText clamp3">
-              Manifests + rollout/rollback + probes + debugging notes (SRE-style).
-            </p>
-            <div class="tags">
-              <span class="tag">K8s</span><span class="tag">YAML</span><span class="tag">SRE</span>
-            </div>
-            <div class="push"></div>
-            <div class="btnRow">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="card span-4">
-          <div class="stack">
-            <p class="cardTitle">Terraform: AWS Baseline Infra</p>
-            <p class="cardText clamp3">
-              Reusable modules + clean README + outputs + best practices (IaC-first).
-            </p>
-            <div class="tags">
-              <span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">IaC</span>
-            </div>
-            <div class="push"></div>
-            <div class="btnRow">
-              <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section">
-      <div class="sectionHeader">
-        <h2>Contact</h2>
-        <div class="subhead">Make it effortless to reach you.</div>
-      </div>
-
-      <div class="grid">
-        <div class="card span-12">
-          <div class="stack">
-            <p class="cardText">
-              Email: <b><a href="mailto:gowrishankar@gowrishankar.dev">gowrishankar@gowrishankar.dev</a></b><br/>
-              GitHub: <b><a href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener">github.com/gowrishankar-infra</a></b><br/>
-              Portfolio: <b><a href="https://gowrishankar.dev" target="_blank" rel="noopener">gowrishankar.dev</a></b>
-            </p>
-
-            <div class="btnRow">
-              <a class="btn primary" href="mailto:gowrishankar@gowrishankar.dev">Email me</a>
-              <a class="btn" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener">GitHub</a>
-              <!-- Replace with your LinkedIn URL -->
-              <a class="btn" href="#" target="_blank" rel="noopener">LinkedIn</a>
-            </div>
-
-            <div class="push"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="y"></span> Gowri Shankar • Built with GitHub Pages
-    </footer>
-  </div>
+      <footer class="footer">
+        <span>© <span id="year"></span> Gowri Shankar</span>
+        <a class="pill" href="#top">Back to top</a>
+      </footer>
+    </div>
+  </main>
 
   <script>
-    // year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Current year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    // mobile menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const nav = document.getElementById('nav');
-    menuBtn?.addEventListener('click', () => {
-      nav.classList.toggle('show');
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!expanded));
-    });
-
-    // smooth scroll
-    document.querySelectorAll('#nav a').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        const id = a.getAttribute('href');
-        if(!id || !id.startsWith('#')) return;
-        e.preventDefault();
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
         const el = document.querySelector(id);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-
-        // close nav on mobile after click
-        if (window.matchMedia('(max-width: 640px)').matches) {
-          nav.classList.remove('show');
-          menuBtn.setAttribute('aria-expanded', 'false');
-        }
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
-
-    // active nav highlighting
-    const ids = ['impact','experience','projects','contact'];
-    const links = Array.from(document.querySelectorAll('#nav a'));
-    const targets = ids.map(id => document.getElementById(id)).filter(Boolean);
-
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          const id = '#'+entry.target.id;
-          links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
-        }
-      });
-    }, {threshold:0.35});
-
-    targets.forEach(t=>obs.observe(t));
   </script>
 </body>
 </html>
