@@ -9,12 +9,10 @@
 
   <title>GowriShankar | DevOps Engineer</title>
 
-  <!-- Open Graph -->
   <meta property="og:title" content="GowriShankar | DevOps Engineer" />
   <meta property="og:description" content="Production-minded DevOps: CI/CD, Kubernetes, Terraform, AWS. Case studies + measurable outcomes." />
   <meta property="og:type" content="website" />
 
-  <!-- Single-file favicon -->
   <link rel="icon" href='data:image/svg+xml;utf8,
   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
     <defs>
@@ -30,14 +28,14 @@
 
   <style>
     :root{
-      /* ✅ #1 FAANG-safe palette */
-      --bg:    #0B1220;  /* deep graphite navy */
-      --bg2:   #060A12;  /* deeper */
-      --text:  #EDEFF2;  /* off-white text */
-      --muted: #B9C0C7;  /* muted body */
-      --subtle:#8E97A3;  /* labels */
+      /* ✅ FAANG-safe palette */
+      --bg:    #0B1220;
+      --bg2:   #060A12;
+      --text:  #EDEFF2;
+      --muted: #B9C0C7;
+      --subtle:#99A3AF; /* ✅ slightly brighter for readability */
 
-      /* Surfaces (within your range) */
+      /* Surfaces */
       --surface:  rgba(255,255,255,0.070);
       --surface2: rgba(255,255,255,0.090);
       --surface3: rgba(255,255,255,0.105);
@@ -60,19 +58,17 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      /* Premium shadow tuned for graphite */
       --shadow: 0 18px 60px rgba(0,0,0,0.55);
 
-      /* Perfect focus ring (product-grade) */
       --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.72) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
 
-      /* Micro-upgrade knobs (Linear-ish polish) */
-      --card-texture-opacity: 0.14;     /* brushed-metal inside cards only */
-      --card-highlight-opacity: 0.22;   /* soft inner highlight */
-      --sig-border-opacity: 0.82;       /* gradient border */
+      /* ✅ Micro-polish knobs */
+      --card-texture-opacity: 0.08;   /* ✅ reduced (was stronger) */
+      --card-highlight-opacity: 0.20; /* ✅ slightly reduced */
+      --sig-border-opacity: 0.82;
     }
 
     @media (prefers-contrast: more){
@@ -92,6 +88,10 @@
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
 
+    /* ✅ FIX: anchor targets not hidden under sticky header */
+    :target{ scroll-margin-top: 96px; }
+    section[id], header[id]{ scroll-margin-top: 96px; }
+
     body{
       margin:0;
       font-family:var(--font);
@@ -109,7 +109,6 @@
       position:relative;
     }
 
-    /* Ultra subtle noise (premium) */
     body::before{
       content:"";
       position:fixed;
@@ -143,7 +142,6 @@
     }
     .skip:focus{left:12px; outline:none; box-shadow:var(--focus)}
 
-    /* Top nav */
     .top{
       position:sticky;
       top:0;
@@ -248,15 +246,16 @@
       min-height: 44px;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 140ms ease, border-color 140ms ease, filter 140ms ease;
+      transition: transform 140ms ease, border-color 140ms ease, filter 140ms ease, box-shadow 140ms ease;
     }
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.34); filter: brightness(1.04)}
     .btn:active{transform: translateY(0px); filter:none}
     .btn.primary{
-      border:1px solid rgba(191,223,255,0.66);
-      background: linear-gradient(180deg, rgba(191,223,255,0.24), rgba(191,223,255,0.10));
+      /* ✅ stronger primary CTA (5% more pop) */
+      border:1px solid rgba(191,223,255,0.78);
+      background: linear-gradient(180deg, rgba(191,223,255,0.28), rgba(191,223,255,0.12));
       color: var(--text);
-      box-shadow: 0 14px 40px rgba(191,223,255,0.10), 0 10px 28px rgba(0,0,0,0.26);
+      box-shadow: 0 16px 44px rgba(191,223,255,0.12), 0 10px 28px rgba(0,0,0,0.26);
     }
     .btn.ghost{background: transparent; box-shadow:none; color: var(--text)}
     .btn:focus{outline:none; box-shadow:var(--focus)}
@@ -266,7 +265,6 @@
       .pill:hover{background:transparent; border-color:transparent}
     }
 
-    /* Mobile nav button */
     .navToggle{display:none; padding:10px 12px; min-width: 44px}
     .burger{width:18px; height:12px; position:relative}
     .burger span{
@@ -278,7 +276,6 @@
     .burger span:nth-child(2){top:5px}
     .burger span:nth-child(3){top:10px}
 
-    /* Cards: signature border + inner highlight + brushed texture (inside only) */
     .card{
       position:relative;
       border-radius: var(--radius-xl);
@@ -305,7 +302,6 @@
         linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
-      opacity: 1;
     }
     .card::after{
       content:"";
@@ -330,11 +326,9 @@
           rgba(0,0,0,0.30),
           transparent 55%);
       mix-blend-mode: overlay;
-      opacity: 1;
     }
     .card > *{position:relative; z-index:1}
 
-    /* Hero */
     header.hero{padding: clamp(20px, 5vw, 60px) 0 20px}
     .heroGrid{
       display:grid;
@@ -412,7 +406,6 @@
     .stat b{display:block; font-size:14px; color: var(--text)}
     .stat small{color:var(--subtle)}
 
-    /* Proof strip */
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
@@ -456,7 +449,6 @@
     .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-0.01em; color: var(--text)}
     .sectionHead p{margin:0; color:var(--muted); font-size:13px; max-width: 72ch}
 
-    /* About */
     .aboutGrid{
       display:grid;
       grid-template-columns: 0.95fr 1.05fr;
@@ -468,7 +460,6 @@
     .bullets{margin: 10px 0 0; padding-left: 18px; color:var(--muted); font-size:13px}
     .bullets li{margin: 6px 0}
 
-    /* Projects */
     .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
     .projTop{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
@@ -520,14 +511,12 @@
       max-height: 148px;
     }
 
-    /* Skills */
     .skillsGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     .skillCard{padding:16px}
     .skillCard h3{margin:0 0 10px; font-size:14px; color: var(--text)}
     .skillCard ul{margin:0; padding-left:18px; color:var(--muted); font-size:13px}
     .skillCard li{margin: 6px 0}
 
-    /* Contact */
     .contactRow{
       display:flex;
       flex-wrap:wrap;
@@ -537,7 +526,6 @@
     }
     .contactRow p{margin:0; color:var(--muted); font-size:13px}
 
-    /* Reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity 700ms ease, transform 700ms ease}
     .reveal.in{opacity:1; transform:none}
     @media (prefers-reduced-motion: reduce){
@@ -547,7 +535,6 @@
       .card::after{display:none}
     }
 
-    /* Back to top */
     .toTop{
       position:fixed;
       right: 16px;
@@ -560,7 +547,6 @@
     }
     .toTop.show{opacity:1; pointer-events:auto; transform:none}
 
-    /* Modal */
     .modalOverlay{
       position:fixed;
       inset:0;
@@ -619,7 +605,6 @@
     .modalSection p, .modalSection li{color:var(--muted); font-size:13px}
     .modalSection ul{margin:8px 0 0; padding-left: 18px}
 
-    /* Footer */
     footer{
       padding: 22px 0 calc(34px + var(--safe-bottom));
       color:var(--subtle);
@@ -640,7 +625,6 @@
     ::selection{background: rgba(191,223,255,0.18)}
     :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
-    /* Breakpoints */
     @media (max-width: 1024px){
       .heroGrid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr 1fr}
@@ -669,7 +653,6 @@
       .btn{padding: 10px 11px}
     }
 
-    /* Drawer (bottom sheet) */
     .drawerOverlay{
       position:fixed;
       inset:0;
@@ -753,27 +736,13 @@
         </div>
 
         <div class="ctaRow">
-          <button
-            class="btn navToggle"
-            id="navToggle"
-            type="button"
-            aria-label="Open menu"
-            aria-haspopup="dialog"
-            aria-controls="drawerOverlay"
-            aria-expanded="false"
-          >
-            <span class="burger" aria-hidden="true">
-              <span></span><span></span><span></span>
-            </span>
+          <button class="btn navToggle" id="navToggle" type="button"
+            aria-label="Open menu" aria-haspopup="dialog" aria-controls="drawerOverlay" aria-expanded="false">
+            <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
           </button>
 
-          <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">
-            LinkedIn
-          </a>
-
-          <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">
-            Resume
-          </a>
+          <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
         </div>
       </nav>
     </div>
@@ -853,22 +822,10 @@
             </ul>
 
             <div class="statGrid" role="list" aria-label="Highlights">
-              <div class="stat" role="listitem">
-                <b>Clean Docs</b>
-                <small>README + screenshots + steps</small>
-              </div>
-              <div class="stat" role="listitem">
-                <b>Case Studies</b>
-                <small>Problem → Architecture → Results</small>
-              </div>
-              <div class="stat" role="listitem">
-                <b>Safe Delivery</b>
-                <small>repeatable, auditable deployments</small>
-              </div>
-              <div class="stat" role="listitem">
-                <b>Ops Thinking</b>
-                <small>failure modes + runbooks</small>
-              </div>
+              <div class="stat" role="listitem"><b>Clean Docs</b><small>README + screenshots + steps</small></div>
+              <div class="stat" role="listitem"><b>Case Studies</b><small>Problem → Architecture → Results</small></div>
+              <div class="stat" role="listitem"><b>Safe Delivery</b><small>repeatable, auditable deployments</small></div>
+              <div class="stat" role="listitem"><b>Ops Thinking</b><small>failure modes + runbooks</small></div>
             </div>
           </aside>
         </div>
@@ -885,9 +842,7 @@
         <div class="aboutGrid">
           <div class="card box reveal">
             <h3>What I’m focused on</h3>
-            <p>
-              Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run, easy to audit, and safe to change.
-            </p>
+            <p>Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run, easy to audit, and safe to change.</p>
             <ul class="bullets">
               <li>Automate “boring” but critical reliability steps.</li>
               <li>Prefer small, reversible changes with fast feedback.</li>
@@ -897,9 +852,7 @@
 
           <div class="card box reveal">
             <h3>How I work</h3>
-            <p>
-              I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
-            </p>
+            <p>I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.</p>
             <ul class="bullets">
               <li><b style="color:var(--text)">Architecture clarity:</b> diagrams + clean repo structure.</li>
               <li><b style="color:var(--text)">Proof-driven:</b> screenshots, outputs, and repeatable steps.</li>
@@ -924,29 +877,22 @@
                 <h3>DevOps CI/CD — Jenkins Pipeline</h3>
                 <p>End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
               </div>
-              <div class="metric" title="Replace with your real metric">
-                <b>↓ 60%</b> deploy time
-              </div>
+              <div class="metric" title="Replace with your real metric"><b>↓ 60%</b> deploy time</div>
             </div>
 
-            <ul class="badges" aria-label="Tech badges">
-              <li class="badge">Jenkins</li>
-              <li class="badge">Docker</li>
-              <li class="badge">CI/CD</li>
-              <li class="badge">Quality Gates</li>
+            <ul class="badges">
+              <li class="badge">Jenkins</li><li class="badge">Docker</li><li class="badge">CI/CD</li><li class="badge">Quality Gates</li>
             </ul>
 
-            <pre class="arch" aria-label="Architecture preview">
-Developer → Git Push
+            <pre class="arch">Developer → Git Push
    ↓
 Jenkins (Pipeline)
    ↓        ↓
 Build     Tests
    ↓
-Image/Artifact → Deploy (staged)
+Artifact/Image → Deploy (staged)
    ↓
-Health checks + rollback
-            </pre>
+Health checks + rollback</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
@@ -960,28 +906,20 @@ Health checks + rollback
                 <h3>Kubernetes Deployments Ops</h3>
                 <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
               </div>
-              <div class="metric" title="Replace with your real metric">
-                <b>99.9%</b> uptime goal
-              </div>
+              <div class="metric" title="Replace with your real metric"><b>99.9%</b> uptime goal</div>
             </div>
 
-            <ul class="badges" aria-label="Tech badges">
-              <li class="badge">Kubernetes</li>
-              <li class="badge">Rollouts</li>
-              <li class="badge">Health Probes</li>
-              <li class="badge">Ops</li>
+            <ul class="badges">
+              <li class="badge">Kubernetes</li><li class="badge">Rollouts</li><li class="badge">Health Probes</li><li class="badge">Ops</li>
             </ul>
 
-            <pre class="arch" aria-label="Architecture preview">
-Client → Ingress/Service
+            <pre class="arch">Client → Ingress/Service
           ↓
       Deployment
       /   |    \
  Pod A  Pod B  Pod C
    ↓      ↓      ↓
-Readiness/Liveness probes
-Rolling updates + rollback
-            </pre>
+Probes + rolling updates</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
@@ -995,29 +933,20 @@ Rolling updates + rollback
                 <h3>Terraform AWS Baseline</h3>
                 <p>Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
               </div>
-              <div class="metric" title="Replace with your real metric">
-                <b>↓ 40%</b> setup time
-              </div>
+              <div class="metric" title="Replace with your real metric"><b>↓ 40%</b> setup time</div>
             </div>
 
-            <ul class="badges" aria-label="Tech badges">
-              <li class="badge">Terraform</li>
-              <li class="badge">AWS</li>
-              <li class="badge">IaC</li>
-              <li class="badge">Drift-safe</li>
+            <ul class="badges">
+              <li class="badge">Terraform</li><li class="badge">AWS</li><li class="badge">IaC</li><li class="badge">Drift-safe</li>
             </ul>
 
-            <pre class="arch" aria-label="Architecture preview">
-Terraform Modules
+            <pre class="arch">Terraform Modules
    ↓
 VPC + Subnets + Routing
    ↓
 IAM (least privilege)
    ↓
-Baseline resources + outputs
-   ↓
-Reusable for environments
-            </pre>
+Reusable baseline outputs</pre>
 
             <div class="projFooter">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
@@ -1270,140 +1199,57 @@ Reusable for environments
     let lastFocusModal = null;
 
     const CASES = {
-      jenkins: {
-        title: "DevOps CI/CD — Jenkins Pipeline",
-        subtitle: "Reliable pipeline: build → test → artifact → deploy with safety checks.",
+      jenkins: { title: "DevOps CI/CD — Jenkins Pipeline", subtitle: "Reliable pipeline: build → test → artifact → deploy with safety checks.",
         sections: [
           { h: "Problem", p: "Teams ship slower when builds are manual, environments drift, and deployments don’t have safety rails." },
-          { h: "Architecture", ul: [
-              "Pipeline stages: checkout → build → test → package → publish → deploy",
-              "Gates: unit tests + artifact versioning + environment variables",
-              "Post steps: notifications + cleanup + rollback path"
-            ]
-          },
-          { h: "What I built", ul: [
-              "A Jenkins pipeline that produces repeatable artifacts (or images) from source.",
-              "Clear stage boundaries and logs so failures are obvious and actionable.",
-              "Deployment step designed for safety (health checks + quick rollback)."
-            ]
-          },
-          { h: "Results (replace with your real numbers)", ul: [
-              "Reduced deployment time by ~60% (target).",
-              "Fewer “works on my machine” incidents via consistent build steps.",
-              "Faster debugging due to structured logs per stage."
-            ]
-          },
-          { h: "Failure modes I considered", ul: [
-              "Broken builds due to dependency drift → lock versions where possible.",
-              "Flaky tests → isolate and retry carefully (avoid hiding real failures).",
-              "Bad deploy → health checks + rollback strategy."
-            ]
-          }
+          { h: "Architecture", ul: ["Pipeline: checkout → build → test → package → publish → deploy", "Gates: tests + versioning + environment configs", "Post: notifications + cleanup + rollback path"] },
+          { h: "What I built", ul: ["Repeatable artifacts/images from source.", "Clear stage logs for fast debugging.", "Deployment safety: health checks + quick rollback."] },
+          { h: "Results (replace with real numbers)", ul: ["Reduced deployment time by ~60% (target).", "Fewer env drift issues via consistent build steps.", "Faster triage with structured logs."] },
+          { h: "Failure modes considered", ul: ["Dependency drift → pin versions where possible.", "Flaky tests → isolate + retry carefully.", "Bad deploy → health checks + rollback."] }
         ]
       },
-      k8s: {
-        title: "Kubernetes Deployments Ops",
-        subtitle: "Operational manifests: rollouts, probes, scaling, and safer changes.",
+      k8s: { title: "Kubernetes Deployments Ops", subtitle: "Operational manifests: rollouts, probes, scaling, safer changes.",
         sections: [
-          { h: "Problem", p: "K8s deployments fail in production when health checks, rollout strategy, and config practices are missing." },
-          { h: "Architecture", ul: [
-              "Workloads: Deployment + Service (+ Ingress when applicable)",
-              "Operational controls: resource requests/limits, probes, rollout strategy",
-              "Config handling: ConfigMaps/Secrets patterns"
-            ]
-          },
-          { h: "What I built", ul: [
-              "Deployments with readiness/liveness probes to prevent bad pods from receiving traffic.",
-              "Rolling updates tuned for safer release behavior.",
-              "A repo layout that makes changes auditable and reproducible."
-            ]
-          },
-          { h: "Results (replace with your real numbers)", ul: [
-              "More predictable rollouts and fewer surprise outages (goal: 99.9%+).",
-              "Faster triage with consistent manifest patterns.",
-              "Cleaner separation between config and code."
-            ]
-          },
-          { h: "Failure modes I considered", ul: [
-              "CrashLoop due to config errors → validate + staged rollout.",
-              "Traffic to unhealthy pods → probes + proper service selectors.",
-              "Resource starvation → requests/limits + scaling strategy."
-            ]
-          }
+          { h: "Problem", p: "K8s deployments fail in production when probes, rollout strategy, and config practices are missing." },
+          { h: "Architecture", ul: ["Deployment + Service (+ Ingress)", "Requests/limits, probes, rollout strategy", "ConfigMaps/Secrets patterns"] },
+          { h: "What I built", ul: ["Readiness/liveness probes to prevent bad pods receiving traffic.", "Rolling updates tuned for safer releases.", "Repo layout for auditability."] },
+          { h: "Results (replace with real numbers)", ul: ["More predictable rollouts (goal: 99.9%+).", "Faster triage via consistent manifests.", "Cleaner config separation."] },
+          { h: "Failure modes considered", ul: ["Config errors → validate + staged rollout.", "Traffic to unhealthy pods → probes + selectors.", "Resource issues → requests/limits + scaling."] }
         ]
       },
-      tf: {
-        title: "Terraform AWS Baseline",
-        subtitle: "Reusable baseline for environments with safe defaults and least-privilege thinking.",
+      tf: { title: "Terraform AWS Baseline", subtitle: "Reusable baseline with safe defaults + least-privilege IAM.",
         sections: [
-          { h: "Problem", p: "Cloud projects get messy when the foundation isn’t standardized: inconsistent networking, IAM sprawl, and hard-to-reuse setups." },
-          { h: "Architecture", ul: [
-              "Networking: VPC + subnets + route tables (baseline pattern)",
-              "Identity: IAM roles/policies with least privilege",
-              "Outputs: clear module outputs for downstream stacks"
-            ]
-          },
-          { h: "What I built", ul: [
-              "An opinionated Terraform baseline you can reuse across dev/stage/prod.",
-              "Structure that encourages safe composition (modules + outputs).",
-              "A drift-aware mindset (state handling + repeatable applies)."
-            ]
-          },
-          { h: "Results (replace with your real numbers)", ul: [
-              "Reduced initial environment setup time by ~40% (target).",
-              "Improved consistency across environments.",
-              "Clearer audit trail for infrastructure changes."
-            ]
-          },
-          { h: "Failure modes I considered", ul: [
-              "State drift/conflicts → remote state best practices (where applicable).",
-              "Over-permissioned IAM → least privilege + review boundaries.",
-              "Unclear dependencies → explicit outputs + module contracts."
-            ]
-          }
+          { h: "Problem", p: "Cloud gets messy without standardized foundations: inconsistent networking, IAM sprawl, hard-to-reuse setups." },
+          { h: "Architecture", ul: ["VPC + subnets + routing baseline", "IAM roles/policies (least privilege)", "Module outputs for downstream stacks"] },
+          { h: "What I built", ul: ["Reusable baseline across dev/stage/prod.", "Module contracts with clear outputs.", "Drift-aware mindset (state handling + repeatable applies)."] },
+          { h: "Results (replace with real numbers)", ul: ["Reduced setup time by ~40% (target).", "Consistency across environments.", "Clear audit trail for infra changes."] },
+          { h: "Failure modes considered", ul: ["State conflicts → remote state best practices.", "Over-permissioned IAM → least privilege.", "Unclear dependencies → explicit outputs."] }
         ]
       }
     };
 
     function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+      return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
     }
-
     function renderCase(caseKey){
       const data = CASES[caseKey];
       if(!data) return;
       $("#modalTitle").textContent = data.title;
       $("#modalDesc").textContent = data.subtitle;
-
       modalBody.innerHTML = data.sections.map(s => {
         const para = s.p ? `<p>${escapeHtml(s.p)}</p>` : "";
         const list = s.ul ? `<ul>${s.ul.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>` : "";
-        return `
-          <section class="modalSection">
-            <h4>${escapeHtml(s.h)}</h4>
-            ${para}
-            ${list}
-          </section>
-        `;
+        return `<section class="modalSection"><h4>${escapeHtml(s.h)}</h4>${para}${list}</section>`;
       }).join("");
     }
-
     function openModal(caseKey){
       lastFocusModal = document.activeElement;
       renderCase(caseKey);
       overlay.classList.add("open");
       document.body.style.overflow = "hidden";
       setInert(true);
-
-      const focusables = getFocusable(overlay);
-      (focusables[0] || closeBtn).focus({ preventScroll: true });
+      (getFocusable(overlay)[0] || closeBtn).focus({ preventScroll: true });
     }
-
     function closeModal(){
       overlay.classList.remove("open");
       modalBody.innerHTML = "";
