@@ -20,7 +20,7 @@
     <defs>
       <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="%23C0C0C0"/>
-        <stop offset="1" stop-color="%239FD3FF"/>
+        <stop offset="1" stop-color="%23BFDFFF"/>
       </linearGradient>
     </defs>
     <rect rx="18" ry="18" width="64" height="64" fill="%232F4F4F"/>
@@ -66,9 +66,9 @@
       /* Shadows tuned for teal slate background */
       --shadow: 0 16px 50px rgba(0,0,0,0.45);
 
-      /* Supporting accent (very minimal) */
-      --accent:  #9FD3FF;     /* steel ice blue */
-      --accent2: #CFEAFF;
+      /* OPTION A — Arctic Steel (FAANG-safe) */
+      --accent:  #BFDFFF;
+      --accent2: #E9F4FF;
 
       --radius-xl: 22px;
       --radius-lg: 18px;
@@ -80,7 +80,8 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      --focus: 0 0 0 3px rgba(159,211,255,0.26), 0 0 0 1px rgba(159,211,255,0.62) inset;
+      /* Updated focus ring for Option A */
+      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.62) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -105,6 +106,9 @@
         --text:#FFFFFF;
         --card-texture-opacity: 0.16;
         --card-highlight-opacity: 0.26;
+
+        /* Stronger focus in high contrast mode */
+        --focus: 0 0 0 3px rgba(191,223,255,0.34), 0 0 0 1px rgba(191,223,255,0.72) inset;
       }
     }
 
@@ -116,7 +120,7 @@
       font-family:var(--font);
       color:var(--muted);
       background:
-        radial-gradient(900px 620px at 18% 10%, rgba(159,211,255,0.10), transparent 58%),
+        radial-gradient(900px 620px at 18% 10%, rgba(191,223,255,0.10), transparent 58%),
         radial-gradient(820px 560px at 86% 16%, rgba(192,192,192,0.06), transparent 58%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
@@ -195,7 +199,7 @@
       border-radius:14px;
       background:
         radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.18), transparent 58%),
-        linear-gradient(135deg, rgba(192,192,192,0.28), rgba(159,211,255,0.22));
+        linear-gradient(135deg, rgba(192,192,192,0.28), rgba(191,223,255,0.22));
       box-shadow: 0 10px 28px rgba(0,0,0,0.22);
       border:1px solid rgba(192,192,192,0.22);
       flex:0 0 auto;
@@ -208,7 +212,7 @@
       inset:-10px;
       background:
         radial-gradient(50px 30px at 25% 25%, rgba(255,255,255,0.20), transparent 60%),
-        radial-gradient(60px 40px at 70% 75%, rgba(159,211,255,0.18), transparent 60%);
+        radial-gradient(60px 40px at 70% 75%, rgba(191,223,255,0.18), transparent 60%);
       opacity:0.85;
       pointer-events:none;
     }
@@ -277,8 +281,8 @@
     .btn:hover{transform: translateY(-1px); border-color: rgba(192,192,192,0.32); filter: brightness(1.02)}
     .btn:active{transform: translateY(0px); filter:none}
     .btn.primary{
-      border:1px solid rgba(159,211,255,0.60);
-      background: linear-gradient(180deg, rgba(159,211,255,0.24), rgba(159,211,255,0.10));
+      border:1px solid rgba(191,223,255,0.66);
+      background: linear-gradient(180deg, rgba(191,223,255,0.24), rgba(191,223,255,0.10));
       color: var(--text);
     }
     .btn.ghost{background: transparent; box-shadow:none; color: var(--text)}
@@ -313,11 +317,9 @@
       box-shadow: var(--shadow);
       background: linear-gradient(180deg, var(--surface2), var(--surface));
       overflow:hidden;
-      /* base border becomes transparent; gradient border handled via ::before */
       border: 1px solid transparent;
     }
 
-    /* Signature gradient border (quiet, premium) */
     .card::before{
       content:"";
       position:absolute;
@@ -326,14 +328,12 @@
       padding: 1px;
       background:
         linear-gradient(135deg,
-          rgba(159,211,255, calc(0.38 * var(--sig-border-opacity))),
+          rgba(191,223,255, calc(0.38 * var(--sig-border-opacity))),
           rgba(192,192,192, calc(0.22 * var(--sig-border-opacity))) 35%,
           rgba(192,192,192, calc(0.14 * var(--sig-border-opacity))) 65%,
-          rgba(159,211,255, calc(0.28 * var(--sig-border-opacity)))
+          rgba(191,223,255, calc(0.28 * var(--sig-border-opacity)))
         );
       pointer-events:none;
-
-      /* Show only the 1px ring */
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -342,7 +342,6 @@
       opacity: 1;
     }
 
-    /* Inner highlight + brushed texture overlay (inside only) */
     .card::after{
       content:"";
       position:absolute;
@@ -350,19 +349,13 @@
       border-radius: inherit;
       pointer-events:none;
       opacity: 1;
-
       background:
-        /* Inner top highlight */
         radial-gradient(900px 260px at 20% 0%,
           rgba(255,255,255, var(--card-highlight-opacity)),
           transparent 55%),
-
-        /* Subtle side sheen */
         radial-gradient(520px 220px at 85% 35%,
-          rgba(159,211,255, calc(0.12 * var(--card-highlight-opacity))),
+          rgba(191,223,255, calc(0.12 * var(--card-highlight-opacity))),
           transparent 60%),
-
-        /* Brushed-metal grain (vertical) */
         repeating-linear-gradient(
           90deg,
           rgba(255,255,255, calc(0.10 * var(--card-texture-opacity))) 0px,
@@ -370,15 +363,11 @@
           rgba(255,255,255, 0) 3px,
           rgba(255,255,255, 0) 7px
         ),
-
-        /* Soft vignette for depth */
         radial-gradient(1200px 600px at 50% 100%,
           rgba(0,0,0,0.20),
           transparent 55%);
       mix-blend-mode: overlay;
     }
-
-    /* Ensure content is above card overlays */
     .card > *{position:relative; z-index:1}
 
     /* Hero */
@@ -408,7 +397,7 @@
       width:8px; height:8px;
       border-radius:999px;
       background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(159,211,255,0.12);
+      box-shadow: 0 0 0 6px rgba(191,223,255,0.12);
       flex:0 0 auto;
     }
     h1{
@@ -592,7 +581,7 @@
       html{scroll-behavior:auto}
       .reveal{opacity:1; transform:none; transition:none}
       .btn:hover{transform:none}
-      .card::after{display:none} /* reduce visual noise */
+      .card::after{display:none}
     }
 
     /* Back to top */
@@ -685,7 +674,7 @@
     .quietLink{color:var(--muted); text-decoration:none}
     .quietLink:hover{color:var(--text); text-decoration:underline}
 
-    ::selection{background: rgba(159,211,255,0.18)}
+    ::selection{background: rgba(191,223,255,0.18)}
     :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
     /* Breakpoints */
@@ -1199,7 +1188,6 @@ Reusable for environments
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
-    // Desktop nav smooth scroll
     $$("#navLinks a").forEach(a => {
       a.addEventListener("click", (e) => {
         const href = a.getAttribute("href") || "";
@@ -1210,7 +1198,6 @@ Reusable for environments
       });
     });
 
-    // Scrollspy
     const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
     const navItems = $$("#navLinks a");
     const setActive = (id) => {
@@ -1229,7 +1216,6 @@ Reusable for environments
       sections.forEach(s => spy.observe(s));
     }
 
-    // Reveal
     const revealEls = $$(".reveal");
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(!prefersReduced){
@@ -1246,7 +1232,6 @@ Reusable for environments
       revealEls.forEach(el => el.classList.add("in"));
     }
 
-    // Back to top
     const toTop = $("#toTop");
     const toggleToTop = () => {
       const show = window.scrollY > 700;
@@ -1256,7 +1241,6 @@ Reusable for environments
     toggleToTop();
     toTop.addEventListener("click", () => scrollToId("home"));
 
-    // Focus trap helpers
     function getFocusable(root){
       const selectors = [
         "a[href]",
@@ -1281,7 +1265,6 @@ Reusable for environments
       }
     }
 
-    // Drawer
     const drawerOverlay = $("#drawerOverlay");
     const navToggle = $("#navToggle");
     const closeDrawer = $("#closeDrawer");
@@ -1318,7 +1301,6 @@ Reusable for environments
       });
     });
 
-    // Modal
     const overlay = $("#modalOverlay");
     const modalBody = $("#modalBody");
     const closeBtn = $("#closeModal");
@@ -1482,13 +1464,7 @@ Reusable for environments
       }
     });
 
-    /* ============================================================
-       MICRO-UPGRADE 2:
-       Adaptive contrast tuning (auto boost)
-       - If user prefers low contrast: boost slightly for legibility
-       - If computed contrast is borderline: boost borders/text a bit
-       ============================================================ */
-
+    /* Adaptive contrast tuning (auto boost) */
     function hexToRgb(hex){
       const h = hex.trim().replace("#","");
       if(h.length !== 6) return null;
@@ -1516,7 +1492,6 @@ Reusable for environments
       const dark = Math.min(L1,L2);
       return (bright + 0.05) / (dark + 0.05);
     }
-
     function applyContrastBoost(){
       const root = document.documentElement;
       const cs = getComputedStyle(root);
@@ -1525,7 +1500,7 @@ Reusable for environments
       const ratio = contrastRatio(bg, muted);
 
       const prefersLess = window.matchMedia && window.matchMedia("(prefers-contrast: less)").matches;
-      const borderline = ratio < 5.5; // keep it comfortably readable
+      const borderline = ratio < 5.5;
 
       if(prefersLess || borderline){
         root.style.setProperty("--stroke",  "rgba(192,192,192,0.22)");
@@ -1538,9 +1513,9 @@ Reusable for environments
         root.style.setProperty("--text",     "#FFFFFF");
         root.style.setProperty("--sig-border-opacity", "0.88");
         root.style.setProperty("--card-highlight-opacity", "0.26");
+        root.style.setProperty("--focus", "0 0 0 3px rgba(191,223,255,0.32), 0 0 0 1px rgba(191,223,255,0.72) inset");
       }
     }
-
     applyContrastBoost();
     if(window.matchMedia){
       const mq = window.matchMedia("(prefers-contrast: less)");
