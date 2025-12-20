@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0f141b" />
   <meta name="description" content="GowriShankar — DevOps Engineer. CI/CD, Kubernetes, Terraform, AWS. Production-minded automation with measurable outcomes." />
 
   <title>GowriShankar | DevOps Engineer</title>
@@ -13,35 +14,65 @@
   <meta property="og:description" content="Production-minded DevOps: CI/CD, Kubernetes, Terraform, AWS. Case studies + measurable outcomes." />
   <meta property="og:type" content="website" />
 
+  <!-- Single-file favicon (SVG data URL) -->
+  <link rel="icon" href='data:image/svg+xml;utf8,
+  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="%23eef1f6"/>
+        <stop offset="1" stop-color="%239fb7ff"/>
+      </linearGradient>
+    </defs>
+    <rect rx="18" ry="18" width="64" height="64" fill="%230f141b"/>
+    <rect x="8" y="8" rx="14" ry="14" width="48" height="48" fill="url(%23g)" opacity="0.85"/>
+    <text x="50%" y="56%" text-anchor="middle" font-family="system-ui,Segoe UI,Roboto" font-size="26" fill="%230b0f15">G</text>
+  </svg>' />
+
+  <!-- Structured data (replace placeholders if you want) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "GowriShankar",
+    "jobTitle": "DevOps Engineer",
+    "url": "https://gowrishankar.dev",
+    "sameAs": [
+      "YOUR_LINKEDIN_URL_HERE",
+      "https://github.com/gowrishankar-infra"
+    ]
+  }
+  </script>
+
   <style>
     /* ============================================================
-       Slate Grey + Silver (premium, calm)
-       - Mobile/Tablet/Desktop responsive
-       - Tap targets, safe areas, bottom-sheet menu
+       Elite Matte Slate + Matte Silver ("quiet luxury" FAANG feel)
+       - Accessibility correctness
+       - Drawer focus trap
+       - Inert background when dialogs open
+       - Contrast preferences support
        ============================================================ */
 
     :root{
-      /* Slate greys */
-      --bg: #0f141b;      /* slate deep */
-      --bg2:#0b0f15;      /* darker slate */
-      --surface: rgba(245, 247, 250, 0.06);
-      --surface2: rgba(245, 247, 250, 0.085);
-      --surface3: rgba(245, 247, 250, 0.11);
+      --bg:  #0f141b;
+      --bg2: #0a0f15;
 
-      --stroke: rgba(245, 247, 250, 0.10);
-      --stroke2: rgba(245, 247, 250, 0.14);
+      --surface:  rgba(245,247,250,0.055);
+      --surface2: rgba(245,247,250,0.078);
+      --surface3: rgba(245,247,250,0.110);
 
-      /* Silver text */
-      --text: rgba(235, 238, 243, 0.94);   /* silver */
-      --muted: rgba(210, 216, 225, 0.74);  /* muted silver */
-      --subtle: rgba(190, 197, 208, 0.60);
+      --stroke:  rgba(245,247,250,0.10);
+      --stroke2: rgba(245,247,250,0.16);
 
-      --shadow: 0 12px 40px rgba(0,0,0,0.52);
+      /* Silver ladder */
+      --text:   rgba(238,241,246,0.95);
+      --muted:  rgba(210,216,225,0.76);
+      --subtle: rgba(188,196,208,0.62);
 
-      /* Accents (kept subtle; still “silver-first”) */
-      --accent: #93b6ff;   /* cool light blue */
-      --accent2:#a7f3d0;   /* mint highlight */
-      --warn:#ffd58a;
+      --shadow: 0 14px 44px rgba(0,0,0,0.56);
+
+      /* Minimal steel-blue accent */
+      --accent:  #9fb7ff;
+      --accent2: #bcd0ff;
 
       --radius-xl: 22px;
       --radius-lg: 18px;
@@ -53,17 +84,17 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      --focus: 0 0 0 3px rgba(147,182,255,0.32), 0 0 0 1px rgba(147,182,255,0.65) inset;
+      --focus: 0 0 0 3px rgba(159,183,255,0.28), 0 0 0 1px rgba(159,183,255,0.62) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    /* Optional light mode: still slate-ish, silver-ish */
     @media (prefers-color-scheme: light){
       :root{
         --bg:#eef1f6;
         --bg2:#e5e9f1;
+
         --surface: rgba(20,26,35,0.05);
         --surface2: rgba(20,26,35,0.07);
         --surface3: rgba(20,26,35,0.09);
@@ -75,6 +106,27 @@
         --subtle: rgba(18,22,30,0.58);
 
         --shadow: 0 12px 40px rgba(20,26,35,0.12);
+
+        --accent:#3a63ff;
+        --accent2:#2d54ea;
+      }
+    }
+
+    /* Higher contrast preference */
+    @media (prefers-contrast: more){
+      :root{
+        --muted: rgba(238,241,246,0.88);
+        --subtle: rgba(238,241,246,0.76);
+        --stroke: rgba(245,247,250,0.18);
+        --stroke2: rgba(245,247,250,0.24);
+      }
+      @media (prefers-color-scheme: light){
+        :root{
+          --muted: rgba(18,22,30,0.84);
+          --subtle: rgba(18,22,30,0.72);
+          --stroke: rgba(20,26,35,0.18);
+          --stroke2: rgba(20,26,35,0.24);
+        }
       }
     }
 
@@ -84,24 +136,41 @@
       margin:0;
       font-family:var(--font);
       color:var(--text);
-
-      /* Slate grey background with subtle metallic glow */
       background:
-        radial-gradient(900px 650px at 18% 10%, rgba(147,182,255,0.18), transparent 56%),
-        radial-gradient(860px 600px at 84% 14%, rgba(167,243,208,0.12), transparent 54%),
-        radial-gradient(720px 520px at 60% 92%, rgba(255,213,138,0.08), transparent 58%),
+        radial-gradient(900px 620px at 18% 10%, rgba(159,183,255,0.10), transparent 58%),
+        radial-gradient(820px 560px at 86% 16%, rgba(245,247,250,0.06), transparent 58%),
         linear-gradient(180deg, var(--bg), var(--bg2));
-
       min-height:100vh;
       line-height:1.55;
       text-rendering:optimizeLegibility;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
+      position:relative;
+    }
+
+    /* Subtle premium noise */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:0.06;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.08) 0px,
+          rgba(255,255,255,0.08) 1px,
+          rgba(255,255,255,0.00) 2px,
+          rgba(255,255,255,0.00) 4px
+        );
+      mix-blend-mode: overlay;
     }
 
     a{color:inherit}
-    .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+    .container{max-width:var(--max); margin:0 auto; padding:0 var(--pad); position:relative; z-index:1}
+
     .skip{
       position:absolute;
       left:-999px;
@@ -123,13 +192,11 @@
       padding-top: var(--safe-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(15,20,27,0.78), rgba(15,20,27,0.35));
+      background: linear-gradient(180deg, rgba(15,20,27,0.84), rgba(15,20,27,0.34));
       border-bottom: 1px solid var(--stroke);
     }
     @media (prefers-color-scheme: light){
-      .top{
-        background: linear-gradient(180deg, rgba(238,241,246,0.86), rgba(238,241,246,0.48));
-      }
+      .top{background: linear-gradient(180deg, rgba(238,241,246,0.90), rgba(238,241,246,0.52));}
     }
 
     .nav{
@@ -150,13 +217,11 @@
     .mark{
       width:38px; height:38px;
       border-radius:14px;
-
-      /* metallic-ish mark */
       background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.22), transparent 55%),
-        linear-gradient(135deg, rgba(190,197,208,0.55), rgba(147,182,255,0.55));
-      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
-      border:1px solid rgba(245,247,250,0.18);
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.20), transparent 58%),
+        linear-gradient(135deg, rgba(238,241,246,0.38), rgba(159,183,255,0.30));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+      border:1px solid rgba(245,247,250,0.16);
       flex:0 0 auto;
     }
     .brandText{min-width:0}
@@ -192,7 +257,7 @@
       justify-content:center;
     }
     .pill:hover{color:var(--text); background:var(--surface); border-color:var(--stroke)}
-    .pill[aria-current="true"]{
+    .pill[aria-current="page"]{
       color:var(--text);
       background: linear-gradient(180deg, var(--surface2), var(--surface));
       border-color:var(--stroke2);
@@ -221,18 +286,24 @@
     .btn:hover{transform: translateY(-1px); border-color: rgba(245,247,250,0.22)}
     .btn:active{transform: translateY(0px)}
     .btn.primary{
-      border:1px solid rgba(147,182,255,0.42);
-      background: linear-gradient(180deg, rgba(147,182,255,0.22), rgba(147,182,255,0.10));
+      border:1px solid rgba(159,183,255,0.40);
+      background: linear-gradient(180deg, rgba(159,183,255,0.18), rgba(159,183,255,0.08));
     }
     .btn.ghost{background: transparent; box-shadow:none}
     .btn:focus{outline:none; box-shadow:var(--focus)}
+
+    /* Disable hover-lift on touch devices (feels tighter) */
+    @media (hover:none){
+      .btn:hover{transform:none}
+      .pill:hover{background:transparent; border-color:transparent}
+    }
 
     /* Mobile nav button */
     .navToggle{display:none; padding:10px 12px; min-width: 44px}
     .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0; height:2px;
-      background: rgba(235,238,243,0.78);
+      background: rgba(238,241,246,0.80);
       border-radius:999px;
     }
     .burger span:nth-child(1){top:0}
@@ -266,7 +337,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       padding:8px 12px;
       border-radius:999px;
       max-width: 100%;
@@ -275,8 +346,8 @@
     .dot{
       width:8px; height:8px;
       border-radius:999px;
-      background: var(--accent2);
-      box-shadow: 0 0 0 6px rgba(167,243,208,0.14);
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(159,183,255,0.12);
       flex:0 0 auto;
     }
     h1{
@@ -314,14 +385,14 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       padding:8px 10px;
       border-radius:999px;
     }
     .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
     .stat{
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       border-radius:16px;
       padding:12px;
     }
@@ -332,7 +403,7 @@
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       border-radius: var(--radius-xl);
       padding: 12px 14px;
       display:flex;
@@ -348,7 +419,7 @@
       border:1px solid var(--stroke);
       padding:8px 10px;
       border-radius:999px;
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       color:var(--muted);
       font-size:12px;
       min-height: 36px;
@@ -360,7 +431,6 @@
       align-items:center;
     }
 
-    /* Sections */
     section{padding: 32px 0}
     .sectionHead{
       display:flex;
@@ -399,7 +469,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
@@ -413,7 +483,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       padding:7px 9px;
       border-radius:999px;
       min-height: 34px;
@@ -507,7 +577,7 @@
       z-index: 2;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(15,20,27,0.82), rgba(15,20,27,0.34));
+      background: linear-gradient(180deg, rgba(15,20,27,0.88), rgba(15,20,27,0.32));
       border-bottom: 1px solid var(--stroke);
       padding: 14px;
       display:flex;
@@ -516,16 +586,14 @@
       gap:12px;
     }
     @media (prefers-color-scheme: light){
-      .modalHeader{
-        background: linear-gradient(180deg, rgba(238,241,246,0.94), rgba(238,241,246,0.58));
-      }
+      .modalHeader{background: linear-gradient(180deg, rgba(238,241,246,0.94), rgba(238,241,246,0.58));}
     }
     .modalHeader h3{margin:0; font-size: 16px; letter-spacing:-0.01em}
     .modalHeader p{margin:4px 0 0; color:var(--muted); font-size:13px; max-width: 70ch}
     .modalBody{padding: 12px 14px 16px}
     .modalSection{
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       border-radius: 18px;
       padding: 14px;
       margin: 12px 0;
@@ -558,7 +626,7 @@
     .quietLink{color:var(--muted); text-decoration:none}
     .quietLink:hover{color:var(--text); text-decoration:underline}
 
-    ::selection{background: rgba(147,182,255,0.24)}
+    ::selection{background: rgba(159,183,255,0.20)}
     :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
     /* Breakpoints */
@@ -629,7 +697,7 @@
     .drawerLinks a{
       text-decoration:none;
       border:1px solid var(--stroke);
-      background: rgba(245,247,250,0.03);
+      background: rgba(245,247,250,0.028);
       border-radius: 14px;
       padding: 12px;
       min-height: 46px;
@@ -674,13 +742,20 @@
         </div>
 
         <div class="ctaRow">
-          <button class="btn navToggle" id="navToggle" type="button" aria-label="Open menu" aria-haspopup="dialog">
+          <button
+            class="btn navToggle"
+            id="navToggle"
+            type="button"
+            aria-label="Open menu"
+            aria-haspopup="dialog"
+            aria-controls="drawerOverlay"
+            aria-expanded="false"
+          >
             <span class="burger" aria-hidden="true">
               <span></span><span></span><span></span>
             </span>
           </button>
 
-          <!-- Replace placeholder -->
           <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn">
             LinkedIn
           </a>
@@ -841,7 +916,7 @@
                 <h3>DevOps CI/CD — Jenkins Pipeline</h3>
                 <p>End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
               </div>
-              <div class="metric" title="Example result (replace with your real metric)">
+              <div class="metric" title="Replace with your real metric">
                 <b>↓ 60%</b> deploy time
               </div>
             </div>
@@ -877,7 +952,7 @@ Health checks + rollback
                 <h3>Kubernetes Deployments Ops</h3>
                 <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
               </div>
-              <div class="metric" title="Example result (replace with your real metric)">
+              <div class="metric" title="Replace with your real metric">
                 <b>99.9%</b> uptime goal
               </div>
             </div>
@@ -912,7 +987,7 @@ Rolling updates + rollback
                 <h3>Terraform AWS Baseline</h3>
                 <p>Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
               </div>
-              <div class="metric" title="Example result (replace with your real metric)">
+              <div class="metric" title="Replace with your real metric">
                 <b>↓ 40%</b> setup time
               </div>
             </div>
@@ -1011,7 +1086,6 @@ Reusable for environments
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
       <div class="container">
         <div class="foot">
@@ -1026,7 +1100,6 @@ Reusable for environments
     </footer>
   </main>
 
-  <!-- Back to top -->
   <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
 
   <!-- Case Study Modal -->
@@ -1049,38 +1122,51 @@ Reusable for environments
 
     $("#year").textContent = new Date().getFullYear();
 
+    const main = $("#main");
+    const topbar = $(".top");
+
+    function setInert(isInert){
+      // Prevent background focus/scroll for screen readers + keyboard
+      // (supported in modern browsers; harmless if missing)
+      if ("inert" in HTMLElement.prototype) {
+        main.inert = isInert;
+        if (topbar) topbar.inert = isInert;
+      }
+      // Fallback: aria-hidden
+      if (topbar) topbar.setAttribute("aria-hidden", isInert ? "true" : "false");
+      main.setAttribute("aria-hidden", isInert ? "true" : "false");
+    }
+
     function scrollToId(id){
       const el = document.getElementById(id);
       if(!el) return;
       const topBar = document.querySelector(".top");
       const y = el.getBoundingClientRect().top + window.scrollY - (topBar?.offsetHeight ?? 0) - 10;
       window.scrollTo({ top: y, behavior: "smooth" });
+
       el.setAttribute("tabindex","-1");
       el.focus({ preventScroll: true });
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
-    // Desktop nav
-    const navLinks = $("#navLinks");
-    if(navLinks){
-      $$("#navLinks a").forEach(a => {
-        a.addEventListener("click", (e) => {
-          const href = a.getAttribute("href") || "";
-          if(href.startsWith("#")){
-            e.preventDefault();
-            scrollToId(href.slice(1));
-          }
-        });
+    // Desktop nav smooth scroll
+    $$("#navLinks a").forEach(a => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href") || "";
+        if(href.startsWith("#")){
+          e.preventDefault();
+          scrollToId(href.slice(1));
+        }
       });
-    }
+    });
 
-    // Scrollspy
+    // Scrollspy (correct aria-current)
     const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
     const navItems = $$("#navLinks a");
     const setActive = (id) => {
       navItems.forEach(a => {
         const href = a.getAttribute("href");
-        a.setAttribute("aria-current", href === "#" + id ? "true" : "false");
+        a.setAttribute("aria-current", (href === "#" + id) ? "page" : "false");
       });
     };
 
@@ -1122,27 +1208,57 @@ Reusable for environments
     toggleToTop();
     toTop.addEventListener("click", () => scrollToId("home"));
 
+    // Shared focus trap
+    function getFocusable(root){
+      const selectors = [
+        "a[href]",
+        "button:not([disabled])",
+        "input:not([disabled])",
+        "select:not([disabled])",
+        "textarea:not([disabled])",
+        "[tabindex]:not([tabindex='-1'])"
+      ];
+      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
+    }
+
+    function trapTab(e, container){
+      if(e.key !== "Tab") return;
+      const focusables = getFocusable(container);
+      if(focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if(e.shiftKey && document.activeElement === first){
+        e.preventDefault(); last.focus();
+      } else if(!e.shiftKey && document.activeElement === last){
+        e.preventDefault(); first.focus();
+      }
+    }
+
     // Drawer
     const drawerOverlay = $("#drawerOverlay");
     const navToggle = $("#navToggle");
     const closeDrawer = $("#closeDrawer");
+    let lastFocusDrawer = null;
 
     function openDrawer(){
+      lastFocusDrawer = document.activeElement;
       drawerOverlay.classList.add("open");
       document.body.style.overflow = "hidden";
+      navToggle.setAttribute("aria-expanded","true");
+      setInert(true);
       closeDrawer.focus({ preventScroll: true });
     }
     function closeDrawerFn(){
       drawerOverlay.classList.remove("open");
       document.body.style.overflow = "";
-      navToggle.focus({ preventScroll: true });
+      navToggle.setAttribute("aria-expanded","false");
+      setInert(false);
+      if(lastFocusDrawer && typeof lastFocusDrawer.focus === "function") lastFocusDrawer.focus({ preventScroll: true });
     }
 
     navToggle.addEventListener("click", openDrawer);
     closeDrawer.addEventListener("click", closeDrawerFn);
-    drawerOverlay.addEventListener("click", (e) => {
-      if(e.target === drawerOverlay) closeDrawerFn();
-    });
+    drawerOverlay.addEventListener("click", (e) => { if(e.target === drawerOverlay) closeDrawerFn(); });
 
     $$("[data-drawer-link]").forEach(a => {
       a.addEventListener("click", (e) => {
@@ -1155,11 +1271,11 @@ Reusable for environments
       });
     });
 
-    // Case study modal
+    // Modal
     const overlay = $("#modalOverlay");
     const modalBody = $("#modalBody");
     const closeBtn = $("#closeModal");
-    let lastFocus = null;
+    let lastFocusModal = null;
 
     const CASES = {
       jenkins: {
@@ -1285,23 +1401,12 @@ Reusable for environments
       }).join("");
     }
 
-    function getFocusable(root){
-      const selectors = [
-        "a[href]",
-        "button:not([disabled])",
-        "input:not([disabled])",
-        "select:not([disabled])",
-        "textarea:not([disabled])",
-        "[tabindex]:not([tabindex='-1'])"
-      ];
-      return $$(selectors.join(","), root).filter(el => !el.hasAttribute("disabled") && el.offsetParent !== null);
-    }
-
     function openModal(caseKey){
-      lastFocus = document.activeElement;
+      lastFocusModal = document.activeElement;
       renderCase(caseKey);
       overlay.classList.add("open");
       document.body.style.overflow = "hidden";
+      setInert(true);
 
       const focusables = getFocusable(overlay);
       (focusables[0] || closeBtn).focus({ preventScroll: true });
@@ -1311,46 +1416,25 @@ Reusable for environments
       overlay.classList.remove("open");
       modalBody.innerHTML = "";
       document.body.style.overflow = "";
-      if(lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+      setInert(false);
+      if(lastFocusModal && typeof lastFocusModal.focus === "function") lastFocusModal.focus({ preventScroll: true });
     }
 
-    $$("button[data-case]").forEach(btn => {
-      btn.addEventListener("click", () => openModal(btn.dataset.case));
-    });
-
+    $$("button[data-case]").forEach(btn => btn.addEventListener("click", () => openModal(btn.dataset.case)));
     closeBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", (e) => {
-      if(e.target === overlay) closeModal();
-    });
+    overlay.addEventListener("click", (e) => { if(e.target === overlay) closeModal(); });
 
     document.addEventListener("keydown", (e) => {
-      if(drawerOverlay.classList.contains("open") && e.key === "Escape"){
-        e.preventDefault();
-        closeDrawerFn();
-        return;
+      // Drawer key handling
+      if(drawerOverlay.classList.contains("open")){
+        if(e.key === "Escape"){ e.preventDefault(); closeDrawerFn(); return; }
+        trapTab(e, drawerOverlay);
       }
 
-      if(!overlay.classList.contains("open")) return;
-
-      if(e.key === "Escape"){
-        e.preventDefault();
-        closeModal();
-        return;
-      }
-
-      if(e.key === "Tab"){
-        const focusables = getFocusable(overlay);
-        if(focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-
-        if(e.shiftKey && document.activeElement === first){
-          e.preventDefault();
-          last.focus();
-        } else if(!e.shiftKey && document.activeElement === last){
-          e.preventDefault();
-          first.focus();
-        }
+      // Modal key handling
+      if(overlay.classList.contains("open")){
+        if(e.key === "Escape"){ e.preventDefault(); closeModal(); return; }
+        trapTab(e, overlay);
       }
     });
   </script>
