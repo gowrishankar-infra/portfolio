@@ -15,31 +15,33 @@
 
   <style>
     /* ============================================================
-       Top-1% Mobile/Tablet/Desktop Responsive (FAANG-style polish)
-       - Mobile-first spacing & tap targets
-       - Sticky nav becomes bottom sheet menu on small screens
-       - Better typography scaling + line lengths
-       - Safer grid breakpoints (no cramped 3-col on tablets)
-       - Modal is fully mobile friendly (safe area, scroll, close)
-       - No hover-only interactions
+       Slate Grey + Silver (premium, calm)
+       - Mobile/Tablet/Desktop responsive
+       - Tap targets, safe areas, bottom-sheet menu
        ============================================================ */
 
     :root{
-      --bg: #0b0f17;
-      --bg2:#070a10;
-      --surface: rgba(255,255,255,0.06);
-      --surface2: rgba(255,255,255,0.085);
-      --surface3: rgba(255,255,255,0.11);
-      --stroke: rgba(255,255,255,0.10);
-      --stroke2: rgba(255,255,255,0.14);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.70);
-      --subtle: rgba(255,255,255,0.55);
-      --shadow: 0 12px 40px rgba(0,0,0,0.45);
+      /* Slate greys */
+      --bg: #0f141b;      /* slate deep */
+      --bg2:#0b0f15;      /* darker slate */
+      --surface: rgba(245, 247, 250, 0.06);
+      --surface2: rgba(245, 247, 250, 0.085);
+      --surface3: rgba(245, 247, 250, 0.11);
 
-      --accent: #6aa5ff;
-      --accent2:#7cf0c2;
-      --warn:#ffcf5a;
+      --stroke: rgba(245, 247, 250, 0.10);
+      --stroke2: rgba(245, 247, 250, 0.14);
+
+      /* Silver text */
+      --text: rgba(235, 238, 243, 0.94);   /* silver */
+      --muted: rgba(210, 216, 225, 0.74);  /* muted silver */
+      --subtle: rgba(190, 197, 208, 0.60);
+
+      --shadow: 0 12px 40px rgba(0,0,0,0.52);
+
+      /* Accents (kept subtle; still “silver-first”) */
+      --accent: #93b6ff;   /* cool light blue */
+      --accent2:#a7f3d0;   /* mint highlight */
+      --warn:#ffd58a;
 
       --radius-xl: 22px;
       --radius-lg: 18px;
@@ -51,26 +53,28 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      --focus: 0 0 0 3px rgba(106,165,255,0.35), 0 0 0 1px rgba(106,165,255,0.65) inset;
+      --focus: 0 0 0 3px rgba(147,182,255,0.32), 0 0 0 1px rgba(147,182,255,0.65) inset;
 
-      /* mobile safe area support */
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
+    /* Optional light mode: still slate-ish, silver-ish */
     @media (prefers-color-scheme: light){
       :root{
-        --bg:#f7f8fb;
-        --bg2:#eef1f7;
-        --surface: rgba(10,14,24,0.05);
-        --surface2: rgba(10,14,24,0.07);
-        --surface3: rgba(10,14,24,0.09);
-        --stroke: rgba(10,14,24,0.10);
-        --stroke2: rgba(10,14,24,0.14);
-        --text: rgba(10,14,24,0.92);
-        --muted: rgba(10,14,24,0.72);
-        --subtle: rgba(10,14,24,0.58);
-        --shadow: 0 12px 40px rgba(10,14,24,0.12);
+        --bg:#eef1f6;
+        --bg2:#e5e9f1;
+        --surface: rgba(20,26,35,0.05);
+        --surface2: rgba(20,26,35,0.07);
+        --surface3: rgba(20,26,35,0.09);
+        --stroke: rgba(20,26,35,0.10);
+        --stroke2: rgba(20,26,35,0.14);
+
+        --text: rgba(18,22,30,0.92);
+        --muted: rgba(18,22,30,0.72);
+        --subtle: rgba(18,22,30,0.58);
+
+        --shadow: 0 12px 40px rgba(20,26,35,0.12);
       }
     }
 
@@ -80,11 +84,14 @@
       margin:0;
       font-family:var(--font);
       color:var(--text);
+
+      /* Slate grey background with subtle metallic glow */
       background:
-        radial-gradient(1000px 700px at 20% 10%, rgba(106,165,255,0.20), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(124,240,194,0.16), transparent 50%),
-        radial-gradient(700px 500px at 60% 90%, rgba(255,207,90,0.10), transparent 55%),
+        radial-gradient(900px 650px at 18% 10%, rgba(147,182,255,0.18), transparent 56%),
+        radial-gradient(860px 600px at 84% 14%, rgba(167,243,208,0.12), transparent 54%),
+        radial-gradient(720px 520px at 60% 92%, rgba(255,213,138,0.08), transparent 58%),
         linear-gradient(180deg, var(--bg), var(--bg2));
+
       min-height:100vh;
       line-height:1.55;
       text-rendering:optimizeLegibility;
@@ -116,12 +123,12 @@
       padding-top: var(--safe-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(10,14,24,0.70), rgba(10,14,24,0.35));
+      background: linear-gradient(180deg, rgba(15,20,27,0.78), rgba(15,20,27,0.35));
       border-bottom: 1px solid var(--stroke);
     }
     @media (prefers-color-scheme: light){
       .top{
-        background: linear-gradient(180deg, rgba(247,248,251,0.84), rgba(247,248,251,0.45));
+        background: linear-gradient(180deg, rgba(238,241,246,0.86), rgba(238,241,246,0.48));
       }
     }
 
@@ -143,11 +150,13 @@
     .mark{
       width:38px; height:38px;
       border-radius:14px;
+
+      /* metallic-ish mark */
       background:
         radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.22), transparent 55%),
-        linear-gradient(135deg, rgba(106,165,255,0.95), rgba(124,240,194,0.85));
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      border:1px solid rgba(255,255,255,0.20);
+        linear-gradient(135deg, rgba(190,197,208,0.55), rgba(147,182,255,0.55));
+      box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+      border:1px solid rgba(245,247,250,0.18);
       flex:0 0 auto;
     }
     .brandText{min-width:0}
@@ -171,14 +180,13 @@
     }
 
     .pill{
-      position:relative;
       text-decoration:none;
       font-size:13px;
       color:var(--muted);
       padding:10px 12px;
       border-radius:999px;
       border:1px solid transparent;
-      min-height: 42px; /* tap target */
+      min-height: 42px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -203,42 +211,35 @@
       border-radius:999px;
       border:1px solid var(--stroke2);
       background: linear-gradient(180deg, var(--surface2), var(--surface));
-      box-shadow: 0 8px 26px rgba(0,0,0,0.18);
+      box-shadow: 0 8px 26px rgba(0,0,0,0.20);
       color:var(--text);
       cursor:pointer;
-      min-height: 44px; /* tap target */
+      min-height: 44px;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.22)}
+    .btn:hover{transform: translateY(-1px); border-color: rgba(245,247,250,0.22)}
     .btn:active{transform: translateY(0px)}
     .btn.primary{
-      border:1px solid rgba(106,165,255,0.45);
-      background: linear-gradient(180deg, rgba(106,165,255,0.28), rgba(106,165,255,0.12));
+      border:1px solid rgba(147,182,255,0.42);
+      background: linear-gradient(180deg, rgba(147,182,255,0.22), rgba(147,182,255,0.10));
     }
     .btn.ghost{background: transparent; box-shadow:none}
     .btn:focus{outline:none; box-shadow:var(--focus)}
 
     /* Mobile nav button */
-    .navToggle{
-      display:none;
-      padding:10px 12px;
-      min-width: 44px;
-    }
-    .burger{
-      width:18px; height:12px; position:relative;
-    }
+    .navToggle{display:none; padding:10px 12px; min-width: 44px}
+    .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0; height:2px;
-      background: rgba(255,255,255,0.78);
+      background: rgba(235,238,243,0.78);
       border-radius:999px;
     }
     .burger span:nth-child(1){top:0}
     .burger span:nth-child(2){top:5px}
     .burger span:nth-child(3){top:10px}
-
     @media (prefers-color-scheme: light){
-      .burger span{background: rgba(10,14,24,0.78)}
+      .burger span{background: rgba(18,22,30,0.78)}
     }
 
     /* Hero */
@@ -265,7 +266,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       padding:8px 12px;
       border-radius:999px;
       max-width: 100%;
@@ -275,7 +276,7 @@
       width:8px; height:8px;
       border-radius:999px;
       background: var(--accent2);
-      box-shadow: 0 0 0 6px rgba(124,240,194,0.16);
+      box-shadow: 0 0 0 6px rgba(167,243,208,0.14);
       flex:0 0 auto;
     }
     h1{
@@ -297,11 +298,6 @@
       margin-top:18px;
     }
     .heroActions .btn{flex: 0 0 auto}
-    .icon{
-      width:16px;
-      height:16px;
-      display:inline-block;
-    }
 
     .heroSide{padding: clamp(16px, 3.2vw, 26px)}
     .miniTitle{
@@ -313,31 +309,19 @@
     }
     .miniTitle strong{font-size:14px}
     .miniTitle span{font-size:12px; color:var(--muted)}
-    .stack{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
+    .stack{display:flex; flex-wrap:wrap; gap:8px; margin:0; padding:0; list-style:none}
     .chip{
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       padding:8px 10px;
       border-radius:999px;
     }
-    .statGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-      margin-top:14px;
-    }
+    .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
     .stat{
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       border-radius:16px;
       padding:12px;
     }
@@ -348,7 +332,7 @@
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       border-radius: var(--radius-xl);
       padding: 12px 14px;
       display:flex;
@@ -364,7 +348,7 @@
       border:1px solid var(--stroke);
       padding:8px 10px;
       border-radius:999px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       color:var(--muted);
       font-size:12px;
       min-height: 36px;
@@ -386,17 +370,8 @@
       margin-bottom: 14px;
       flex-wrap:wrap;
     }
-    .sectionHead h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:-0.01em;
-    }
-    .sectionHead p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      max-width: 72ch;
-    }
+    .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-0.01em}
+    .sectionHead p{margin:0; color:var(--muted); font-size:13px; max-width: 72ch}
 
     /* About */
     .aboutGrid{
@@ -407,20 +382,11 @@
     .box{padding: 18px}
     .box h3{margin:0 0 10px; font-size:14px}
     .box p{margin:0; color:var(--muted); font-size:13px}
-    .bullets{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color:var(--muted);
-      font-size:13px;
-    }
+    .bullets{margin: 10px 0 0; padding-left: 18px; color:var(--muted); font-size:13px}
     .bullets li{margin: 6px 0}
 
     /* Projects */
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     .proj{padding: 16px; display:flex; flex-direction:column; gap:12px}
     .projTop{display:flex; justify-content:space-between; gap:12px; align-items:flex-start}
     .proj h3{margin:0; font-size:15px; letter-spacing:-0.01em}
@@ -433,7 +399,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
@@ -447,7 +413,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       padding:7px 9px;
       border-radius:999px;
       min-height: 34px;
@@ -460,7 +426,7 @@
 
     .arch{
       border:1px dashed var(--stroke2);
-      background: rgba(255,255,255,0.02);
+      background: rgba(245,247,250,0.02);
       border-radius: 16px;
       padding: 12px;
       color:var(--muted);
@@ -472,11 +438,7 @@
     }
 
     /* Skills */
-    .skillsGrid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
+    .skillsGrid{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     .skillCard{padding:16px}
     .skillCard h3{margin:0 0 10px; font-size:14px}
     .skillCard ul{margin:0; padding-left:18px; color:var(--muted); font-size:13px}
@@ -492,7 +454,7 @@
     }
     .contactRow p{margin:0; color:var(--muted); font-size:13px}
 
-    /* Reveal animations */
+    /* Reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity 700ms ease, transform 700ms ease}
     .reveal.in{opacity:1; transform:none}
     @media (prefers-reduced-motion: reduce){
@@ -535,7 +497,7 @@
       border-radius: var(--radius-xl);
       border:1px solid var(--stroke2);
       background: linear-gradient(180deg, var(--surface3), var(--surface));
-      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.58);
       position:relative;
       -webkit-overflow-scrolling: touch;
     }
@@ -545,7 +507,7 @@
       z-index: 2;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(10,14,24,0.78), rgba(10,14,24,0.32));
+      background: linear-gradient(180deg, rgba(15,20,27,0.82), rgba(15,20,27,0.34));
       border-bottom: 1px solid var(--stroke);
       padding: 14px;
       display:flex;
@@ -555,16 +517,15 @@
     }
     @media (prefers-color-scheme: light){
       .modalHeader{
-        background: linear-gradient(180deg, rgba(247,248,251,0.94), rgba(247,248,251,0.58));
+        background: linear-gradient(180deg, rgba(238,241,246,0.94), rgba(238,241,246,0.58));
       }
     }
     .modalHeader h3{margin:0; font-size: 16px; letter-spacing:-0.01em}
     .modalHeader p{margin:4px 0 0; color:var(--muted); font-size:13px; max-width: 70ch}
-
     .modalBody{padding: 12px 14px 16px}
     .modalSection{
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       border-radius: 18px;
       padding: 14px;
       margin: 12px 0;
@@ -597,14 +558,10 @@
     .quietLink{color:var(--muted); text-decoration:none}
     .quietLink:hover{color:var(--text); text-decoration:underline}
 
-    ::selection{background: rgba(106,165,255,0.28)}
+    ::selection{background: rgba(147,182,255,0.24)}
     :focus-visible{outline:none; box-shadow: var(--focus); border-radius: 10px}
 
-    /* ============================================================
-       Breakpoints (better mobile/tablet behavior)
-       ============================================================ */
-
-    /* Tablet: 2-column projects/skills, hero stacks sooner */
+    /* Breakpoints */
     @media (max-width: 1024px){
       .heroGrid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr 1fr}
@@ -613,22 +570,18 @@
       .brand strong{max-width: 52vw}
       .brand span{max-width: 62vw}
     }
-
-    /* Mobile: simplify top nav, show menu button */
     @media (max-width: 720px){
       .links{display:none}
       .navToggle{display:inline-flex}
-      .ctaRow .btn.ghost{display:none} /* hide LinkedIn text button for space */
+      .ctaRow .btn.ghost{display:none}
       .brand strong{max-width: 52vw}
       .brand span{max-width: 60vw}
-      .heroActions .btn{flex: 1 1 160px} /* nicer action wrapping */
+      .heroActions .btn{flex: 1 1 160px}
       .statGrid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
       .skillsGrid{grid-template-columns: 1fr}
       section{padding: 28px 0}
     }
-
-    /* Small phones: slightly tighter paddings */
     @media (max-width: 380px){
       .heroMain, .heroSide{padding: 14px}
       .box{padding: 14px}
@@ -637,9 +590,7 @@
       .btn{padding: 10px 11px}
     }
 
-    /* ============================================================
-       Mobile drawer menu (bottom sheet)
-       ============================================================ */
+    /* Drawer (bottom sheet) */
     .drawerOverlay{
       position:fixed;
       inset:0;
@@ -678,7 +629,7 @@
     .drawerLinks a{
       text-decoration:none;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(245,247,250,0.03);
       border-radius: 14px;
       padding: 12px;
       min-height: 46px;
@@ -884,7 +835,6 @@
         </div>
 
         <div class="grid3">
-          <!-- Project 1 -->
           <article class="card proj reveal">
             <div class="projTop">
               <div>
@@ -921,7 +871,6 @@ Health checks + rollback
             </div>
           </article>
 
-          <!-- Project 2 -->
           <article class="card proj reveal">
             <div class="projTop">
               <div>
@@ -957,7 +906,6 @@ Rolling updates + rollback
             </div>
           </article>
 
-          <!-- Project 3 -->
           <article class="card proj reveal">
             <div class="projTop">
               <div>
@@ -1079,9 +1027,7 @@ Reusable for environments
   </main>
 
   <!-- Back to top -->
-  <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">
-    ↑ Top
-  </button>
+  <button class="btn toTop" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
 
   <!-- Case Study Modal -->
   <div class="modalOverlay" id="modalOverlay" role="presentation">
@@ -1098,16 +1044,11 @@ Reusable for environments
   </div>
 
   <script>
-    // ======================
-    // Tiny helpers
-    // ======================
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-    // Year
     $("#year").textContent = new Date().getFullYear();
 
-    // Scroll to ID with sticky offset (works everywhere)
     function scrollToId(id){
       const el = document.getElementById(id);
       if(!el) return;
@@ -1119,7 +1060,7 @@ Reusable for environments
       el.addEventListener("blur", () => el.removeAttribute("tabindex"), { once:true });
     }
 
-    // Desktop nav link clicks
+    // Desktop nav
     const navLinks = $("#navLinks");
     if(navLinks){
       $$("#navLinks a").forEach(a => {
@@ -1133,11 +1074,8 @@ Reusable for environments
       });
     }
 
-    // Scrollspy (active nav highlight)
-    const sections = ["about","projects","skills","contact"]
-      .map(id => document.getElementById(id))
-      .filter(Boolean);
-
+    // Scrollspy
+    const sections = ["about","projects","skills","contact"].map(id => document.getElementById(id)).filter(Boolean);
     const navItems = $$("#navLinks a");
     const setActive = (id) => {
       navItems.forEach(a => {
@@ -1152,15 +1090,14 @@ Reusable for environments
           .filter(e => e.isIntersecting)
           .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
         if(visible?.target?.id) setActive(visible.target.id);
-      }, { root: null, threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
+      }, { threshold: [0.15, 0.25, 0.35, 0.5, 0.65] });
 
       sections.forEach(s => spy.observe(s));
     }
 
-    // Reveal animations
+    // Reveal
     const revealEls = $$(".reveal");
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     if(!prefersReduced){
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(e => {
@@ -1185,9 +1122,7 @@ Reusable for environments
     toggleToTop();
     toTop.addEventListener("click", () => scrollToId("home"));
 
-    // ======================
-    // Mobile Drawer Menu
-    // ======================
+    // Drawer
     const drawerOverlay = $("#drawerOverlay");
     const navToggle = $("#navToggle");
     const closeDrawer = $("#closeDrawer");
@@ -1220,9 +1155,7 @@ Reusable for environments
       });
     });
 
-    // ======================
-    // Case study modal (A11y focus trap)
-    // ======================
+    // Case study modal
     const overlay = $("#modalOverlay");
     const modalBody = $("#modalBody");
     const closeBtn = $("#closeModal");
