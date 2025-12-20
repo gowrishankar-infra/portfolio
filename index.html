@@ -15,19 +15,19 @@
       --bg:    #0B1220;
       --bg2:   #060A12;
 
-      /* ✅ AA-ish small text contrast boost */
-      --text:  #F2F4F7;
-      --muted: #C7CDD6;   /* improved readability */
-      --subtle:#A8B1BE;   /* improved readability */
+      /* ✅ AA-ish small text contrast boost (final pass) */
+      --text:  #F4F6FA;
+      --muted: #D2D8E2;   /* brighter = easier on laptops */
+      --subtle:#B6C0CE;   /* helper text, nav labels */
 
-      /* Surfaces */
-      --surface:  rgba(255,255,255,0.070);
-      --surface2: rgba(255,255,255,0.095);
-      --surface3: rgba(255,255,255,0.115);
+      /* Surfaces (slightly more legible) */
+      --surface:  rgba(255,255,255,0.078);
+      --surface2: rgba(255,255,255,0.104);
+      --surface3: rgba(255,255,255,0.125);
 
-      /* ✅ Slight stroke boost for clarity */
-      --stroke:  rgba(255,255,255,0.16);
-      --stroke2: rgba(255,255,255,0.26);
+      /* Strokes */
+      --stroke:  rgba(255,255,255,0.18);
+      --stroke2: rgba(255,255,255,0.30);
 
       /* Accent */
       --accent:  #BFDFFF;
@@ -43,34 +43,39 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-      --shadow: 0 18px 60px rgba(0,0,0,0.55);
+      /* ✅ Reduce "glow haze": tighter shadow */
+      --shadow: 0 14px 48px rgba(0,0,0,0.52);
 
       /* ✅ Clear, consistent focus */
-      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.82) inset;
+      --focus: 0 0 0 3px rgba(191,223,255,0.26), 0 0 0 1px rgba(191,223,255,0.86) inset;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
 
       /* ✅ Micro-polish knobs */
-      --card-texture-opacity: 0.08;
-      --card-highlight-opacity: 0.20;
-      --sig-border-opacity: 0.82;
+      --card-texture-opacity: 0.07;
+      --card-highlight-opacity: 0.18;
+      --sig-border-opacity: 0.78;
 
       /* ✅ Tap target minimum */
       --tap: 44px;
+
+      /* ✅ Section rhythm (fix empty band) */
+      --sectionY: clamp(22px, 3.4vw, 34px);
+      --sectionGap: clamp(10px, 1.8vw, 14px);
     }
 
     @media (prefers-contrast: more){
       :root{
-        --surface:  rgba(255,255,255,0.12);
-        --surface2: rgba(255,255,255,0.16);
-        --surface3: rgba(255,255,255,0.20);
-        --stroke:  rgba(255,255,255,0.26);
-        --stroke2: rgba(255,255,255,0.40);
-        --muted: #E3E7ED;
-        --subtle:#CBD3DE;
+        --surface:  rgba(255,255,255,0.13);
+        --surface2: rgba(255,255,255,0.18);
+        --surface3: rgba(255,255,255,0.22);
+        --stroke:  rgba(255,255,255,0.28);
+        --stroke2: rgba(255,255,255,0.44);
+        --muted: #F0F3F7;
+        --subtle:#D8DFEA;
         --text:#FFFFFF;
-        --focus: 0 0 0 3px rgba(191,223,255,0.36), 0 0 0 1px rgba(191,223,255,0.92) inset;
+        --focus: 0 0 0 3px rgba(191,223,255,0.36), 0 0 0 1px rgba(191,223,255,0.94) inset;
       }
     }
 
@@ -85,9 +90,10 @@
       margin:0;
       font-family:var(--font);
       color:var(--muted);
+      /* ✅ Reduce glow haze: slightly lower radial intensity */
       background:
-        radial-gradient(900px 620px at 16% 12%, rgba(191,223,255,0.12), transparent 60%),
-        radial-gradient(820px 560px at 86% 18%, rgba(255,255,255,0.06), transparent 60%),
+        radial-gradient(860px 590px at 16% 12%, rgba(191,223,255,0.10), transparent 62%),
+        radial-gradient(760px 520px at 86% 18%, rgba(255,255,255,0.05), transparent 62%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
       line-height:1.55;
@@ -104,7 +110,7 @@
       inset:0;
       pointer-events:none;
       z-index:0;
-      opacity:0.040;
+      opacity:0.034; /* slightly lower */
       background:
         repeating-linear-gradient(
           0deg,
@@ -141,7 +147,7 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       /* ✅ Slightly stronger separation for UX clarity */
-      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.55));
+      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.56));
       border-bottom: 1px solid rgba(255,255,255,0.16);
     }
     .nav{
@@ -161,9 +167,9 @@
       width:38px; height:38px;
       border-radius:14px;
       background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.18), transparent 58%),
-        linear-gradient(135deg, rgba(255,255,255,0.22), rgba(191,223,255,0.20));
-      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,0.16), transparent 58%),
+        linear-gradient(135deg, rgba(255,255,255,0.20), rgba(191,223,255,0.18));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.32);
       border:1px solid rgba(255,255,255,0.16);
       flex:0 0 auto;
       position:relative;
@@ -173,9 +179,9 @@
       content:"";
       position:absolute; inset:-10px;
       background:
-        radial-gradient(50px 30px at 25% 25%, rgba(255,255,255,0.18), transparent 60%),
-        radial-gradient(60px 40px at 70% 75%, rgba(191,223,255,0.18), transparent 60%);
-      opacity:0.85;
+        radial-gradient(50px 30px at 25% 25%, rgba(255,255,255,0.16), transparent 60%),
+        radial-gradient(60px 40px at 70% 75%, rgba(191,223,255,0.16), transparent 60%);
+      opacity:0.80;
       pointer-events:none;
     }
 
@@ -220,7 +226,7 @@
     .pill[aria-current="page"]{
       color:var(--text);
       background: linear-gradient(180deg, rgba(191,223,255,0.14), var(--surface));
-      border-color: rgba(191,223,255,0.32);
+      border-color: rgba(191,223,255,0.34);
     }
 
     .ctaRow{display:flex; align-items:center; gap:10px; flex:0 0 auto}
@@ -235,7 +241,7 @@
       border-radius:999px;
       border:1px solid var(--stroke2);
       background: linear-gradient(180deg, var(--surface2), var(--surface));
-      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.22);
       color:var(--text);
       cursor:pointer;
       min-height: var(--tap);
@@ -246,10 +252,10 @@
     .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,0.34); filter: brightness(1.04)}
     .btn:active{transform: translateY(0px); filter:none}
     .btn.primary{
-      border:1px solid rgba(191,223,255,0.78);
+      border:1px solid rgba(191,223,255,0.80);
       background: linear-gradient(180deg, rgba(191,223,255,0.28), rgba(191,223,255,0.12));
       color: var(--text);
-      box-shadow: 0 16px 44px rgba(191,223,255,0.12), 0 10px 28px rgba(0,0,0,0.26);
+      box-shadow: 0 14px 40px rgba(191,223,255,0.12), 0 10px 26px rgba(0,0,0,0.22);
     }
     .btn.ghost{background: transparent; box-shadow:none; color: var(--text)}
     .btn:focus{outline:none}
@@ -266,7 +272,7 @@
     .burger{width:18px; height:12px; position:relative}
     .burger span{
       position:absolute; left:0; right:0; height:2px;
-      background: rgba(242,244,247,0.88);
+      background: rgba(244,246,250,0.90);
       border-radius:999px;
     }
     .burger span:nth-child(1){top:0}
@@ -291,12 +297,13 @@
           rgba(191,223,255, calc(0.38 * var(--sig-border-opacity))),
           rgba(255,255,255, calc(0.18 * var(--sig-border-opacity))) 35%,
           rgba(255,255,255, calc(0.10 * var(--sig-border-opacity))) 65%,
-          rgba(191,223,255, calc(0.26 * var(--sig-border-opacity)))
+          rgba(191,223,255, calc(0.24 * var(--sig-border-opacity)))
         );
       pointer-events:none;
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
+      opacity: 0.95;
     }
     .card::after{
       content:"";
@@ -304,12 +311,12 @@
       border-radius: inherit;
       pointer-events:none;
       background:
-        radial-gradient(900px 260px at 20% 0%,
+        radial-gradient(860px 240px at 20% 0%,
           rgba(255,255,255, var(--card-highlight-opacity)),
-          transparent 55%),
+          transparent 58%),
         radial-gradient(520px 220px at 85% 35%,
-          rgba(191,223,255, calc(0.12 * var(--card-highlight-opacity))),
-          transparent 60%),
+          rgba(191,223,255, calc(0.10 * var(--card-highlight-opacity))),
+          transparent 62%),
         repeating-linear-gradient(
           90deg,
           rgba(255,255,255, calc(0.10 * var(--card-texture-opacity))) 0px,
@@ -318,13 +325,13 @@
           rgba(255,255,255, 0) 7px
         ),
         radial-gradient(1200px 600px at 50% 100%,
-          rgba(0,0,0,0.30),
-          transparent 55%);
+          rgba(0,0,0,0.28),
+          transparent 58%);
       mix-blend-mode: overlay;
     }
     .card > *{position:relative; z-index:1}
 
-    header.hero{padding: clamp(20px, 5vw, 60px) 0 20px}
+    header.hero{padding: clamp(18px, 4.6vw, 56px) 0 var(--sectionGap)}
     .heroGrid{
       display:grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -339,7 +346,7 @@
       font-size:12px;
       color:var(--subtle);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.045); /* slightly stronger for legibility */
       padding:8px 12px;
       border-radius:999px;
       max-width: 100%;
@@ -350,7 +357,7 @@
       width:8px; height:8px;
       border-radius:999px;
       background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(191,223,255,0.12);
+      box-shadow: 0 0 0 6px rgba(191,223,255,0.10);
       flex:0 0 auto;
     }
     h1{
@@ -376,7 +383,7 @@
     .proof{
       margin-top: 14px;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040); /* readability bump */
       border-radius: var(--radius-xl);
       padding: 12px 14px;
       display:flex;
@@ -392,7 +399,7 @@
       border:1px solid var(--stroke);
       padding:8px 10px;
       border-radius:999px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040);
       color:var(--muted);
       font-size:12px;
       min-height: var(--tap);
@@ -420,7 +427,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.045); /* legibility bump */
       padding:8px 10px;
       border-radius:999px;
       min-height: var(--tap);
@@ -431,7 +438,7 @@
     .statGrid{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:14px}
     .stat{
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040);
       border-radius:16px;
       padding:12px;
       min-height: var(--tap);
@@ -439,17 +446,26 @@
     .stat b{display:block; font-size:14px; color: var(--text)}
     .stat small{color:var(--subtle)}
 
-    section{padding: 32px 0}
+    /* ✅ FIX empty band: tighter section padding + consistent rhythm */
+    section{padding: var(--sectionY) 0}
     .sectionHead{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
       gap:12px;
-      margin-bottom: 14px;
+      margin-bottom: var(--sectionGap);
       flex-wrap:wrap;
     }
     .sectionHead h2{margin:0; font-size: 18px; letter-spacing:-0.01em; color: var(--text)}
     .sectionHead p{margin:0; color:var(--muted); font-size:13px; max-width: 72ch}
+
+    /* ✅ Subtle divider between major blocks (prevents "did page end?" moment) */
+    .divider{
+      border:0;
+      height:1px;
+      margin: calc(var(--sectionY) * 0.35) 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
+    }
 
     .aboutGrid{
       display:grid;
@@ -475,7 +491,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.045); /* legibility bump */
       padding:8px 10px;
       border-radius:999px;
       white-space:nowrap;
@@ -489,7 +505,7 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040); /* legibility bump */
       padding:7px 9px;
       border-radius:999px;
       min-height: var(--tap);
@@ -501,8 +517,8 @@
     .proj .btn{padding:10px 12px; font-size:12px; min-height: var(--tap)}
 
     .arch{
-      border:1px dashed rgba(255,255,255,0.26);
-      background: rgba(255,255,255,0.02);
+      border:1px dashed rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.028);
       border-radius: 16px;
       padding: 12px;
       color:var(--muted);
@@ -553,7 +569,8 @@
     .modalOverlay{
       position:fixed;
       inset:0;
-      background: rgba(0,0,0,0.58);
+      /* ✅ Reduce haze: slightly lighter overlay */
+      background: rgba(0,0,0,0.54);
       z-index: 60;
       display:none;
       align-items:center;
@@ -568,9 +585,9 @@
       max-height: min(88vh, 900px);
       overflow:auto;
       border-radius: var(--radius-xl);
-      border:1px solid rgba(255,255,255,0.20);
+      border:1px solid rgba(255,255,255,0.22);
       background: linear-gradient(180deg, var(--surface3), var(--surface));
-      box-shadow: 0 28px 100px rgba(0,0,0,0.65);
+      box-shadow: 0 26px 92px rgba(0,0,0,0.62);
       position:relative;
       -webkit-overflow-scrolling: touch;
     }
@@ -580,7 +597,7 @@
       z-index: 2;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.55));
+      background: linear-gradient(180deg, rgba(11,18,32,0.94), rgba(11,18,32,0.56));
       border-bottom: 1px solid var(--stroke);
       padding: 14px;
       display:flex;
@@ -593,7 +610,7 @@
     .modalBody{padding: 12px 14px 16px}
     .modalSection{
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040);
       border-radius: 18px;
       padding: 14px;
       margin: 12px 0;
@@ -609,7 +626,7 @@
     .modalSection ul{margin:8px 0 0; padding-left: 18px}
 
     footer{
-      padding: 22px 0 calc(34px + var(--safe-bottom));
+      padding: 18px 0 calc(28px + var(--safe-bottom)); /* slightly tighter */
       color:var(--subtle);
       font-size:12px;
     }
@@ -620,7 +637,7 @@
       justify-content:space-between;
       gap:10px;
       border-top:1px solid var(--stroke);
-      padding-top: 16px;
+      padding-top: 14px;
     }
     .quietLink{color:var(--muted); text-decoration:none}
     .quietLink:hover{color:var(--text); text-decoration:underline}
@@ -645,7 +662,7 @@
       .statGrid{grid-template-columns: 1fr}
       .grid3{grid-template-columns: 1fr}
       .skillsGrid{grid-template-columns: 1fr}
-      section{padding: 28px 0}
+      section{padding: clamp(18px, 4.2vw, 28px) 0} /* tighter on mobile */
     }
     @media (max-width: 380px){
       .heroMain, .heroSide{padding: 14px}
@@ -658,7 +675,7 @@
     .drawerOverlay{
       position:fixed;
       inset:0;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0,0,0,0.44); /* slightly reduced */
       z-index: 55;
       display:none;
       align-items:flex-end;
@@ -670,9 +687,9 @@
     .drawer{
       width: min(640px, 100%);
       border-radius: 22px;
-      border:1px solid rgba(255,255,255,0.20);
+      border:1px solid rgba(255,255,255,0.22);
       background: linear-gradient(180deg, var(--surface3), var(--surface));
-      box-shadow: 0 28px 100px rgba(0,0,0,0.62);
+      box-shadow: 0 26px 92px rgba(0,0,0,0.60);
       overflow:hidden;
       position:relative;
     }
@@ -694,7 +711,7 @@
     .drawerLinks a{
       text-decoration:none;
       border:1px solid var(--stroke);
-      background: rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.040);
       border-radius: 14px;
       padding: 12px;
       min-height: var(--tap);
@@ -861,6 +878,9 @@
             </ul>
           </div>
         </div>
+
+        <!-- ✅ Subtle transition divider: prevents "dead space" feel -->
+        <hr class="divider" />
       </div>
     </section>
 
@@ -955,6 +975,8 @@ Reusable baseline outputs</pre>
             </div>
           </article>
         </div>
+
+        <hr class="divider" />
       </div>
     </section>
 
@@ -996,6 +1018,8 @@ Reusable baseline outputs</pre>
             </ul>
           </div>
         </div>
+
+        <hr class="divider" />
       </div>
     </section>
 
