@@ -2,191 +2,246 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#0B1220" />
   <title>GowriShankar — DevOps Engineer</title>
-  <meta name="description" content="DevOps Engineer — CI/CD, Kubernetes, Terraform. Production-minded delivery systems with measurable outcomes." />
+  <meta name="description" content="DevOps Engineer focused on CI/CD, Kubernetes operations, and Terraform IaC baselines." />
 
   <style>
     /* =========================
-       10/10 Responsive System
-       - Works from 320px → ultrawide
-       - No fragile fixed heights
-       - Grid auto-fit/minmax for perfect reflow
-       ========================= */
-
+       Base + Theme
+    ========================== */
     :root{
-      /* Color */
-      --bg: #0B1220;
-      --bg2:#081022;
+      --bg0:#070B12;
+      --bg1:#0B1322;
+      --bg2:#0D182B;
 
-      --text: #EEF2F7;
-      --text2:#D7DEE7;
-      --muted:#B7C0CC;
-      --muted2:#C7D2DF; /* small text contrast boost */
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.14);
 
-      --border: rgba(255,255,255,0.14);
-      --border2: rgba(255,255,255,0.18);
-      --shadow: 0 18px 48px rgba(0,0,0,.45);
+      --text: #EAF0F8;
+      --muted:#C9D2DE;
+      --muted2:#AEB9C9;
 
-      --accent: #BFDFFF;
-      --ok: #5EEAD4;
+      --accent:#BFDFFF;
+      --accent2:#8CC7FF;
 
-      /* Layout */
-      --tap: 44px;
-      --radius-lg: 26px;
-      --radius-md: 18px;
+      --ok:#36D399;
 
-      /* Responsive spacing */
-      --pad: clamp(14px, 2.6vw, 26px);
-      --sectionY: clamp(38px, 6vw, 78px);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
 
-      /* Container width: scales across big screens */
-      --max: 1180px;
-      --maxWide: 1320px;
+      --r-xl: 26px;
+      --r-lg: 20px;
+      --r-md: 14px;
 
-      /* Focus */
-      --focusShadow: 0 0 0 3px rgba(191,223,255,.22), 0 0 0 6px rgba(191,223,255,.12);
+      --gap: clamp(14px, 2vw, 22px);
+      --pad: clamp(14px, 2.2vw, 24px);
+      --container: min(1120px, calc(100% - 28px));
+      --navH: 72px;
+
+      --focus: 0 0 0 3px rgba(140,199,255,.30), 0 0 0 1px rgba(140,199,255,.70) inset;
     }
 
-    /* Ultrawide: allow a bit more width */
-    @media (min-width: 1400px){
-      :root{ --max: var(--maxWide); }
-    }
-
-    *{ box-sizing: border-box; }
-    html, body{ height: 100%; }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--text);
+      color:var(--text);
       background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(191,223,255,.18), transparent 55%),
-        radial-gradient(900px 600px at 85% 25%, rgba(120,170,255,.10), transparent 55%),
-        radial-gradient(700px 420px at 40% 95%, rgba(120,170,255,.08), transparent 60%),
-        linear-gradient(180deg, #060B14, var(--bg) 40%, #060B14);
+        radial-gradient(1200px 700px at 18% 12%, rgba(140,199,255,.12), transparent 55%),
+        radial-gradient(900px 600px at 70% 20%, rgba(191,223,255,.10), transparent 55%),
+        radial-gradient(700px 500px at 50% 85%, rgba(54,211,153,.07), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
+      min-height:100dvh;
       overflow-x:hidden;
     }
 
+    a{ color:inherit; text-decoration:none; }
+    p{ color:var(--muted); line-height:1.55; margin:0; }
+    h1,h2,h3{ margin:0; letter-spacing:-0.02em; }
+    h2{ font-size: clamp(22px, 3vw, 30px); }
+    h3{ font-size: 18px; }
+    .muted{ color:var(--muted); }
+    .muted2{ color:var(--muted2); }
+
+    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
+      html{ scroll-behavior:auto; }
+      *{ animation:none !important; transition:none !important; }
     }
 
-    a{ color: inherit; }
-    .container{ width:min(var(--max), calc(100% - 2*var(--pad))); margin: 0 auto; }
-    .section{ padding: var(--sectionY) 0; }
-
-    .divider{
-      height: 1px;
-      width: 100%;
-      background: rgba(255,255,255,.08);
-    }
-
-    .section-title{
-      font-size: clamp(20px, 2.2vw, 28px);
-      letter-spacing: -0.02em;
-      margin: 0 0 12px;
-    }
-    .section-sub{
-      margin: 0;
-      color: var(--muted2);
-      line-height: 1.55;
-      font-size: 14.5px;
-      max-width: 68ch;
-    }
-
-    /* Skip link */
-    .skip{
+    /* =========================
+       Accessibility helpers
+    ========================== */
+    .skip-link{
       position:absolute;
-      left: 10px;
-      top: 10px;
-      transform: translateY(-140%);
-      background: rgba(10,14,24,.95);
+      left:-999px;
+      top:10px;
+      z-index:1000;
+      padding:10px 12px;
+      border-radius:12px;
+      background: rgba(0,0,0,.65);
       border:1px solid var(--border2);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 12px;
-      z-index: 9999;
-      text-decoration:none;
+      color:var(--text);
     }
-    .skip:focus{ transform: translateY(0); outline:none; box-shadow: var(--focusShadow); }
+    .skip-link:focus{ left:10px; outline:none; box-shadow:var(--focus); }
 
-    /* Glass card base */
+    :focus-visible{ outline:none; box-shadow: var(--focus); border-radius: 14px; }
+    .sr-only{
+      position:absolute; width:1px; height:1px;
+      padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* =========================
+       Layout
+    ========================== */
+    .container{ width:var(--container); margin:0 auto; }
+    main{ padding-bottom: 80px; }
+
+    .section{
+      padding: clamp(30px, 5vw, 56px) 0;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: clamp(18px, 3vw, 26px);
+    }
+
+    .section-kicker{
+      margin-top: 8px;
+      color: var(--muted2);
+      font-size: 14px;
+    }
+
+    /* =========================
+       Glass components
+    ========================== */
     .glass{
-      position: relative;
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow2);
       backdrop-filter: blur(14px);
-      overflow: hidden;
+      -webkit-backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
     }
     .glass::before{
       content:"";
       position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(800px 240px at 20% 0%, rgba(191,223,255,.16), transparent 60%),
-        radial-gradient(900px 260px at 80% 10%, rgba(255,255,255,.08), transparent 55%);
-      opacity:.9;
-    }
-    .glass::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      border-radius: inherit;
-      background:
-        linear-gradient(140deg, rgba(191,223,255,.32), transparent 34%, transparent 68%, rgba(255,255,255,.22));
-      mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      padding: 1px;
-      opacity:.22;
-    }
-
-    /* subtle texture */
-    .texture{ position:relative; }
-    .texture > *{ position:relative; z-index:1; }
-    .texture::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      opacity:.22;
+      inset:-2px;
       background:
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255,.05),
-          rgba(255,255,255,.05) 1px,
-          rgba(255,255,255,0) 6px,
-          rgba(255,255,255,0) 12px
+          rgba(255,255,255,.045) 0,
+          rgba(255,255,255,.045) 1px,
+          transparent 12px,
+          transparent 18px
         );
-      mix-blend-mode: overlay;
+      opacity:.25;
+      pointer-events:none;
+    }
+    .glass > *{ position:relative; }
+
+    .card{
+      padding: var(--pad);
+      border-radius: var(--r-xl);
     }
 
-    /* Header / Nav */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(140,199,255,.95);
+      box-shadow: 0 0 0 4px rgba(140,199,255,.12);
+      flex: 0 0 auto;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      min-height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .btn:active{ transform: translateY(0px); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(191,223,255,.22), rgba(255,255,255,.07));
+      border-color: rgba(191,223,255,.30);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.12);
+    }
+    .btn .icon{
+      width:16px; height:16px; display:inline-block;
+    }
+
+    /* =========================
+       Top Nav (desktop) + Drawer (mobile)
+    ========================== */
     header{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      padding: 14px 0;
-      background: rgba(6,10,18,.55);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: linear-gradient(180deg, rgba(6,10,18,.92), rgba(6,10,18,.70));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .nav{
+      height: var(--navH);
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -200,711 +255,651 @@
       min-width: 220px;
     }
     .avatar{
-      width: 42px; height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
-      border: 1px solid rgba(255,255,255,.14);
+      width:42px;
+      height:42px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
       flex: 0 0 auto;
     }
-    .brand h1{ font-size: 15px; margin:0; letter-spacing: .01em; }
-    .brand p{ margin: 2px 0 0; font-size: 12.5px; color: var(--muted); }
+    .brand strong{
+      display:block;
+      font-size: 15px;
+      letter-spacing: -.01em;
+    }
+    .brand span{
+      display:block;
+      font-size: 12.5px;
+      color: var(--muted2);
+      margin-top:2px;
+    }
 
     .navlinks{
       display:flex;
       align-items:center;
-      gap: 6px;
-      padding: 6px;
+      gap: 10px;
+      padding: 8px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
     }
     .navlinks a{
-      text-decoration:none;
-      color: var(--muted2);
-      font-size: 13px;
       padding: 10px 14px;
-      min-height: var(--tap);
+      min-height: 44px;
       display:inline-flex;
       align-items:center;
       border-radius: 999px;
-      outline:none;
-      white-space: nowrap;
+      color: var(--muted);
+      font-size: 13.5px;
+      transition: background .12s ease, color .12s ease;
+    }
+    .navlinks a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
     }
     .navlinks a[aria-current="page"]{
-      color: var(--text);
       background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.10);
     }
-    .navlinks a:focus-visible{ box-shadow: var(--focusShadow); }
 
-    .actions{
+    .nav-cta{
       display:flex;
       align-items:center;
       gap: 10px;
-      flex: 0 0 auto;
+      min-width: 220px;
+      justify-content:flex-end;
     }
 
-    .btn{
-      display:inline-flex;
+    .hamburger{
+      display:none;
+    }
+
+    /* Drawer dialog */
+    dialog{
+      border:none;
+      padding:0;
+      background: transparent;
+    }
+    dialog::backdrop{
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(2px);
+    }
+
+    .drawer{
+      width:min(420px, calc(100vw - 18px));
+      margin: 10px;
+      border-radius: var(--r-xl);
+    }
+    .drawer-head{
+      display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:space-between;
+      padding: 14px 14px 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .drawer-body{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
       gap: 10px;
-      min-height: var(--tap);
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+    }
+    .drawer a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height: 46px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
       color: var(--text);
-      text-decoration:none;
-      font-size: 13px;
-      letter-spacing: .01em;
-      cursor:pointer;
-      user-select:none;
-      outline:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      white-space: nowrap;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.09);
-      border-color: rgba(255,255,255,.18);
-    }
-    .btn:active{ transform: translateY(0); }
-    .btn:focus-visible{ box-shadow: var(--focusShadow); }
-
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(191,223,255,.24), rgba(255,255,255,.06));
-      border-color: rgba(191,223,255,.30);
-    }
-    .btn.ghost{
-      background: rgba(255,255,255,.04);
-      border-color: rgba(255,255,255,.12);
-      color: var(--muted2);
-    }
-
-    /* Mobile menu button */
-    .menuBtn{ display:none; min-width: var(--tap); padding: 10px 12px; }
-    .hamburger{ width: 18px; height: 12px; display:grid; gap:3px; }
-    .hamburger span{ height: 2px; border-radius: 999px; background: rgba(255,255,255,.85); }
+    .drawer a span{ color: var(--muted2); font-size: 12.5px; }
 
     /* =========================
-       HERO (responsive)
-       - auto-fit makes it adapt on tablets perfectly
-       ========================= */
-    .hero{ padding: clamp(26px, 5vw, 54px) 0 clamp(24px, 4vw, 46px); }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: clamp(14px, 3vw, 22px);
-      align-items: stretch;
+       Hero
+    ========================== */
+    .hero{
+      padding-top: clamp(18px, 3vw, 28px);
+      padding-bottom: clamp(26px, 4vw, 44px);
     }
-    .heroCard{ padding: clamp(16px, 2.8vw, 28px); }
-    .kicker{
-      display:inline-flex;
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: var(--gap);
+      align-items:stretch;
+    }
+
+    .hero-left{
+      padding: clamp(16px, 3vw, 26px);
+      min-height: 420px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .hero-title{
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-top: 14px;
+    }
+    .hero-sub{
+      margin-top: 12px;
+      max-width: 62ch;
+      font-size: clamp(14px, 1.4vw, 16px);
+      color: var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-proof{
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .proof-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+    }
+    .proof-item{
+      display:flex;
       align-items:center;
       gap:10px;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height: 1;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(10px);
-      flex-wrap: wrap;
-    }
-    .dot{
-      width:10px; height:10px; border-radius: 50%;
-      background: rgba(191,223,255,.95);
-      box-shadow: 0 0 0 4px rgba(191,223,255,.15);
-    }
-    .hero h2{
-      margin: 16px 0 10px;
-      font-size: clamp(30px, 4.2vw, 54px);
-      letter-spacing: -0.035em;
-      line-height: 1.06;
-      max-width: 18ch;
-    }
-    .hero p{
-      margin: 0;
-      color: var(--text2);
-      line-height: 1.62;
-      font-size: clamp(14.8px, 1.2vw, 15.6px);
-      max-width: 68ch;
-    }
-    .ctaRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .proofStrip{
-      margin-top: 18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      padding: 12px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .proof{
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
       padding: 10px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.04);
-      color: var(--muted2);
+      color: var(--muted);
       font-size: 13px;
-      min-height: var(--tap);
-      white-space: nowrap;
+      min-height: 40px;
     }
     .check{
-      width: 16px; height: 16px;
-      border-radius: 6px;
+      width:18px; height:18px; border-radius: 6px;
+      background: rgba(54,211,153,.16);
+      border: 1px solid rgba(54,211,153,.35);
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      background: rgba(94,234,212,.16);
-      border: 1px solid rgba(94,234,212,.35);
+      flex: 0 0 auto;
     }
-    .check svg{ width: 12px; height: 12px; fill: rgba(94,234,212,.95); }
+    .check svg{ width:12px; height:12px; fill: rgba(54,211,153,.95); }
 
-    /* Snapshot */
-    .snapshot{ padding: clamp(16px, 2.6vw, 22px); display:flex; flex-direction:column; gap: 14px; }
-    .snapHead{ display:flex; align-items:baseline; justify-content:space-between; gap: 10px; }
-    .snapHead strong{ font-size: 15px; letter-spacing: -0.01em; }
-    .snapHead span{ color: var(--muted2); font-size: 13px; }
-    .chips{ display:flex; flex-wrap:wrap; gap: 10px; }
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 12px;
-      min-height: var(--tap);
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--muted2);
-      font-size: 13px;
-      line-height: 1;
+    .hero-right{
+      padding: clamp(16px, 3vw, 22px);
+      min-height: 420px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
     }
-    .snapGrid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    .hero-right-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
       gap: 12px;
-      margin-top: 4px;
     }
+    .hero-right-head h3{
+      font-size: 16px;
+      color: var(--text);
+    }
+    .hero-right-head span{
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    .snapshot-grid{
+      margin-top: 2px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:stretch;
+    }
+    .snap-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
     .mini{
       padding: 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      min-height: 76px;
       display:flex;
       flex-direction:column;
       justify-content:center;
       gap: 6px;
     }
     .mini strong{ font-size: 14px; }
-    .mini span{ color: var(--muted2); font-size: 13px; line-height: 1.5; }
+    .mini p{ font-size: 13px; color: var(--muted2); }
 
     /* =========================
-       About / Projects / Skills layout
-       - auto-fit works for tablet perfectly
-       ========================= */
-    .headRow{
+       About
+    ========================== */
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+
+    .bullets{
+      margin-top: 10px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .bullets li{ margin: 8px 0; }
+
+    /* =========================
+       Projects (fix: equal heights + aligned inner blocks)
+    ========================== */
+    .projects-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      align-items:stretch;
+    }
+
+    .project{
       display:flex;
-      align-items:flex-end;
+      flex-direction:column;
+      gap: 14px;
+      padding: var(--pad);
+      min-height: 560px;
+    }
+
+    .project-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .project-title{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-width: min(340px, 100%);
+    }
+    .project-title h3{
+      font-size: 18px;
+      line-height: 1.15;
+    }
+    .project-title p{
+      font-size: 13.5px;
+      color: var(--muted2);
+    }
+
+    .metric{
+      flex: 0 0 auto;
+      align-self:flex-start;
+    }
+
+    .project-body{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      flex: 1 1 auto; /* makes footer stick bottom */
+      min-height: 0;
+    }
+
+    .diagram{
+      flex: 1 1 auto;
+      min-height: 160px;
+      border-radius: 18px;
+      border: 1px dashed rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      overflow:auto;
+    }
+    .diagram pre{
+      margin:0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #D8E2EF;
+      white-space: pre-wrap;
+    }
+
+    .project-footer{
+      display:flex;
+      gap: 10px;
+      margin-top:auto;
+    }
+    .project-footer .btn{
+      flex: 1 1 0;
+      width:100%;
+    }
+
+    /* =========================
+       Skills
+    ========================== */
+    .skills-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+
+    .skills ul{
+      margin: 10px 0 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .skills li{ margin: 8px 0; }
+
+    /* =========================
+       Contact
+    ========================== */
+    .contact{
+      display:flex;
+      align-items:center;
       justify-content:space-between;
       gap: 14px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
+      padding: var(--pad);
     }
-    .note{
-      color: var(--muted2);
-      font-size: 13px;
-      max-width: 68ch;
-      line-height: 1.5;
-      margin: 0;
+    .contact-left{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-width: 260px;
     }
-
-    .gridAuto{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: clamp(14px, 2.6vw, 20px);
-      align-items: stretch;
-      margin-top: 18px;
+    .contact-right{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
-
-    .card{ padding: clamp(16px, 2.6vw, 22px); }
-    .card h3{ margin: 0 0 8px; font-size: 16px; letter-spacing: -0.01em; }
-    .card p{ margin: 0 0 10px; color: var(--text2); line-height: 1.62; font-size: 14.5px; }
-    .bullets{ margin: 10px 0 0; padding-left: 18px; color: var(--muted2); line-height: 1.65; font-size: 14px; }
-    .bullets li{ margin: 6px 0; }
-    .bullets b{ color: var(--text); }
 
     /* =========================
-       Projects Card (responsive perfection)
-       - No fixed card heights
-       - Uses flex + consistent spacing
-       - Diagram grows naturally
-       ========================= */
-    .pCard{
-      padding: 18px;
-      border-radius: var(--radius-lg);
+       Footer + ToTop
+    ========================== */
+    footer{
+      padding: 24px 0 40px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    .toTop{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display:none;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      min-height: 44px;
+    }
+    .toTop.show{ display:flex; }
+
+    /* =========================
+       Modal (Case Study)
+    ========================== */
+    .modal{
+      width: min(760px, calc(100vw - 18px));
+      margin: 10px;
+      border-radius: var(--r-xl);
+    }
+    .modal-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 16px 16px 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .modal-title{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .modal-title h3{ font-size: 18px; }
+    .modal-title p{ font-size: 13px; color: var(--muted2); }
+    .modal-body{
+      padding: 16px;
       display:flex;
       flex-direction:column;
       gap: 14px;
     }
-
-    .pTop{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items:start;
-    }
-
-    /* On narrow widths, put metric under title (prevents squish) */
-    @media (max-width: 480px){
-      .pTop{ grid-template-columns: 1fr; }
-    }
-
-    .pTitle{
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-    }
-    .pDesc{
-      margin: 8px 0 0;
-      color: var(--muted2);
-      line-height: 1.6;
-      font-size: 14.2px;
-    }
-
-    .metric{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      padding: 10px 12px;
-      min-height: var(--tap);
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--muted2);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-    .metric b{ color: var(--text); }
-
-    .tagRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      align-content:flex-start;
-    }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 12px;
-      min-height: var(--tap);
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.11);
-      background: rgba(255,255,255,.035);
-      color: var(--muted2);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .diagram{
-      border-radius: var(--radius-md);
-      border: 1px dashed rgba(255,255,255,.16);
-      background: rgba(255,255,255,.03);
+    .modal-block{
       padding: 14px;
-    }
-    .diagram pre{
-      margin:0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 13px;
-      line-height: 1.55;
-      color: #D4DCE6;
-    }
-
-    /* Desktop polish: keep diagram visually consistent on wide screens */
-    @media (min-width: 980px){
-      .diagram{ min-height: 170px; display:flex; align-items:flex-start; }
-    }
-
-    .pCtas{
-      margin-top: auto;
-      display:flex;
-      gap: 10px;
-      padding-top: 10px;
-    }
-    .pCtas .btn{ width: 100%; justify-content:center; }
-
-    /* Skills */
-    .skillCard ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted2);
-      line-height: 1.65;
-      font-size: 14px;
-    }
-    .skillCard li{ margin: 6px 0; }
-
-    /* Contact */
-    .contactRow{
-      margin-top: 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      padding: 16px;
-      border-radius: var(--radius-lg);
-    }
-    .contactRow p{
-      margin:0;
-      color: var(--muted2);
-      font-size: 14px;
-      line-height: 1.6;
-      min-height: var(--tap);
-      display:flex;
-      align-items:center;
-      flex: 1 1 420px;
-    }
-    .contactRow strong{ color: var(--text); font-weight: 600; }
-    .contactRow .ctaRow{ margin:0; }
-
-    footer{
-      padding: 22px 0 30px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .footRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .footLinks{ display:flex; gap: 10px; align-items:center; flex-wrap: wrap; }
-    .footLinks a{
-      color: var(--muted2);
-      text-decoration:none;
-      padding: 10px 12px;
-      min-height: var(--tap);
-      display:inline-flex;
-      align-items:center;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.03);
-      outline:none;
     }
-    .footLinks a:hover{ background: rgba(255,255,255,.06); }
-    .footLinks a:focus-visible{ box-shadow: var(--focusShadow); }
-
-    /* ToTop */
-    .toTop{
-      position: fixed;
-      right: 16px;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 60;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(8px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
-    .toTop.show{
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    /* Reveal */
-    .reveal{
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .5s ease, transform .5s ease;
-    }
-    .reveal.in{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* =========================
-       Modal
-       ========================= */
-    .overlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(6px);
-      display:none;
-      z-index: 80;
-    }
-    .overlay.show{ display:block; }
-
-    dialog{
-      width: min(860px, calc(100% - 2*var(--pad)));
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: var(--radius-lg);
-      padding: 0;
-      background: rgba(10,14,24,.90);
+    .modal-block strong{
+      display:block;
+      margin-bottom: 6px;
+      font-size: 13px;
       color: var(--text);
-      box-shadow: 0 30px 90px rgba(0,0,0,.65);
     }
-    dialog::backdrop{ background: transparent; }
-    .modalHead{
-      padding: 18px 18px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
+    .modal-body p{ font-size: 13.5px; }
+    .modal-actions{
+      padding: 0 16px 16px 16px;
       display:flex;
-      justify-content:space-between;
-      align-items:center;
       gap: 10px;
-    }
-    .modalHead strong{ font-size: 15px; letter-spacing: -0.01em; }
-    .closeBtn{
-      min-height: var(--tap);
-      min-width: var(--tap);
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      cursor:pointer;
-      outline:none;
-    }
-    .closeBtn:hover{ background: rgba(255,255,255,.08); }
-    .closeBtn:focus-visible{ box-shadow: var(--focusShadow); }
-
-    .modalBody{ padding: 18px; }
-    .modalGrid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-    }
-    .modalBlock{
-      padding: 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .modalBlock h4{ margin: 0 0 8px; font-size: 14px; letter-spacing: -0.01em; }
-    .modalBlock p{ margin: 0; color: var(--muted2); line-height: 1.6; font-size: 14px; }
-    .modalFooter{
-      padding: 14px 18px 18px;
-      display:flex;
       justify-content:flex-end;
-      gap: 10px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      flex-wrap: wrap;
+      flex-wrap:wrap;
     }
 
     /* =========================
-       Mobile Drawer
-       ========================= */
-    .drawerOverlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(5px);
-      display:none;
-      z-index: 90;
-    }
-    .drawerOverlay.show{ display:block; }
-    .drawer{
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: -100%;
-      z-index: 95;
-      background: rgba(10,14,24,.92);
-      border-top-left-radius: 22px;
-      border-top-right-radius: 22px;
-      border-top: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 -20px 60px rgba(0,0,0,.65);
-      padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
-      transition: bottom .22s ease;
-    }
-    .drawer.show{ bottom: 0; }
-    .grab{
-      width: 42px;
-      height: 5px;
-      margin: 0 auto 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.20);
-    }
-    .drawerNav{ display:grid; gap: 10px; }
-    .drawerNav a{
-      text-decoration:none;
-      color: var(--text);
-      padding: 12px 14px;
-      min-height: var(--tap);
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      outline:none;
-    }
-    .drawerNav a span{ color: var(--muted2); font-size: 13px; }
-    .drawerNav a:focus-visible{ box-shadow: var(--focusShadow); }
-
-    /* =========================
-       Responsive Nav behavior:
-       - Phones: drawer
-       - Tablets+ : show navlinks
-       ========================= */
-    @media (max-width: 860px){
+       Responsive breakpoints
+    ========================== */
+    /* Tablet */
+    @media (max-width: 1024px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-left, .hero-right{ min-height: auto; }
+      .about-grid{ grid-template-columns: 1fr; }
+      .projects-grid{ grid-template-columns: repeat(2, 1fr); }
+      .skills-grid{ grid-template-columns: 1fr; }
       .navlinks{ display:none; }
-      .menuBtn{ display:inline-flex; }
-      .brand{ min-width: 0; }
-      .actions{ gap: 8px; }
+      .hamburger{ display:inline-flex; }
+      .brand{ min-width: auto; }
+      .nav-cta{ min-width: auto; }
     }
-
-    /* Better header packing on very small widths */
-    @media (max-width: 420px){
-      .brand p{ display:none; }
-      .btn{ padding: 10px 12px; }
+    /* Mobile */
+    @media (max-width: 640px){
+      .projects-grid{ grid-template-columns: 1fr; }
+      .project{ min-height: 560px; }
+      .snapshot-grid{ grid-template-columns: 1fr; }
+      .contact{ flex-direction:column; align-items:flex-start; }
+      .contact-right{ width:100%; justify-content:flex-start; }
+      .hero-title{ font-size: clamp(30px, 9vw, 44px); }
+      .pill{ white-space: normal; }
     }
   </style>
 </head>
 
-<body id="top">
-  <a class="skip" href="#main">Skip to content</a>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header>
-    <div class="container nav">
-      <div class="brand" aria-label="Site identity">
-        <div class="avatar" aria-hidden="true"></div>
-        <div>
-          <h1>GowriShankar</h1>
-          <p>DevOps Engineer · CI/CD · Kubernetes · Terraform</p>
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#top">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>GowriShankar</strong>
+            <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
+          </div>
+        </a>
+
+        <div class="navlinks" role="navigation" aria-label="Sections">
+          <a href="#about" data-nav>About</a>
+          <a href="#projects" data-nav>Projects</a>
+          <a href="#skills" data-nav>Skills</a>
+          <a href="#contact" data-nav>Contact</a>
         </div>
-      </div>
 
-      <nav class="navlinks" aria-label="Primary navigation">
-        <a href="#about" data-spy="about">About</a>
-        <a href="#projects" data-spy="projects">Projects</a>
-        <a href="#skills" data-spy="skills">Skills</a>
-        <a href="#contact" data-spy="contact">Contact</a>
+        <div class="nav-cta">
+          <button class="btn ghost hamburger" id="openDrawer" type="button" aria-haspopup="dialog" aria-controls="navDrawer">
+            ☰ <span class="sr-only">Open menu</span>
+          </button>
+
+          <!-- Update these -->
+          <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn primary" href="#" target="_blank" rel="noopener noreferrer">Resume</a>
+        </div>
       </nav>
-
-      <div class="actions">
-        <button class="btn ghost menuBtn" id="openMenu" aria-haspopup="dialog" aria-controls="mobileDrawer" aria-label="Open menu">
-          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
-        </button>
-
-        <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn in a new tab">
-          LinkedIn
-        </a>
-        <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume PDF in a new tab">
-          Resume
-        </a>
-      </div>
     </div>
   </header>
 
+  <!-- Mobile Nav Drawer -->
+  <dialog id="navDrawer" aria-label="Navigation menu">
+    <div class="glass drawer" role="document">
+      <div class="drawer-head">
+        <strong>Menu</strong>
+        <button class="btn ghost" id="closeDrawer" type="button">Close</button>
+      </div>
+      <div class="drawer-body">
+        <a href="#about" data-drawer-link>About <span>What I’m focused on</span></a>
+        <a href="#projects" data-drawer-link>Projects <span>Repos + case studies</span></a>
+        <a href="#skills" data-drawer-link>Skills <span>What I can ship</span></a>
+        <a href="#contact" data-drawer-link>Contact <span>Fast reach-out</span></a>
+      </div>
+    </div>
+  </dialog>
+
   <main id="main">
     <!-- HERO -->
-    <section class="hero">
-      <div class="container heroGrid">
-        <div class="glass texture heroCard reveal">
-          <div class="kicker"><span class="dot" aria-hidden="true"></span> Production-minded DevOps • measurable outcomes • clean architecture</div>
+    <section class="section hero" id="top">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="glass hero-left">
+            <div>
+              <div class="pill">
+                <span class="dot" aria-hidden="true"></span>
+                <span>Production-minded DevOps • measurable outcomes • clean architecture</span>
+              </div>
 
-          <h2>Building reliable delivery pipelines and cloud platforms that scale.</h2>
+              <h1 class="hero-title">Building reliable delivery pipelines and cloud platforms that scale.</h1>
+              <p class="hero-sub">
+                I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
+                fast feedback loops, safe rollouts, and observability-driven reliability.
+              </p>
 
-          <p>
-            I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
-            fast feedback loops, safe rollouts, and observability-driven reliability.
-          </p>
+              <div class="hero-actions" role="group" aria-label="Primary actions">
+                <a class="btn primary" href="#projects">View projects →</a>
+                <a class="btn ghost" href="#contact">Contact me</a>
+                <!-- Update this -->
+                <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">
+                  GitHub ↗
+                </a>
+              </div>
 
-          <div class="ctaRow" role="group" aria-label="Primary calls to action">
-            <a class="btn primary" href="#projects">View projects <span aria-hidden="true">→</span></a>
-            <a class="btn" href="#contact">Contact me</a>
-            <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <div class="hero-proof" aria-label="Highlights">
+                <div class="proof-row">
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    Hands-on repos
+                  </span>
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    Realistic architectures
+                  </span>
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    Case studies
+                  </span>
+                </div>
+
+                <div class="chips" aria-label="Core stack">
+                  <span class="chip">Kubernetes</span>
+                  <span class="chip">Terraform</span>
+                  <span class="chip">Jenkins</span>
+                  <span class="chip">AWS</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="proofStrip" aria-label="Proof strip">
-            <span class="proof"><span class="check" aria-hidden="true">
-              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
-            </span> Hands-on repos</span>
+          <div class="glass hero-right">
+            <div class="hero-right-head">
+              <h3>Snapshot</h3>
+              <span>what I deliver</span>
+            </div>
 
-            <span class="proof"><span class="check" aria-hidden="true">
-              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
-            </span> Realistic architectures</span>
+            <div class="snap-pills" aria-label="Deliverables">
+              <span class="pill">CI/CD pipelines (Jenkins, GitHub Actions)</span>
+              <span class="pill">Kubernetes deployments + ops</span>
+              <span class="pill">Terraform IaC baselines</span>
+              <span class="pill">Cloud fundamentals (AWS)</span>
+              <span class="pill">Observability mindset</span>
+              <span class="pill">Security-by-default</span>
+            </div>
 
-            <span class="proof"><span class="check" aria-hidden="true">
-              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
-            </span> Case studies</span>
+            <div class="snapshot-grid" aria-label="Proof areas">
+              <div class="mini">
+                <strong>Clean Docs</strong>
+                <p>README + screenshots + steps</p>
+              </div>
+              <div class="mini">
+                <strong>Case Studies</strong>
+                <p>Problem → Architecture → Results</p>
+              </div>
+              <div class="mini">
+                <strong>Safe Delivery</strong>
+                <p>repeatable, auditable deployments</p>
+              </div>
+              <div class="mini">
+                <strong>Ops Thinking</strong>
+                <p>failure modes + runbooks</p>
+              </div>
+            </div>
           </div>
         </div>
-
-        <aside class="glass texture snapshot reveal" aria-label="Snapshot">
-          <div class="snapHead">
-            <strong>Snapshot</strong>
-            <span>what I deliver</span>
-          </div>
-
-          <div class="chips" aria-label="Core capabilities">
-            <span class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</span>
-            <span class="chip">Kubernetes deployments + ops</span>
-            <span class="chip">Terraform IaC baselines</span>
-            <span class="chip">Cloud fundamentals (AWS)</span>
-            <span class="chip">Observability mindset</span>
-            <span class="chip">Security-by-default</span>
-          </div>
-
-          <div class="snapGrid" aria-label="Delivery principles">
-            <div class="mini">
-              <strong>Clean Docs</strong>
-              <span>README + screenshots + steps</span>
-            </div>
-            <div class="mini">
-              <strong>Case Studies</strong>
-              <span>Problem → Architecture → Results</span>
-            </div>
-            <div class="mini">
-              <strong>Safe Delivery</strong>
-              <span>repeatable, auditable deployments</span>
-            </div>
-            <div class="mini">
-              <strong>Ops Thinking</strong>
-              <span>failure modes + runbooks</span>
-            </div>
-          </div>
-        </aside>
       </div>
     </section>
 
-    <div class="divider"></div>
-
     <!-- ABOUT -->
-    <section id="about" class="section">
+    <section class="section" id="about">
       <div class="container">
-        <div class="headRow">
+        <div class="section-head">
           <div>
-            <h3 class="section-title">About</h3>
-            <p class="section-sub">Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
+            <h2>About</h2>
+            <div class="section-kicker">Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</div>
           </div>
         </div>
 
-        <div class="gridAuto">
-          <div class="glass texture card reveal">
+        <div class="about-grid">
+          <div class="glass card">
             <h3>What I’m focused on</h3>
-            <p>
-              Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments
-              that are easy to run, easy to audit, and safe to change.
+            <p style="margin-top:10px;">
+              Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines,
+              and Kubernetes deployments that are easy to run, easy to audit, and safe to change.
             </p>
             <ul class="bullets">
               <li>Automate “boring” but critical reliability steps.</li>
@@ -913,15 +908,15 @@
             </ul>
           </div>
 
-          <div class="glass texture card reveal">
+          <div class="glass card">
             <h3>How I work</h3>
-            <p>
+            <p style="margin-top:10px;">
               I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
             </p>
             <ul class="bullets">
-              <li><b>Architecture clarity:</b> diagrams + clean repo structure.</li>
-              <li><b>Proof-driven:</b> screenshots, outputs, and repeatable steps.</li>
-              <li><b>Production mindset:</b> security, rollback, drift, and cost awareness.</li>
+              <li><strong>Architecture clarity</strong>: diagrams + clean repo structure.</li>
+              <li><strong>Proof-driven</strong>: screenshots, outputs, and repeatable steps.</li>
+              <li><strong>Production mindset</strong>: security, rollback, drift, and cost awareness.</li>
             </ul>
           </div>
         </div>
@@ -929,112 +924,145 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="section">
+    <section class="section" id="projects">
       <div class="container">
-        <div class="headRow">
+        <div class="section-head">
           <div>
-            <h3 class="section-title">Projects</h3>
-            <p class="section-sub">Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
+            <h2>Projects</h2>
+            <div class="section-kicker">Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</div>
           </div>
         </div>
 
-        <div class="gridAuto">
+        <div class="projects-grid">
           <!-- Project 1 -->
-          <article class="glass texture pCard reveal">
-            <div class="pTop">
-              <div>
-                <h4 class="pTitle">DevOps CI/CD — Jenkins Pipeline</h4>
-                <p class="pDesc">End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>DevOps CI/CD — Jenkins Pipeline</h3>
+                <p>End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
               </div>
-              <div class="metric" aria-label="Deploy time improvement"><b>↓ 60%</b> <span>deploy time</span></div>
+              <span class="pill metric" aria-label="Metric">↓ <strong>60%</strong>&nbsp;deploy time</span>
             </div>
 
-            <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">Quality Gates</span>
-            </div>
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Jenkins</span>
+                <span class="chip">Docker</span>
+                <span class="chip">CI/CD</span>
+                <span class="chip">Quality Gates</span>
+              </div>
 
-            <div class="diagram" aria-label="Architecture sketch">
-              <pre>
-Developer → Git Push
-  ↓
+              <div class="diagram" aria-label="Architecture sketch">
+                <pre>Developer → Git Push
+    ↓
 Jenkins (Pipeline)
-  ↓
+    ↓
 Build + Tests
-  ↓
+    ↓
 Artifact/Image → Deploy (staged)
-  ↓
-Health checks → Rollback-ready releases
-              </pre>
+    ↓
+Health checks → Rollback-ready releases</pre>
+              </div>
             </div>
 
-            <div class="pCtas" role="group" aria-label="Project actions">
+            <div class="project-footer">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" data-case="jenkins" type="button">Case Study</button>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="DevOps CI/CD — Jenkins Pipeline"
+                data-problem="Teams need repeatable delivery with fast feedback and safe rollouts."
+                data-architecture="Pipeline stages: build → test → artifact → staged deploy, with health checks + rollback readiness."
+                data-results="Clear pipeline steps, consistent artifacts, safer deploys. (Replace with real metrics after validation.)">
+                Case Study
+              </button>
             </div>
           </article>
 
           <!-- Project 2 -->
-          <article class="glass texture pCard reveal">
-            <div class="pTop">
-              <div>
-                <h4 class="pTitle">Kubernetes Deployments + Ops</h4>
-                <p class="pDesc">Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>Kubernetes Deployments + Ops</h3>
+                <p>Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
               </div>
-              <div class="metric" aria-label="Uptime goal"><b>99.9%</b> <span>uptime goal</span></div>
+              <span class="pill metric" aria-label="Metric"><strong>99.9%</strong>&nbsp;uptime goal</span>
             </div>
 
-            <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Kubernetes</span><span class="tag">Rollouts</span><span class="tag">Health Probes</span><span class="tag">Ops</span>
-            </div>
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Kubernetes</span>
+                <span class="chip">Rollouts</span>
+                <span class="chip">Health Probes</span>
+                <span class="chip">Ops</span>
+              </div>
 
-            <div class="diagram" aria-label="Architecture sketch">
-              <pre>
-Client → Ingress/Service
-  ↓
+              <div class="diagram" aria-label="Architecture sketch">
+                <pre>Client → Ingress/Service
+    ↓
 Deployment
- / | \
+  /  |  \
 Pod A Pod B Pod C
-  ↓    ↓    ↓
+    ↓
 Readiness/Liveness probes
-Rolling updates + rollback
-              </pre>
+Rolling updates + rollback</pre>
+              </div>
             </div>
 
-            <div class="pCtas" role="group" aria-label="Project actions">
+            <div class="project-footer">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" data-case="k8s" type="button">Case Study</button>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="Kubernetes Deployments + Ops"
+                data-problem="Run workloads with predictable rollouts and strong health signals."
+                data-architecture="Manifests with services/ingress, probes, rollout strategy, and operational documentation."
+                data-results="More reliable deployments and safer changes. (Replace with real metrics after validation.)">
+                Case Study
+              </button>
             </div>
           </article>
 
           <!-- Project 3 -->
-          <article class="glass texture pCard reveal">
-            <div class="pTop">
-              <div>
-                <h4 class="pTitle">Terraform AWS Baseline</h4>
-                <p class="pDesc">Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>Terraform AWS Baseline</h3>
+                <p>Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
               </div>
-              <div class="metric" aria-label="Setup time reduction"><b>↓ 40%</b> <span>setup time</span></div>
+              <span class="pill metric" aria-label="Metric">↓ <strong>40%</strong>&nbsp;setup time</span>
             </div>
 
-            <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">IaC</span><span class="tag">Drift-safe</span>
-            </div>
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Terraform</span>
+                <span class="chip">AWS</span>
+                <span class="chip">IaC</span>
+                <span class="chip">Drift-safe</span>
+              </div>
 
-            <div class="diagram" aria-label="Architecture sketch">
-              <pre>
-Terraform Modules
-  ↓
+              <div class="diagram" aria-label="Architecture sketch">
+                <pre>Terraform Modules
+    ↓
 VPC + Subnets + Routing
-  ↓
+    ↓
 IAM (least privilege)
-  ↓
-Reusable baseline outputs
-              </pre>
+    ↓
+Reusable baseline outputs</pre>
+              </div>
             </div>
 
-            <div class="pCtas" role="group" aria-label="Project actions">
+            <div class="project-footer">
               <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
-              <button class="btn" data-case="tf" type="button">Case Study</button>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="Terraform AWS Baseline"
+                data-problem="Teams need a secure, reusable AWS foundation that prevents snowflake infra."
+                data-architecture="Modules for VPC/subnets/routing + least-privilege IAM + baseline outputs."
+                data-results="Faster environment bring-up and consistent foundations. (Replace with real metrics after validation.)">
+                Case Study
+              </button>
             </div>
           </article>
         </div>
@@ -1042,17 +1070,17 @@ Reusable baseline outputs
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="section">
+    <section class="section" id="skills">
       <div class="container">
-        <div class="headRow">
+        <div class="section-head">
           <div>
-            <h3 class="section-title">Skills</h3>
-            <p class="section-sub">Grouped like a product spec: what you can reliably ship.</p>
+            <h2>Skills</h2>
+            <div class="section-kicker">Grouped like a product spec: what you can reliably ship.</div>
           </div>
         </div>
 
-        <div class="gridAuto">
-          <div class="glass texture card skillCard reveal">
+        <div class="skills-grid skills">
+          <div class="glass card">
             <h3>Delivery & Automation</h3>
             <ul>
               <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
@@ -1062,7 +1090,7 @@ Reusable baseline outputs
             </ul>
           </div>
 
-          <div class="glass texture card skillCard reveal">
+          <div class="glass card">
             <h3>Kubernetes & Operations</h3>
             <ul>
               <li>Deployments, services, ingress basics</li>
@@ -1072,7 +1100,7 @@ Reusable baseline outputs
             </ul>
           </div>
 
-          <div class="glass texture card skillCard reveal">
+          <div class="glass card">
             <h3>Infrastructure as Code</h3>
             <ul>
               <li>Terraform modules and environments</li>
@@ -1086,171 +1114,88 @@ Reusable baseline outputs
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section">
+    <section class="section" id="contact">
       <div class="container">
-        <div class="headRow">
+        <div class="section-head">
           <div>
-            <h3 class="section-title">Contact</h3>
-            <p class="section-sub">Make it easy to act in 10 seconds.</p>
+            <h2>Contact</h2>
+            <div class="section-kicker">Make it easy to act in 10 seconds.</div>
           </div>
         </div>
 
-        <div class="glass texture contactRow reveal" role="region" aria-label="Contact strip">
-          <p>Email: <strong>&nbsp;YOUR_EMAIL_HERE&nbsp;</strong> · GitHub: <strong>&nbsp;gowrishankar-infra</strong></p>
-          <div class="ctaRow" role="group" aria-label="Contact actions">
-            <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
-            <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
+        <div class="glass contact">
+          <div class="contact-left">
+            <!-- Update email + github -->
+            <p>Email: <strong style="color:var(--text)">YOUR_EMAIL_HERE</strong> · GitHub: <strong style="color:var(--text)">gowrishankar-infra</strong></p>
+            <p class="muted2">I respond fastest on LinkedIn.</p>
+          </div>
+          <div class="contact-right">
+            <a class="btn primary" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
+            <a class="btn ghost" href="#" target="_blank" rel="noopener noreferrer">Open Resume</a>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="divider"></div>
+    <!-- CASE STUDY MODAL -->
+    <dialog id="caseModal" aria-label="Case study dialog">
+      <div class="glass modal" role="document">
+        <div class="modal-head">
+          <div class="modal-title">
+            <h3 id="caseTitle">Case Study</h3>
+            <p id="caseKicker">Problem → Architecture → Results</p>
+          </div>
+          <button class="btn ghost" id="closeCase" type="button">Close</button>
+        </div>
 
-    <footer>
-      <div class="container footRow">
-        <div>© 2025 GowriShankar</div>
-        <div class="footLinks">
-          <a href="#top" id="backToTopLink">Back to top</a>
-          <a href="https://github.com/gowrishankar-infra/portfolio" target="_blank" rel="noopener noreferrer">Portfolio repo</a>
+        <div class="modal-body">
+          <div class="modal-block">
+            <strong>Problem</strong>
+            <p id="caseProblem"></p>
+          </div>
+          <div class="modal-block">
+            <strong>Architecture</strong>
+            <p id="caseArchitecture"></p>
+          </div>
+          <div class="modal-block">
+            <strong>Results</strong>
+            <p id="caseResults"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn primary" id="caseOk" type="button">Done</button>
         </div>
       </div>
-    </footer>
-
-    <div class="toTop" id="toTop">
-      <button class="btn primary" type="button" id="toTopBtn" aria-label="Scroll back to top">↑ Top</button>
-    </div>
+    </dialog>
   </main>
 
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
-
-  <dialog id="caseDialog" aria-labelledby="caseTitle" aria-describedby="caseDesc">
-    <div class="modalHead">
-      <strong id="caseTitle">Case Study</strong>
-      <button class="closeBtn" type="button" id="closeDialog" aria-label="Close dialog">✕</button>
-    </div>
-    <div class="modalBody">
-      <p id="caseDesc" class="section-sub" style="margin:0 0 12px;">Problem → Architecture → What I built → Results → Failure modes</p>
-
-      <div class="modalGrid">
-        <div class="modalBlock"><h4>Problem</h4><p id="mProblem"></p></div>
-        <div class="modalBlock"><h4>Architecture</h4><p id="mArch"></p></div>
-        <div class="modalBlock"><h4>What I built</h4><p id="mBuilt"></p></div>
-        <div class="modalBlock"><h4>Results</h4><p id="mResults"></p></div>
-        <div class="modalBlock" style="grid-column: 1 / -1;"><h4>Failure modes + runbook notes</h4><p id="mFailure"></p></div>
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <span>© <span id="year"></span> GowriShankar</span>
+        <a class="muted2" href="#top">Back to top · Portfolio repo</a>
       </div>
     </div>
-    <div class="modalFooter">
-      <button class="btn" type="button" id="closeDialog2">Close</button>
-      <a class="btn primary" id="modalRepo" href="#" target="_blank" rel="noopener noreferrer">Open Repo</a>
-    </div>
-  </dialog>
+  </footer>
 
-  <div class="drawerOverlay" id="drawerOverlay" aria-hidden="true"></div>
-  <div class="drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-    <div class="grab" aria-hidden="true"></div>
-    <div class="drawerNav">
-      <a href="#about" data-drawerlink><b>About</b><span>overview</span></a>
-      <a href="#projects" data-drawerlink><b>Projects</b><span>work</span></a>
-      <a href="#skills" data-drawerlink><b>Skills</b><span>stack</span></a>
-      <a href="#contact" data-drawerlink><b>Contact</b><span>reach out</span></a>
-      <button class="btn" type="button" id="closeMenu" style="width:100%;">Close</button>
-    </div>
-  </div>
+  <button class="toTop" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
 
   <script>
-    // Smooth scroll (safe)
-    (function(){
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const smooth = !prefersReduced;
-
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          const id = a.getAttribute('href');
-          if(!id || id === '#') return;
-          const el = document.querySelector(id);
-          if(!el) return;
-          e.preventDefault();
-          el.scrollIntoView({behavior: smooth ? 'smooth' : 'auto', block: 'start'});
-          el.setAttribute('tabindex', '-1');
-          el.focus({preventScroll:true});
-          setTimeout(()=> el.removeAttribute('tabindex'), 300);
-        });
-      });
-    })();
-
-    // Reveal
-    (function(){
-      const els = document.querySelectorAll('.reveal');
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(prefersReduced){
-        els.forEach(el => el.classList.add('in'));
-        return;
-      }
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            e.target.classList.add('in');
-            io.unobserve(e.target);
-          }
-        });
-      }, {threshold: 0.12});
-      els.forEach(el=> io.observe(el));
-    })();
-
-    // Scrollspy
-    (function(){
-      const links = Array.from(document.querySelectorAll('[data-spy]'));
-      const sections = links.map(a => document.querySelector('#' + a.dataset.spy)).filter(Boolean);
-
-      function setActive(id){
-        links.forEach(a=>{
-          const is = a.dataset.spy === id;
-          if(is) a.setAttribute('aria-current','page');
-          else a.removeAttribute('aria-current');
-        });
-      }
-
-      const io = new IntersectionObserver((entries)=>{
-        const visible = entries.filter(e=> e.isIntersecting)
-          .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
-        if(visible) setActive(visible.target.id);
-      }, {rootMargin: "-35% 0px -55% 0px", threshold: [0.2,0.35,0.5]});
-
-      sections.forEach(s=> io.observe(s));
-      setActive('about');
-    })();
-
-    // ToTop
-    (function(){
-      const toTop = document.getElementById('toTop');
-      const btn = document.getElementById('toTopBtn');
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function onScroll(){
-        toTop.classList.toggle('show', window.scrollY > 420);
-      }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      onScroll();
-
-      btn.addEventListener('click', ()=>{
-        window.scrollTo({top:0, behavior: prefersReduced ? 'auto' : 'smooth'});
-      });
-    })();
-
-    // Focus trap helper
-    function trapFocus(container, onEscape){
-      const focusable = () => Array.from(container.querySelectorAll(
+    // =========================
+    // Helpers: focus trap for dialog
+    // =========================
+    function trapFocus(dialogEl) {
+      const focusable = dialogEl.querySelectorAll(
         'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-      )).filter(el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
 
-      function handleKey(e){
-        if(e.key === 'Escape'){ onEscape && onEscape(); return; }
+      function onKeydown(e){
         if(e.key !== 'Tab') return;
-        const items = focusable();
-        if(!items.length) return;
-        const first = items[0];
-        const last = items[items.length - 1];
+        if(focusable.length === 0) return;
+
         if(e.shiftKey && document.activeElement === first){
           e.preventDefault(); last.focus();
         } else if(!e.shiftKey && document.activeElement === last){
@@ -1258,134 +1203,154 @@ Reusable baseline outputs
         }
       }
 
-      container.addEventListener('keydown', handleKey);
-      return () => container.removeEventListener('keydown', handleKey);
+      dialogEl.addEventListener('keydown', onKeydown);
+      return () => dialogEl.removeEventListener('keydown', onKeydown);
     }
 
-    const CASES = {
-      jenkins: {
-        title: "DevOps CI/CD — Jenkins Pipeline",
-        repo: "https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline",
-        problem: "Manual builds/deploys were slow and error-prone; inconsistent environments led to rollbacks and firefighting.",
-        arch: "Pipeline stages: lint/test → build artifact/image → publish → staged deploy → health checks; rollback-ready releases.",
-        built: "Jenkinsfile, quality gates, artifact versioning, deployment steps with repeatable commands and documentation.",
-        results: "Faster feedback loops, consistent releases, fewer manual mistakes. Replace with your real measured metrics.",
-        failure: "Failures: flaky tests, env vars, deploy timeouts. Runbook: inspect logs, rerun stage, rollback safely."
-      },
-      k8s: {
-        title: "Kubernetes Deployments + Ops",
-        repo: "https://github.com/gowrishankar-infra/kubernetes-deployments-ops",
-        problem: "Deploys without probes caused partial outages and slow incident resolution.",
-        arch: "Ingress/Service → Deployment → Pods with probes; rollout strategy supports safe updates and rollback.",
-        built: "Manifests, config & secrets patterns, probes, rollout guidance and operational notes.",
-        results: "More predictable deploys, safer rollouts, better uptime posture. Replace with your real results.",
-        failure: "Failures: bad probe thresholds, image pull errors, ingress misconfig. Runbook: describe pod, events, logs, rollback."
-      },
-      tf: {
-        title: "Terraform AWS Baseline",
-        repo: "https://github.com/gowrishankar-infra/terraform-aws-baseline",
-        problem: "New environments took too long and drifted; IAM/networking repeated with inconsistent defaults.",
-        arch: "Opinionated modules: VPC/subnets/routing + IAM least privilege + reusable outputs.",
-        built: "Terraform modules with variables/outputs, environment structure, state considerations and safe defaults.",
-        results: "Faster setup, consistency, reduced drift risk. Replace with your real metrics and examples.",
-        failure: "Failures: state lock issues, IAM permission errors, drift. Runbook: plan/apply safely, inspect state, fix least-privilege."
+    function openDialog(dialogEl, focusSelector){
+      const supports = typeof dialogEl.showModal === 'function';
+      if(!supports){
+        // minimal fallback: show as block
+        dialogEl.setAttribute('open', '');
+        dialogEl.style.display = 'block';
+      } else {
+        dialogEl.showModal();
       }
+      const cleanupTrap = trapFocus(dialogEl);
+      setTimeout(() => {
+        const toFocus = focusSelector ? dialogEl.querySelector(focusSelector) : null;
+        (toFocus || dialogEl.querySelector('button, a, [tabindex]'))?.focus();
+      }, 0);
+
+      const onClickOutside = (e) => {
+        const rect = dialogEl.getBoundingClientRect();
+        const clickedOutside =
+          e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom;
+        // For native dialog, clicking backdrop triggers click on dialog
+        if(clickedOutside){
+          closeDialog(dialogEl);
+        }
+      };
+
+      dialogEl.addEventListener('click', onClickOutside);
+      dialogEl._cleanup = () => {
+        cleanupTrap();
+        dialogEl.removeEventListener('click', onClickOutside);
+      };
+    }
+
+    function closeDialog(dialogEl){
+      if(dialogEl._cleanup) dialogEl._cleanup();
+      const supports = typeof dialogEl.close === 'function';
+      if(dialogEl.hasAttribute('open') && !supports){
+        dialogEl.removeAttribute('open');
+        dialogEl.style.display = 'none';
+      } else {
+        dialogEl.close();
+      }
+    }
+
+    // =========================
+    // Nav active state
+    // =========================
+    const navLinks = document.querySelectorAll('[data-nav]');
+    const sections = ['about','projects','skills','contact'].map(id => document.getElementById(id));
+
+    const setCurrent = () => {
+      const y = window.scrollY + 120;
+      let current = 'about';
+      for (const s of sections) {
+        if (s && s.offsetTop <= y) current = s.id;
+      }
+      navLinks.forEach(a => a.removeAttribute('aria-current'));
+      const active = [...navLinks].find(a => a.getAttribute('href') === '#' + current);
+      if(active) active.setAttribute('aria-current','page');
     };
+    window.addEventListener('scroll', setCurrent, { passive:true });
+    setCurrent();
 
-    // Modal
-    (function(){
-      const dialog = document.getElementById('caseDialog');
-      const overlay = document.getElementById('overlay');
-      const close1 = document.getElementById('closeDialog');
-      const close2 = document.getElementById('closeDialog2');
-      const modalRepo = document.getElementById('modalRepo');
+    // =========================
+    // Drawer (mobile nav)
+    // =========================
+    const navDrawer = document.getElementById('navDrawer');
+    const openDrawer = document.getElementById('openDrawer');
+    const closeDrawerBtn = document.getElementById('closeDrawer');
+    const drawerLinks = document.querySelectorAll('[data-drawer-link]');
 
-      const mProblem = document.getElementById('mProblem');
-      const mArch = document.getElementById('mArch');
-      const mBuilt = document.getElementById('mBuilt');
-      const mResults = document.getElementById('mResults');
-      const mFailure = document.getElementById('mFailure');
-      const title = document.getElementById('caseTitle');
+    let lastFocus = null;
 
-      let lastFocus = null;
-      let untrap = null;
-
-      function openCase(key){
-        const data = CASES[key];
-        if(!data) return;
-        lastFocus = document.activeElement;
-
-        title.textContent = data.title;
-        mProblem.textContent = data.problem;
-        mArch.textContent = data.arch;
-        mBuilt.textContent = data.built;
-        mResults.textContent = data.results;
-        mFailure.textContent = data.failure;
-        modalRepo.href = data.repo;
-
-        overlay.classList.add('show');
-        overlay.setAttribute('aria-hidden','false');
-
-        dialog.showModal();
-        untrap = trapFocus(dialog, closeCase);
-        close1.focus();
-      }
-
-      function closeCase(){
-        try{ dialog.close(); } catch(e){}
-        overlay.classList.remove('show');
-        overlay.setAttribute('aria-hidden','true');
-        if(untrap) untrap();
-        if(lastFocus && lastFocus.focus) lastFocus.focus();
-      }
-
-      document.querySelectorAll('[data-case]').forEach(btn=>{
-        btn.addEventListener('click', ()=> openCase(btn.dataset.case));
+    openDrawer?.addEventListener('click', () => {
+      lastFocus = document.activeElement;
+      openDialog(navDrawer, '#closeDrawer');
+    });
+    closeDrawerBtn?.addEventListener('click', () => {
+      closeDialog(navDrawer);
+      lastFocus?.focus?.();
+    });
+    navDrawer?.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeDialog(navDrawer);
+      lastFocus?.focus?.();
+    });
+    drawerLinks.forEach(a => {
+      a.addEventListener('click', () => {
+        closeDialog(navDrawer);
+        lastFocus?.focus?.();
       });
+    });
 
-      overlay.addEventListener('click', closeCase);
-      close1.addEventListener('click', closeCase);
-      close2.addEventListener('click', closeCase);
+    // =========================
+    // Case Study Modal
+    // =========================
+    const caseModal = document.getElementById('caseModal');
+    const closeCase = document.getElementById('closeCase');
+    const caseOk = document.getElementById('caseOk');
+    const caseTitle = document.getElementById('caseTitle');
+    const caseProblem = document.getElementById('caseProblem');
+    const caseArchitecture = document.getElementById('caseArchitecture');
+    const caseResults = document.getElementById('caseResults');
 
-      dialog.addEventListener('cancel', (e)=>{
-        e.preventDefault();
-        closeCase();
-      });
-    })();
-
-    // Drawer
-    (function(){
-      const openBtn = document.getElementById('openMenu');
-      const closeBtn = document.getElementById('closeMenu');
-      const overlay = document.getElementById('drawerOverlay');
-      const drawer = document.getElementById('mobileDrawer');
-      const drawerLinks = drawer.querySelectorAll('[data-drawerlink]');
-      let lastFocus = null;
-      let untrap = null;
-
-      function openDrawer(){
+    document.querySelectorAll('[data-open-case]').forEach(btn => {
+      btn.addEventListener('click', () => {
         lastFocus = document.activeElement;
-        overlay.classList.add('show');
-        overlay.setAttribute('aria-hidden','false');
-        drawer.classList.add('show');
-        untrap = trapFocus(drawer, closeDrawer);
-        (drawerLinks[0] || closeBtn).focus();
-        document.body.style.overflow = 'hidden';
-      }
-      function closeDrawer(){
-        drawer.classList.remove('show');
-        overlay.classList.remove('show');
-        overlay.setAttribute('aria-hidden','true');
-        if(untrap) untrap();
-        document.body.style.overflow = '';
-        if(lastFocus && lastFocus.focus) lastFocus.focus();
-      }
+        caseTitle.textContent = btn.dataset.title || 'Case Study';
+        caseProblem.textContent = btn.dataset.problem || '';
+        caseArchitecture.textContent = btn.dataset.architecture || '';
+        caseResults.textContent = btn.dataset.results || '';
+        openDialog(caseModal, '#closeCase');
+      });
+    });
 
-      openBtn.addEventListener('click', openDrawer);
-      closeBtn.addEventListener('click', closeDrawer);
-      overlay.addEventListener('click', closeDrawer);
-      drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
-    })();
+    function closeCaseModal(){
+      closeDialog(caseModal);
+      lastFocus?.focus?.();
+    }
+    closeCase?.addEventListener('click', closeCaseModal);
+    caseOk?.addEventListener('click', closeCaseModal);
+    caseModal?.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeCaseModal();
+    });
+
+    // =========================
+    // ToTop button
+    // =========================
+    const toTop = document.getElementById('toTop');
+    const toggleTop = () => {
+      if(window.scrollY > 700) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', toggleTop, { passive:true });
+    toggleTop();
+
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+
+    // =========================
+    // Footer year
+    // =========================
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
