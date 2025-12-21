@@ -10,42 +10,49 @@
 
   <style>
     /* =========================
-       10/10 FAANG-safe system
-       Graphite / Off-white / Arctic Blue
+       10/10 Responsive System
+       - Works from 320px → ultrawide
+       - No fragile fixed heights
+       - Grid auto-fit/minmax for perfect reflow
        ========================= */
-    :root{
-      --bg: #0B1220;            /* deep graphite navy */
-      --bg2:#081022;
-      --surface: rgba(255,255,255,0.08);
-      --surface2: rgba(255,255,255,0.10);
-      --card: rgba(255,255,255,0.075);
-      --card2: rgba(255,255,255,0.09);
 
-      --text: #EDEFF2;          /* primary */
-      --text2:#D6DCE4;          /* body */
-      --muted:#B9C0C7;          /* secondary */
-      --muted2:#C7D0DA;         /* small text a11y boost */
-      --subtle: rgba(255,255,255,0.10);
-      --subtle2: rgba(255,255,255,0.14);
+    :root{
+      /* Color */
+      --bg: #0B1220;
+      --bg2:#081022;
+
+      --text: #EEF2F7;
+      --text2:#D7DEE7;
+      --muted:#B7C0CC;
+      --muted2:#C7D2DF; /* small text contrast boost */
+
       --border: rgba(255,255,255,0.14);
       --border2: rgba(255,255,255,0.18);
       --shadow: 0 18px 48px rgba(0,0,0,.45);
 
-      --accent: #BFDFFF;        /* arctic blue */
-      --accent2:#9BCBFF;
+      --accent: #BFDFFF;
       --ok: #5EEAD4;
 
+      /* Layout */
+      --tap: 44px;
       --radius-lg: 26px;
       --radius-md: 18px;
-      --radius-sm: 14px;
 
-      --pad: clamp(16px, 2.6vw, 26px);
-      --max: 1120px;
+      /* Responsive spacing */
+      --pad: clamp(14px, 2.6vw, 26px);
+      --sectionY: clamp(38px, 6vw, 78px);
 
-      --focus: rgba(191,223,255,.95);
+      /* Container width: scales across big screens */
+      --max: 1180px;
+      --maxWide: 1320px;
+
+      /* Focus */
       --focusShadow: 0 0 0 3px rgba(191,223,255,.22), 0 0 0 6px rgba(191,223,255,.12);
+    }
 
-      --tap: 44px; /* a11y: minimum target size */
+    /* Ultrawide: allow a bit more width */
+    @media (min-width: 1400px){
+      :root{ --max: var(--maxWide); }
     }
 
     *{ box-sizing: border-box; }
@@ -62,7 +69,6 @@
       overflow-x:hidden;
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       *, *::before, *::after{
         animation-duration: 0.01ms !important;
@@ -70,6 +76,29 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+    }
+
+    a{ color: inherit; }
+    .container{ width:min(var(--max), calc(100% - 2*var(--pad))); margin: 0 auto; }
+    .section{ padding: var(--sectionY) 0; }
+
+    .divider{
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,.08);
+    }
+
+    .section-title{
+      font-size: clamp(20px, 2.2vw, 28px);
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+    }
+    .section-sub{
+      margin: 0;
+      color: var(--muted2);
+      line-height: 1.55;
+      font-size: 14.5px;
+      max-width: 68ch;
     }
 
     /* Skip link */
@@ -88,44 +117,7 @@
     }
     .skip:focus{ transform: translateY(0); outline:none; box-shadow: var(--focusShadow); }
 
-    a{ color: inherit; }
-    .container{ width:min(var(--max), calc(100% - 2*var(--pad))); margin: 0 auto; }
-    .section{ padding: clamp(42px, 6vw, 78px) 0; }
-    .section-title{
-      font-size: clamp(20px, 2.2vw, 26px);
-      letter-spacing: -0.02em;
-      margin: 0 0 14px;
-    }
-    .section-sub{
-      margin: 0;
-      color: var(--muted2);
-      line-height: 1.5;
-      font-size: 14.5px;
-    }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height: 1;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(10px);
-    }
-    .dot{
-      width:10px; height:10px; border-radius: 50%;
-      background: rgba(191,223,255,.95);
-      box-shadow: 0 0 0 4px rgba(191,223,255,.15);
-    }
-
-    /* =========================
-       Premium "signature detail"
-       Card edge: subtle gradient border + inner highlight
-       (Linear-like but calmer)
-       ========================= */
+    /* Glass card base */
     .glass{
       position: relative;
       background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
@@ -163,12 +155,9 @@
       opacity:.22;
     }
 
-    /* Brushed-metal micro texture INSIDE cards only */
-    .texture{
-      position:relative;
-    }
+    /* subtle texture */
+    .texture{ position:relative; }
     .texture > *{ position:relative; z-index:1; }
-    .texture::marker{ content:""; }
     .texture::before{
       content:"";
       position:absolute;
@@ -196,12 +185,14 @@
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
+
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 14px;
+      gap: 12px;
     }
+
     .brand{
       display:flex;
       align-items:center;
@@ -216,16 +207,8 @@
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
       flex: 0 0 auto;
     }
-    .brand h1{
-      font-size: 15px;
-      margin:0;
-      letter-spacing: .01em;
-    }
-    .brand p{
-      margin: 2px 0 0;
-      font-size: 12.5px;
-      color: var(--muted);
-    }
+    .brand h1{ font-size: 15px; margin:0; letter-spacing: .01em; }
+    .brand p{ margin: 2px 0 0; font-size: 12.5px; color: var(--muted); }
 
     .navlinks{
       display:flex;
@@ -237,16 +220,16 @@
       background: rgba(255,255,255,.05);
     }
     .navlinks a{
-      position:relative;
       text-decoration:none;
       color: var(--muted2);
       font-size: 13px;
-      padding: 10px 14px; /* ensures tap area */
+      padding: 10px 14px;
       min-height: var(--tap);
       display:inline-flex;
       align-items:center;
       border-radius: 999px;
       outline:none;
+      white-space: nowrap;
     }
     .navlinks a[aria-current="page"]{
       color: var(--text);
@@ -259,6 +242,7 @@
       display:flex;
       align-items:center;
       gap: 10px;
+      flex: 0 0 auto;
     }
 
     .btn{
@@ -288,6 +272,7 @@
     }
     .btn:active{ transform: translateY(0); }
     .btn:focus-visible{ box-shadow: var(--focusShadow); }
+
     .btn.primary{
       background: linear-gradient(180deg, rgba(191,223,255,.24), rgba(255,255,255,.06));
       border-color: rgba(191,223,255,.30);
@@ -297,53 +282,57 @@
       border-color: rgba(255,255,255,.12);
       color: var(--muted2);
     }
-    .icon{
-      width: 16px; height: 16px;
-      display:inline-block;
-      opacity:.95;
-    }
 
     /* Mobile menu button */
-    .menuBtn{
-      display:none;
-      min-width: var(--tap);
-      padding: 10px 12px;
-    }
-    .hamburger{
-      width: 18px; height: 12px; display:grid; gap:3px;
-    }
-    .hamburger span{
-      height: 2px; border-radius: 999px;
-      background: rgba(255,255,255,.85);
-    }
+    .menuBtn{ display:none; min-width: var(--tap); padding: 10px 12px; }
+    .hamburger{ width: 18px; height: 12px; display:grid; gap:3px; }
+    .hamburger span{ height: 2px; border-radius: 999px; background: rgba(255,255,255,.85); }
 
-    /* Hero */
-    .hero{
-      padding: clamp(34px, 5vw, 56px) 0 clamp(34px, 5vw, 56px);
-    }
+    /* =========================
+       HERO (responsive)
+       - auto-fit makes it adapt on tablets perfectly
+       ========================= */
+    .hero{ padding: clamp(26px, 5vw, 54px) 0 clamp(24px, 4vw, 46px); }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap: clamp(16px, 3vw, 24px);
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: clamp(14px, 3vw, 22px);
       align-items: stretch;
     }
-    .heroCard{
-      padding: clamp(18px, 3vw, 28px);
+    .heroCard{ padding: clamp(16px, 2.8vw, 28px); }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color: var(--muted2);
+      font-size: 13px;
+      line-height: 1;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      flex-wrap: wrap;
+    }
+    .dot{
+      width:10px; height:10px; border-radius: 50%;
+      background: rgba(191,223,255,.95);
+      box-shadow: 0 0 0 4px rgba(191,223,255,.15);
     }
     .hero h2{
       margin: 16px 0 10px;
-      font-size: clamp(34px, 4.2vw, 52px);
-      letter-spacing: -0.03em;
+      font-size: clamp(30px, 4.2vw, 54px);
+      letter-spacing: -0.035em;
       line-height: 1.06;
+      max-width: 18ch;
     }
     .hero p{
       margin: 0;
       color: var(--text2);
       line-height: 1.62;
-      font-size: 15.5px;
-      max-width: 62ch;
+      font-size: clamp(14.8px, 1.2vw, 15.6px);
+      max-width: 68ch;
     }
-
     .ctaRow{
       display:flex;
       flex-wrap:wrap;
@@ -372,6 +361,7 @@
       color: var(--muted2);
       font-size: 13px;
       min-height: var(--tap);
+      white-space: nowrap;
     }
     .check{
       width: 16px; height: 16px;
@@ -384,33 +374,12 @@
     }
     .check svg{ width: 12px; height: 12px; fill: rgba(94,234,212,.95); }
 
-    /* Right snapshot card */
-    .snapshot{
-      padding: clamp(16px, 2.6vw, 22px);
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
-    .snapHead{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .snapHead strong{
-      font-size: 15px;
-      letter-spacing: -0.01em;
-    }
-    .snapHead span{
-      color: var(--muted2);
-      font-size: 13px;
-    }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-    }
+    /* Snapshot */
+    .snapshot{ padding: clamp(16px, 2.6vw, 22px); display:flex; flex-direction:column; gap: 14px; }
+    .snapHead{ display:flex; align-items:baseline; justify-content:space-between; gap: 10px; }
+    .snapHead strong{ font-size: 15px; letter-spacing: -0.01em; }
+    .snapHead span{ color: var(--muted2); font-size: 13px; }
+    .chips{ display:flex; flex-wrap:wrap; gap: 10px; }
     .chip{
       display:inline-flex;
       align-items:center;
@@ -423,12 +392,10 @@
       color: var(--muted2);
       font-size: 13px;
       line-height: 1;
-      white-space: nowrap;
     }
-
     .snapGrid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
       margin-top: 4px;
     }
@@ -437,7 +404,6 @@
       border-radius: var(--radius-md);
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      min-height: 86px; /* consistent height */
       display:flex;
       flex-direction:column;
       justify-content:center;
@@ -446,47 +412,11 @@
     .mini strong{ font-size: 14px; }
     .mini span{ color: var(--muted2); font-size: 13px; line-height: 1.5; }
 
-    /* Section divider line */
-    .divider{
-      height: 1px;
-      width: 100%;
-      background: rgba(255,255,255,.08);
-    }
-
-    /* About */
-    .aboutGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(14px, 2.6vw, 20px);
-      margin-top: 16px;
-      align-items: stretch;
-    }
-    .card{
-      padding: clamp(16px, 2.6vw, 22px);
-    }
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -0.01em;
-    }
-    .card p{
-      margin: 0 0 10px;
-      color: var(--text2);
-      line-height: 1.62;
-      font-size: 14.5px;
-    }
-    .bullets{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted2);
-      line-height: 1.65;
-      font-size: 14px;
-    }
-    .bullets li{ margin: 6px 0; }
-    .bullets b{ color: var(--text); }
-
-    /* Projects (FIXED: strict internal layout) */
-    .projectsHead{
+    /* =========================
+       About / Projects / Skills layout
+       - auto-fit works for tablet perfectly
+       ========================= */
+    .headRow{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
@@ -494,37 +424,55 @@
       margin-bottom: 14px;
       flex-wrap: wrap;
     }
-    .projectsNote{
+    .note{
       color: var(--muted2);
       font-size: 13px;
-      max-width: 62ch;
+      max-width: 68ch;
       line-height: 1.5;
       margin: 0;
     }
 
-    .grid3{
+    .gridAuto{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: clamp(14px, 2.6vw, 20px);
-      align-items: stretch; /* equal height */
+      align-items: stretch;
       margin-top: 18px;
     }
 
+    .card{ padding: clamp(16px, 2.6vw, 22px); }
+    .card h3{ margin: 0 0 8px; font-size: 16px; letter-spacing: -0.01em; }
+    .card p{ margin: 0 0 10px; color: var(--text2); line-height: 1.62; font-size: 14.5px; }
+    .bullets{ margin: 10px 0 0; padding-left: 18px; color: var(--muted2); line-height: 1.65; font-size: 14px; }
+    .bullets li{ margin: 6px 0; }
+    .bullets b{ color: var(--text); }
+
+    /* =========================
+       Projects Card (responsive perfection)
+       - No fixed card heights
+       - Uses flex + consistent spacing
+       - Diagram grows naturally
+       ========================= */
     .pCard{
       padding: 18px;
       border-radius: var(--radius-lg);
       display:flex;
       flex-direction:column;
-      min-height: 540px; /* equalize overall card height on desktop */
+      gap: 14px;
     }
 
-    /* Strict internal structure to prevent “up/down” text */
     .pTop{
       display:grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
       align-items:start;
     }
+
+    /* On narrow widths, put metric under title (prevents squish) */
+    @media (max-width: 480px){
+      .pTop{ grid-template-columns: 1fr; }
+    }
+
     .pTitle{
       margin: 0;
       font-size: 18px;
@@ -536,7 +484,6 @@
       color: var(--muted2);
       line-height: 1.6;
       font-size: 14.2px;
-      min-height: 68px; /* keeps consistent desc block height */
     }
 
     .metric{
@@ -552,8 +499,6 @@
       color: var(--muted2);
       font-size: 13px;
       white-space: nowrap;
-      min-width: 148px; /* makes all metric pills visually consistent */
-      text-align:center;
     }
     .metric b{ color: var(--text); }
 
@@ -561,8 +506,6 @@
       display:flex;
       flex-wrap:wrap;
       gap: 10px;
-      margin-top: 14px;
-      min-height: calc(var(--tap) * 2 + 10px); /* consistent wrap space */
       align-content:flex-start;
     }
     .tag{
@@ -580,14 +523,10 @@
     }
 
     .diagram{
-      margin-top: 14px;
       border-radius: var(--radius-md);
       border: 1px dashed rgba(255,255,255,.16);
       background: rgba(255,255,255,.03);
       padding: 14px;
-      min-height: 170px; /* consistent box size */
-      display:flex;
-      align-items:flex-start;
     }
     .diagram pre{
       margin:0;
@@ -596,27 +535,23 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 13px;
       line-height: 1.55;
-      color: #D4DCE6; /* a bit brighter for readability */
+      color: #D4DCE6;
+    }
+
+    /* Desktop polish: keep diagram visually consistent on wide screens */
+    @media (min-width: 980px){
+      .diagram{ min-height: 170px; display:flex; align-items:flex-start; }
     }
 
     .pCtas{
-      margin-top: auto; /* pins buttons to bottom */
+      margin-top: auto;
       display:flex;
       gap: 10px;
-      padding-top: 16px;
+      padding-top: 10px;
     }
-    .pCtas .btn{
-      width: 100%;
-      justify-content:center;
-    }
+    .pCtas .btn{ width: 100%; justify-content:center; }
 
     /* Skills */
-    .skillsGrid{ margin-top: 18px; }
-
-    .skillCard h3{
-      font-size: 16px;
-      margin: 0 0 10px;
-    }
     .skillCard ul{
       margin: 0;
       padding-left: 18px;
@@ -645,8 +580,10 @@
       min-height: var(--tap);
       display:flex;
       align-items:center;
+      flex: 1 1 420px;
     }
     .contactRow strong{ color: var(--text); font-weight: 600; }
+    .contactRow .ctaRow{ margin:0; }
 
     footer{
       padding: 22px 0 30px;
@@ -660,11 +597,7 @@
       gap: 14px;
       flex-wrap: wrap;
     }
-    .footLinks{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-    }
+    .footLinks{ display:flex; gap: 10px; align-items:center; flex-wrap: wrap; }
     .footLinks a{
       color: var(--muted2);
       text-decoration:none;
@@ -675,6 +608,7 @@
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
+      outline:none;
     }
     .footLinks a:hover{ background: rgba(255,255,255,.06); }
     .footLinks a:focus-visible{ box-shadow: var(--focusShadow); }
@@ -696,7 +630,7 @@
       transform: translateY(0);
     }
 
-    /* Reveal animations */
+    /* Reveal */
     .reveal{
       opacity: 0;
       transform: translateY(10px);
@@ -708,7 +642,7 @@
     }
 
     /* =========================
-       Modal (Case Study)
+       Modal
        ========================= */
     .overlay{
       position: fixed;
@@ -747,15 +681,15 @@
       background: rgba(255,255,255,.05);
       color: var(--text);
       cursor:pointer;
+      outline:none;
     }
     .closeBtn:hover{ background: rgba(255,255,255,.08); }
     .closeBtn:focus-visible{ box-shadow: var(--focusShadow); }
-    .modalBody{
-      padding: 18px;
-    }
+
+    .modalBody{ padding: 18px; }
     .modalGrid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 14px;
     }
     .modalBlock{
@@ -764,23 +698,15 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
-    .modalBlock h4{
-      margin: 0 0 8px;
-      font-size: 14px;
-      letter-spacing: -0.01em;
-    }
-    .modalBlock p{
-      margin: 0;
-      color: var(--muted2);
-      line-height: 1.6;
-      font-size: 14px;
-    }
+    .modalBlock h4{ margin: 0 0 8px; font-size: 14px; letter-spacing: -0.01em; }
+    .modalBlock p{ margin: 0; color: var(--muted2); line-height: 1.6; font-size: 14px; }
     .modalFooter{
       padding: 14px 18px 18px;
       display:flex;
       justify-content:flex-end;
       gap: 10px;
       border-top: 1px solid rgba(255,255,255,.10);
+      flex-wrap: wrap;
     }
 
     /* =========================
@@ -817,10 +743,7 @@
       border-radius: 999px;
       background: rgba(255,255,255,.20);
     }
-    .drawerNav{
-      display:grid;
-      gap: 10px;
-    }
+    .drawerNav{ display:grid; gap: 10px; }
     .drawerNav a{
       text-decoration:none;
       color: var(--text);
@@ -838,22 +761,26 @@
     .drawerNav a:focus-visible{ box-shadow: var(--focusShadow); }
 
     /* =========================
-       Responsive
+       Responsive Nav behavior:
+       - Phones: drawer
+       - Tablets+ : show navlinks
        ========================= */
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .aboutGrid{ grid-template-columns: 1fr; }
-      .grid3{ grid-template-columns: 1fr; }
-      .pCard{ min-height: auto; }
-      .modalGrid{ grid-template-columns: 1fr; }
+    @media (max-width: 860px){
       .navlinks{ display:none; }
       .menuBtn{ display:inline-flex; }
       .brand{ min-width: 0; }
+      .actions{ gap: 8px; }
+    }
+
+    /* Better header packing on very small widths */
+    @media (max-width: 420px){
+      .brand p{ display:none; }
+      .btn{ padding: 10px 12px; }
     }
   </style>
 </head>
 
-<body>
+<body id="top">
   <a class="skip" href="#main">Skip to content</a>
 
   <header>
@@ -894,7 +821,9 @@
       <div class="container heroGrid">
         <div class="glass texture heroCard reveal">
           <div class="kicker"><span class="dot" aria-hidden="true"></span> Production-minded DevOps • measurable outcomes • clean architecture</div>
+
           <h2>Building reliable delivery pipelines and cloud platforms that scale.</h2>
+
           <p>
             I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
             fast feedback loops, safe rollouts, and observability-driven reliability.
@@ -910,9 +839,11 @@
             <span class="proof"><span class="check" aria-hidden="true">
               <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
             </span> Hands-on repos</span>
+
             <span class="proof"><span class="check" aria-hidden="true">
               <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
             </span> Realistic architectures</span>
+
             <span class="proof"><span class="check" aria-hidden="true">
               <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
             </span> Case studies</span>
@@ -961,14 +892,14 @@
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
-        <div class="projectsHead">
+        <div class="headRow">
           <div>
             <h3 class="section-title">About</h3>
+            <p class="section-sub">Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
           </div>
-          <p class="projectsNote">Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
         </div>
 
-        <div class="aboutGrid">
+        <div class="gridAuto">
           <div class="glass texture card reveal">
             <h3>What I’m focused on</h3>
             <p>
@@ -1000,33 +931,26 @@
     <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="container">
-        <div class="projectsHead">
+        <div class="headRow">
           <div>
             <h3 class="section-title">Projects</h3>
+            <p class="section-sub">Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
           </div>
-          <p class="projectsNote">Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
         </div>
 
-        <div class="grid3">
+        <div class="gridAuto">
           <!-- Project 1 -->
           <article class="glass texture pCard reveal">
             <div class="pTop">
               <div>
                 <h4 class="pTitle">DevOps CI/CD — Jenkins Pipeline</h4>
-                <p class="pDesc">
-                  End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.
-                </p>
+                <p class="pDesc">End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
               </div>
-              <div class="metric" aria-label="Deploy time improvement">
-                <b>↓ 60%</b> <span>deploy time</span>
-              </div>
+              <div class="metric" aria-label="Deploy time improvement"><b>↓ 60%</b> <span>deploy time</span></div>
             </div>
 
             <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Jenkins</span>
-              <span class="tag">Docker</span>
-              <span class="tag">CI/CD</span>
-              <span class="tag">Quality Gates</span>
+              <span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">Quality Gates</span>
             </div>
 
             <div class="diagram" aria-label="Architecture sketch">
@@ -1054,20 +978,13 @@ Health checks → Rollback-ready releases
             <div class="pTop">
               <div>
                 <h4 class="pTitle">Kubernetes Deployments + Ops</h4>
-                <p class="pDesc">
-                  Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.
-                </p>
+                <p class="pDesc">Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
               </div>
-              <div class="metric" aria-label="Uptime goal">
-                <b>99.9%</b> <span>uptime goal</span>
-              </div>
+              <div class="metric" aria-label="Uptime goal"><b>99.9%</b> <span>uptime goal</span></div>
             </div>
 
             <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Kubernetes</span>
-              <span class="tag">Rollouts</span>
-              <span class="tag">Health Probes</span>
-              <span class="tag">Ops</span>
+              <span class="tag">Kubernetes</span><span class="tag">Rollouts</span><span class="tag">Health Probes</span><span class="tag">Ops</span>
             </div>
 
             <div class="diagram" aria-label="Architecture sketch">
@@ -1094,20 +1011,13 @@ Rolling updates + rollback
             <div class="pTop">
               <div>
                 <h4 class="pTitle">Terraform AWS Baseline</h4>
-                <p class="pDesc">
-                  Opinionated baseline: networking + IAM + foundational resources with safe defaults.
-                </p>
+                <p class="pDesc">Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
               </div>
-              <div class="metric" aria-label="Setup time reduction">
-                <b>↓ 40%</b> <span>setup time</span>
-              </div>
+              <div class="metric" aria-label="Setup time reduction"><b>↓ 40%</b> <span>setup time</span></div>
             </div>
 
             <div class="tagRow" aria-label="Project tags">
-              <span class="tag">Terraform</span>
-              <span class="tag">AWS</span>
-              <span class="tag">IaC</span>
-              <span class="tag">Drift-safe</span>
+              <span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">IaC</span><span class="tag">Drift-safe</span>
             </div>
 
             <div class="diagram" aria-label="Architecture sketch">
@@ -1134,14 +1044,14 @@ Reusable baseline outputs
     <!-- SKILLS -->
     <section id="skills" class="section">
       <div class="container">
-        <div class="projectsHead">
+        <div class="headRow">
           <div>
             <h3 class="section-title">Skills</h3>
+            <p class="section-sub">Grouped like a product spec: what you can reliably ship.</p>
           </div>
-          <p class="projectsNote">Grouped like a product spec: what you can reliably ship.</p>
         </div>
 
-        <div class="grid3 skillsGrid">
+        <div class="gridAuto">
           <div class="glass texture card skillCard reveal">
             <h3>Delivery & Automation</h3>
             <ul>
@@ -1178,17 +1088,15 @@ Reusable baseline outputs
     <!-- CONTACT -->
     <section id="contact" class="section">
       <div class="container">
-        <div class="projectsHead">
+        <div class="headRow">
           <div>
             <h3 class="section-title">Contact</h3>
+            <p class="section-sub">Make it easy to act in 10 seconds.</p>
           </div>
-          <p class="projectsNote">Make it easy to act in 10 seconds.</p>
         </div>
 
         <div class="glass texture contactRow reveal" role="region" aria-label="Contact strip">
-          <p>
-            Email: <strong>&nbsp;YOUR_EMAIL_HERE&nbsp;</strong> · GitHub: <strong>&nbsp;gowrishankar-infra</strong>
-          </p>
+          <p>Email: <strong>&nbsp;YOUR_EMAIL_HERE&nbsp;</strong> · GitHub: <strong>&nbsp;gowrishankar-infra</strong></p>
           <div class="ctaRow" role="group" aria-label="Contact actions">
             <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
             <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
@@ -1209,16 +1117,13 @@ Reusable baseline outputs
       </div>
     </footer>
 
-    <!-- Floating ToTop -->
     <div class="toTop" id="toTop">
       <button class="btn primary" type="button" id="toTopBtn" aria-label="Scroll back to top">↑ Top</button>
     </div>
   </main>
 
-  <!-- Modal overlay for browsers that don’t dim dialog nicely -->
   <div class="overlay" id="overlay" aria-hidden="true"></div>
 
-  <!-- Case Study Modal -->
   <dialog id="caseDialog" aria-labelledby="caseTitle" aria-describedby="caseDesc">
     <div class="modalHead">
       <strong id="caseTitle">Case Study</strong>
@@ -1228,26 +1133,11 @@ Reusable baseline outputs
       <p id="caseDesc" class="section-sub" style="margin:0 0 12px;">Problem → Architecture → What I built → Results → Failure modes</p>
 
       <div class="modalGrid">
-        <div class="modalBlock">
-          <h4>Problem</h4>
-          <p id="mProblem"></p>
-        </div>
-        <div class="modalBlock">
-          <h4>Architecture</h4>
-          <p id="mArch"></p>
-        </div>
-        <div class="modalBlock">
-          <h4>What I built</h4>
-          <p id="mBuilt"></p>
-        </div>
-        <div class="modalBlock">
-          <h4>Results</h4>
-          <p id="mResults"></p>
-        </div>
-        <div class="modalBlock" style="grid-column: 1 / -1;">
-          <h4>Failure modes + runbook notes</h4>
-          <p id="mFailure"></p>
-        </div>
+        <div class="modalBlock"><h4>Problem</h4><p id="mProblem"></p></div>
+        <div class="modalBlock"><h4>Architecture</h4><p id="mArch"></p></div>
+        <div class="modalBlock"><h4>What I built</h4><p id="mBuilt"></p></div>
+        <div class="modalBlock"><h4>Results</h4><p id="mResults"></p></div>
+        <div class="modalBlock" style="grid-column: 1 / -1;"><h4>Failure modes + runbook notes</h4><p id="mFailure"></p></div>
       </div>
     </div>
     <div class="modalFooter">
@@ -1256,7 +1146,6 @@ Reusable baseline outputs
     </div>
   </dialog>
 
-  <!-- Mobile Drawer -->
   <div class="drawerOverlay" id="drawerOverlay" aria-hidden="true"></div>
   <div class="drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
     <div class="grab" aria-hidden="true"></div>
@@ -1283,7 +1172,6 @@ Reusable baseline outputs
           if(!el) return;
           e.preventDefault();
           el.scrollIntoView({behavior: smooth ? 'smooth' : 'auto', block: 'start'});
-          // Move focus for a11y
           el.setAttribute('tabindex', '-1');
           el.focus({preventScroll:true});
           setTimeout(()=> el.removeAttribute('tabindex'), 300);
@@ -1291,7 +1179,7 @@ Reusable baseline outputs
       });
     })();
 
-    // Reveal animations
+    // Reveal
     (function(){
       const els = document.querySelectorAll('.reveal');
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1310,12 +1198,10 @@ Reusable baseline outputs
       els.forEach(el=> io.observe(el));
     })();
 
-    // Scrollspy (top nav active)
+    // Scrollspy
     (function(){
       const links = Array.from(document.querySelectorAll('[data-spy]'));
-      const sections = links
-        .map(a => document.querySelector('#' + a.dataset.spy))
-        .filter(Boolean);
+      const sections = links.map(a => document.querySelector('#' + a.dataset.spy)).filter(Boolean);
 
       function setActive(id){
         links.forEach(a=>{
@@ -1332,18 +1218,17 @@ Reusable baseline outputs
       }, {rootMargin: "-35% 0px -55% 0px", threshold: [0.2,0.35,0.5]});
 
       sections.forEach(s=> io.observe(s));
-      setActive('about'); // default-ish
+      setActive('about');
     })();
 
-    // ToTop show/hide
+    // ToTop
     (function(){
       const toTop = document.getElementById('toTop');
       const btn = document.getElementById('toTopBtn');
       const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       function onScroll(){
-        const show = window.scrollY > 420;
-        toTop.classList.toggle('show', show);
+        toTop.classList.toggle('show', window.scrollY > 420);
       }
       window.addEventListener('scroll', onScroll, {passive:true});
       onScroll();
@@ -1377,38 +1262,37 @@ Reusable baseline outputs
       return () => container.removeEventListener('keydown', handleKey);
     }
 
-    // Case Studies data (edit these anytime)
     const CASES = {
       jenkins: {
         title: "DevOps CI/CD — Jenkins Pipeline",
         repo: "https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline",
         problem: "Manual builds/deploys were slow and error-prone; inconsistent environments led to rollbacks and firefighting.",
-        arch: "Pipeline with stages: lint/test → build artifact/image → publish → staged deploy → health checks; rollback-ready releases.",
+        arch: "Pipeline stages: lint/test → build artifact/image → publish → staged deploy → health checks; rollback-ready releases.",
         built: "Jenkinsfile, quality gates, artifact versioning, deployment steps with repeatable commands and documentation.",
         results: "Faster feedback loops, consistent releases, fewer manual mistakes. Replace with your real measured metrics.",
-        failure: "Common failures: flaky tests, bad env vars, deploy health check timeouts. Runbook: re-run stage, inspect logs, rollback stage."
+        failure: "Failures: flaky tests, env vars, deploy timeouts. Runbook: inspect logs, rerun stage, rollback safely."
       },
       k8s: {
         title: "Kubernetes Deployments + Ops",
         repo: "https://github.com/gowrishankar-infra/kubernetes-deployments-ops",
-        problem: "Apps deployed without readiness/liveness checks caused partial outages and slow incident resolution.",
-        arch: "Ingress/Service → Deployment → Pods with probes; rollout strategy that supports safe updates and rollback.",
-        built: "Manifests for deploy/service/ingress, config & secrets patterns, probes, rollout guidance and operational notes.",
-        results: "More predictable deploys, safer rollouts, better uptime posture (target 99.9%). Replace with your real results.",
-        failure: "Failure modes: bad probe thresholds, image pull errors, misconfigured ingress. Runbook: describe pod, events, logs, rollback."
+        problem: "Deploys without probes caused partial outages and slow incident resolution.",
+        arch: "Ingress/Service → Deployment → Pods with probes; rollout strategy supports safe updates and rollback.",
+        built: "Manifests, config & secrets patterns, probes, rollout guidance and operational notes.",
+        results: "More predictable deploys, safer rollouts, better uptime posture. Replace with your real results.",
+        failure: "Failures: bad probe thresholds, image pull errors, ingress misconfig. Runbook: describe pod, events, logs, rollback."
       },
       tf: {
         title: "Terraform AWS Baseline",
         repo: "https://github.com/gowrishankar-infra/terraform-aws-baseline",
-        problem: "New environments took too long and drifted over time; IAM/networking often repeated with inconsistent defaults.",
-        arch: "Opinionated modules: VPC/subnets/routing + IAM least privilege + outputs for reuse across environments.",
+        problem: "New environments took too long and drifted; IAM/networking repeated with inconsistent defaults.",
+        arch: "Opinionated modules: VPC/subnets/routing + IAM least privilege + reusable outputs.",
         built: "Terraform modules with variables/outputs, environment structure, state considerations and safe defaults.",
-        results: "Faster environment setup, consistency, and reduced drift risk. Replace with your real metrics and examples.",
-        failure: "Failure modes: state lock issues, IAM permission errors, drift. Runbook: plan/apply safely, inspect state, least-privilege fixes."
+        results: "Faster setup, consistency, reduced drift risk. Replace with your real metrics and examples.",
+        failure: "Failures: state lock issues, IAM permission errors, drift. Runbook: plan/apply safely, inspect state, fix least-privilege."
       }
     };
 
-    // Modal logic + focus trap
+    // Modal
     (function(){
       const dialog = document.getElementById('caseDialog');
       const overlay = document.getElementById('overlay');
@@ -1443,10 +1327,7 @@ Reusable baseline outputs
         overlay.setAttribute('aria-hidden','false');
 
         dialog.showModal();
-        // Trap focus inside dialog
         untrap = trapFocus(dialog, closeCase);
-
-        // Focus first interactive element
         close1.focus();
       }
 
@@ -1472,7 +1353,7 @@ Reusable baseline outputs
       });
     })();
 
-    // Mobile drawer logic + focus trap
+    // Drawer
     (function(){
       const openBtn = document.getElementById('openMenu');
       const closeBtn = document.getElementById('closeMenu');
@@ -1487,9 +1368,7 @@ Reusable baseline outputs
         overlay.classList.add('show');
         overlay.setAttribute('aria-hidden','false');
         drawer.classList.add('show');
-        // trap focus
         untrap = trapFocus(drawer, closeDrawer);
-        // focus first link for keyboard order
         (drawerLinks[0] || closeBtn).focus();
         document.body.style.overflow = 'hidden';
       }
