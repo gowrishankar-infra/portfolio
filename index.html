@@ -2,796 +2,953 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0B1220" />
   <title>GowriShankar — DevOps Engineer</title>
   <meta name="description" content="DevOps Engineer — CI/CD, Kubernetes, Terraform. Production-minded delivery systems with measurable outcomes." />
 
   <style>
-    /* ---------------------------
-      10/10 Visual System (FAANG-safe)
-      Graphite / Off-white / Arctic Blue
-    ---------------------------- */
+    /* =========================
+       10/10 FAANG-safe system
+       Graphite / Off-white / Arctic Blue
+       ========================= */
     :root{
-      --bg: #0B1220;          /* deep graphite navy */
-      --bg2:#08101C;
-      --text:#EDEFF2;         /* off-white */
-      --muted:#B9C0C7;        /* muted gray */
-      --muted2:#98A2AE;
-      --accent:#BFDFFF;       /* arctic blue */
-      --accent2:#93C9FF;
-      --good:#40D37C;
+      --bg: #0B1220;            /* deep graphite navy */
+      --bg2:#081022;
+      --surface: rgba(255,255,255,0.08);
+      --surface2: rgba(255,255,255,0.10);
+      --card: rgba(255,255,255,0.075);
+      --card2: rgba(255,255,255,0.09);
 
-      --surface: rgba(255,255,255,.07);
-      --surface2: rgba(255,255,255,.10);
-      --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.18);
+      --text: #EDEFF2;          /* primary */
+      --text2:#D6DCE4;          /* body */
+      --muted:#B9C0C7;          /* secondary */
+      --muted2:#C7D0DA;         /* small text a11y boost */
+      --subtle: rgba(255,255,255,0.10);
+      --subtle2: rgba(255,255,255,0.14);
+      --border: rgba(255,255,255,0.14);
+      --border2: rgba(255,255,255,0.18);
+      --shadow: 0 18px 48px rgba(0,0,0,.45);
 
-      --shadow: 0 10px 40px rgba(0,0,0,.45);
-      --shadow2: 0 12px 55px rgba(0,0,0,.55);
+      --accent: #BFDFFF;        /* arctic blue */
+      --accent2:#9BCBFF;
+      --ok: #5EEAD4;
 
-      --r12: 12px;
-      --r16: 16px;
-      --r20: 20px;
-      --r24: 24px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
 
+      --pad: clamp(16px, 2.6vw, 26px);
       --max: 1120px;
 
-      --tap: 44px; /* tap target minimum */
+      --focus: rgba(191,223,255,.95);
+      --focusShadow: 0 0 0 3px rgba(191,223,255,.22), 0 0 0 6px rgba(191,223,255,.12);
+
+      --tap: 44px; /* a11y: minimum target size */
     }
 
-    /* Prefer more contrast if user asks for it */
-    @media (prefers-contrast: more){
-      :root{
-        --surface: rgba(255,255,255,.10);
-        --surface2: rgba(255,255,255,.14);
-        --stroke: rgba(255,255,255,.18);
-        --stroke2: rgba(255,255,255,.24);
-        --muted: #C9D0D7;
-        --muted2:#B8C0C9;
-      }
-    }
-
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
       background:
-        radial-gradient(1000px 600px at 20% 10%, rgba(191,223,255,.10), transparent 60%),
-        radial-gradient(900px 540px at 80% 25%, rgba(147,201,255,.08), transparent 55%),
-        radial-gradient(1200px 700px at 50% 95%, rgba(255,255,255,.05), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      color:var(--text);
-      line-height:1.5;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+        radial-gradient(1200px 700px at 15% 10%, rgba(191,223,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 25%, rgba(120,170,255,.10), transparent 55%),
+        radial-gradient(700px 420px at 40% 95%, rgba(120,170,255,.08), transparent 60%),
+        linear-gradient(180deg, #060B14, var(--bg) 40%, #060B14);
+      overflow-x:hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
 
     /* Skip link */
     .skip{
-      position:absolute; left:-999px; top:0;
-      padding:10px 12px; border-radius:10px;
-      background:rgba(255,255,255,.14);
-      border:1px solid var(--stroke2);
-      color:var(--text);
-      z-index:9999;
-    }
-    .skip:focus{ left:12px; top:12px; outline:none; box-shadow:0 0 0 3px rgba(191,223,255,.35); }
-
-    /* Focus states */
-    :focus-visible{
-      outline: 3px solid rgba(191,223,255,.45);
-      outline-offset: 3px;
+      position:absolute;
+      left: 10px;
+      top: 10px;
+      transform: translateY(-140%);
+      background: rgba(10,14,24,.95);
+      border:1px solid var(--border2);
+      color: var(--text);
+      padding: 10px 12px;
       border-radius: 12px;
+      z-index: 9999;
+      text-decoration:none;
     }
+    .skip:focus{ transform: translateY(0); outline:none; box-shadow: var(--focusShadow); }
 
-    /* Layout */
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 28px 20px 80px; }
-    @media (max-width: 520px){
-      .wrap{ padding: 18px 14px 84px; }
-    }
-
-    /* Top nav */
-    .nav{
-      position:sticky; top:0; z-index:1000;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(11,18,32,.78), rgba(11,18,32,.56));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav-inner{
-      max-width:var(--max); margin:0 auto;
-      padding: 14px 20px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 14px;
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width: 200px;
-    }
-    .avatar{
-      width:38px; height:38px; border-radius:14px;
-      background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
-      border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      flex: 0 0 auto;
-    }
-    .brand b{ font-size:14px; letter-spacing:.2px; display:block; line-height:1.15; }
-    .brand span{ font-size:12px; color:var(--muted2); display:block; margin-top:2px; }
-
-    .nav-links{
-      display:flex; align-items:center; gap: 6px;
-    }
-    .nav-links a{
-      height: var(--tap);
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 0 14px;
-      border-radius: 999px;
-      color: var(--muted);
-      border: 1px solid transparent;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
-    }
-    .nav-links a:hover{
-      background: rgba(255,255,255,.06);
-      border-color: rgba(255,255,255,.08);
-      color: var(--text);
-    }
-    .nav-links a.active{
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.14);
-      color: var(--text);
-    }
-
-    .nav-cta{
-      display:flex; align-items:center; gap:10px;
-    }
-
-    .btn{
-      height: var(--tap);
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 13px;
-      gap: 10px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-      user-select:none;
-      cursor:pointer;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,.10);
-      border-color: rgba(255,255,255,.22);
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
-    }
-    .btn.primary{
-      border-color: rgba(191,223,255,.32);
-      background: linear-gradient(180deg, rgba(191,223,255,.16), rgba(255,255,255,.06));
-    }
-    .btn.ghost{
-      background: transparent;
-      border-color: rgba(255,255,255,.12);
-      color: var(--muted);
-    }
-    .btn.ghost:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-
-    /* Mobile menu */
-    .menu-btn{ display:none; }
-    @media (max-width: 920px){
-      .nav-links{ display:none; }
-      .menu-btn{ display:inline-flex; }
-    }
-
-    /* Drawer overlay */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.55);
-      display:none;
-      z-index: 2000;
-    }
-    .overlay.open{ display:block; }
-    .drawer{
-      position:fixed; left:50%; transform: translateX(-50%);
-      top: 12px;
-      width: min(520px, calc(100% - 24px));
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.07));
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: var(--shadow2);
-      padding: 10px;
-      display:none;
-      z-index: 2001;
-      backdrop-filter: blur(16px);
-    }
-    .drawer.open{ display:block; }
-    .drawer-head{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 8px 10px 10px;
-    }
-    .drawer-head b{ font-size: 13px; color: var(--muted); }
-    .drawer-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 10px;
-    }
-    .drawer a{
-      height: var(--tap);
-      display:flex; align-items:center; justify-content:center;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      font-weight: 650;
-      font-size: 13px;
-    }
-    .drawer a:hover{ background: rgba(255,255,255,.08); }
-
-    /* Sections */
-    section{ scroll-margin-top: 90px; }
-
-    .section{
-      padding: 36px 0;
-    }
-
-    /* Consistent section header alignment */
-    .section-head{
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
+    a{ color: inherit; }
+    .container{ width:min(var(--max), calc(100% - 2*var(--pad))); margin: 0 auto; }
+    .section{ padding: clamp(42px, 6vw, 78px) 0; }
+    .section-title{
+      font-size: clamp(20px, 2.2vw, 26px);
+      letter-spacing: -0.02em;
       margin: 0 0 14px;
     }
-    .section-head h2{
-      margin:0;
-      font-size: 20px;
-      letter-spacing: .2px;
+    .section-sub{
+      margin: 0;
+      color: var(--muted2);
+      line-height: 1.5;
+      font-size: 14.5px;
     }
-    .section-head p{
-      margin:0;
-      color: var(--muted);
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color: var(--muted2);
       font-size: 13px;
-      max-width: 520px;
+      line-height: 1;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width:10px; height:10px; border-radius: 50%;
+      background: rgba(191,223,255,.95);
+      box-shadow: 0 0 0 4px rgba(191,223,255,.15);
     }
 
-    /* Cards */
-    .card{
-      position:relative;
-      border-radius: var(--r24);
-      padding: 18px;
+    /* =========================
+       Premium "signature detail"
+       Card edge: subtle gradient border + inner highlight
+       (Linear-like but calmer)
+       ========================= */
+    .glass{
+      position: relative;
+      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
       border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
     }
-    .card::before{
+    .glass::before{
       content:"";
-      position:absolute; inset:0;
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(800px 240px at 20% 0%, rgba(191,223,255,.16), transparent 60%),
+        radial-gradient(900px 260px at 80% 10%, rgba(255,255,255,.08), transparent 55%);
+      opacity:.9;
+    }
+    .glass::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
       border-radius: inherit;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(191,223,255,.32), rgba(255,255,255,.10), rgba(191,223,255,.12));
+      background:
+        linear-gradient(140deg, rgba(191,223,255,.32), transparent 34%, transparent 68%, rgba(255,255,255,.22));
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
       -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
-      pointer-events:none;
-      opacity:.65;
+      padding: 1px;
+      opacity:.22;
     }
-    .card::after{
+
+    /* Brushed-metal micro texture INSIDE cards only */
+    .texture{
+      position:relative;
+    }
+    .texture > *{ position:relative; z-index:1; }
+    .texture::marker{ content:""; }
+    .texture::before{
       content:"";
-      position:absolute; inset:0;
-      border-radius: inherit;
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
       background:
         repeating-linear-gradient(
           90deg,
-          rgba(255,255,255,.05) 0px,
-          rgba(255,255,255,.02) 1px,
-          rgba(255,255,255,0) 4px
+          rgba(255,255,255,.05),
+          rgba(255,255,255,.05) 1px,
+          rgba(255,255,255,0) 6px,
+          rgba(255,255,255,0) 12px
         );
-      opacity: .18;
-      pointer-events:none;
       mix-blend-mode: overlay;
     }
 
-    .muted{ color: var(--muted); }
-    .tiny{ font-size:12px; color: var(--muted2); }
-
-    /* Grid */
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1.4fr .9fr;
-      gap: 18px;
-      align-items: stretch;
+    /* Header / Nav */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 14px 0;
+      background: rgba(6,10,18,.55);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    @media (max-width: 980px){
-      .grid-2{ grid-template-columns: 1fr; }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
     }
-
-    .hero h1{
-      margin: 10px 0 8px;
-      font-size: clamp(34px, 4.6vw, 54px);
-      line-height: 1.06;
-      letter-spacing: -0.6px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
     }
-    .hero .lead{
-      margin: 0 0 14px;
+    .avatar{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .brand h1{
       font-size: 15px;
-      line-height: 1.7;
-      color: #D7DCE2; /* boosted for small text contrast */
-      max-width: 64ch;
+      margin:0;
+      letter-spacing: .01em;
+    }
+    .brand p{
+      margin: 2px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
     }
 
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 12px;
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .navlinks a{
+      position:relative;
+      text-decoration:none;
+      color: var(--muted2);
+      font-size: 13px;
+      padding: 10px 14px; /* ensures tap area */
+      min-height: var(--tap);
+      display:inline-flex;
+      align-items:center;
+      border-radius: 999px;
+      outline:none;
+    }
+    .navlinks a[aria-current="page"]{
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .navlinks a:focus-visible{ box-shadow: var(--focusShadow); }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      min-height: var(--tap);
+      padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: var(--muted);
-      font-size: 12px;
-      min-height: var(--tap);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      text-decoration:none;
+      font-size: 13px;
+      letter-spacing: .01em;
+      cursor:pointer;
+      user-select:none;
+      outline:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space: nowrap;
     }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: rgba(191,223,255,.8);
-      box-shadow: 0 0 0 4px rgba(191,223,255,.12);
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn:active{ transform: translateY(0); }
+    .btn:focus-visible{ box-shadow: var(--focusShadow); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(191,223,255,.24), rgba(255,255,255,.06));
+      border-color: rgba(191,223,255,.30);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.12);
+      color: var(--muted2);
+    }
+    .icon{
+      width: 16px; height: 16px;
+      display:inline-block;
+      opacity:.95;
     }
 
-    .btn-row{ display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 10px; }
+    /* Mobile menu button */
+    .menuBtn{
+      display:none;
+      min-width: var(--tap);
+      padding: 10px 12px;
+    }
+    .hamburger{
+      width: 18px; height: 12px; display:grid; gap:3px;
+    }
+    .hamburger span{
+      height: 2px; border-radius: 999px;
+      background: rgba(255,255,255,.85);
+    }
 
-    .proof-strip{
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+    /* Hero */
+    .hero{
+      padding: clamp(34px, 5vw, 56px) 0 clamp(34px, 5vw, 56px);
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: clamp(16px, 3vw, 24px);
+      align-items: stretch;
+    }
+    .heroCard{
+      padding: clamp(18px, 3vw, 28px);
+    }
+    .hero h2{
+      margin: 16px 0 10px;
+      font-size: clamp(34px, 4.2vw, 52px);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--text2);
+      line-height: 1.62;
+      font-size: 15.5px;
+      max-width: 62ch;
+    }
+
+    .ctaRow{
       display:flex;
       flex-wrap:wrap;
-      gap: 10px 12px;
-      align-items:center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .proofStrip{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
     }
     .proof{
-      display:flex; align-items:center; gap:8px;
-      padding: 8px 10px;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      font-size: 12px;
-      color:#DCE2E9;
+      background: rgba(255,255,255,.04);
+      color: var(--muted2);
+      font-size: 13px;
       min-height: var(--tap);
     }
     .check{
-      width:14px; height:14px; border-radius:4px;
-      background: rgba(64,211,124,.20);
-      border: 1px solid rgba(64,211,124,.55);
-      display:grid; place-items:center;
-      color: rgba(64,211,124,.95);
-      font-weight: 900;
-      font-size: 11px;
-      line-height: 1;
+      width: 16px; height: 16px;
+      border-radius: 6px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(94,234,212,.16);
+      border: 1px solid rgba(94,234,212,.35);
+    }
+    .check svg{ width: 12px; height: 12px; fill: rgba(94,234,212,.95); }
+
+    /* Right snapshot card */
+    .snapshot{
+      padding: clamp(16px, 2.6vw, 22px);
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .snapHead{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .snapHead strong{
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+    .snapHead span{
+      color: var(--muted2);
+      font-size: 13px;
     }
 
-    /* Snapshot panel */
     .chips{
-      display:flex; flex-wrap:wrap; gap: 10px;
-      margin: 8px 0 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
     }
     .chip{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 8px 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
       min-height: var(--tap);
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-      color: #DCE2E9;
-      font-size: 12px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted2);
+      font-size: 13px;
+      line-height: 1;
       white-space: nowrap;
     }
 
-    .mini-grid{
+    .snapGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-top: 10px;
-    }
-    @media (max-width: 520px){
-      .mini-grid{ grid-template-columns: 1fr; }
+      margin-top: 4px;
     }
     .mini{
       padding: 14px;
-      border-radius: 18px;
+      border-radius: var(--radius-md);
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      min-height: 74px;
+      background: rgba(255,255,255,.04);
+      min-height: 86px; /* consistent height */
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 6px;
     }
-    .mini b{ display:block; font-size: 14px; margin-bottom: 2px; }
-    .mini span{ color:#D7DCE2; font-size: 12.5px; }
+    .mini strong{ font-size: 14px; }
+    .mini span{ color: var(--muted2); font-size: 13px; line-height: 1.5; }
 
-    /* About grid */
-    .about-grid{
+    /* Section divider line */
+    .divider{
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,.08);
+    }
+
+    /* About */
+    .aboutGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: clamp(14px, 2.6vw, 20px);
+      margin-top: 16px;
       align-items: stretch;
     }
-    @media (max-width: 900px){
-      .about-grid{ grid-template-columns: 1fr; }
+    .card{
+      padding: clamp(16px, 2.6vw, 22px);
     }
-    .list{
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .card p{
+      margin: 0 0 10px;
+      color: var(--text2);
+      line-height: 1.62;
+      font-size: 14.5px;
+    }
+    .bullets{
       margin: 10px 0 0;
       padding-left: 18px;
-      color: #D7DCE2;
-      font-size: 13.5px;
+      color: var(--muted2);
       line-height: 1.65;
+      font-size: 14px;
     }
-    .list li{ margin: 6px 0; }
-    .bold{ font-weight: 700; color: var(--text); }
+    .bullets li{ margin: 6px 0; }
+    .bullets b{ color: var(--text); }
 
-    /* Projects */
-    .proj-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-    @media (max-width: 1100px){
-      .proj-grid{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 720px){
-      .proj-grid{ grid-template-columns: 1fr; }
-    }
-
-    .proj{
+    /* Projects (FIXED: strict internal layout) */
+    .projectsHead{
       display:flex;
-      flex-direction: column;
-      min-height: 520px;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
     }
-    @media (max-width: 720px){
-      .proj{ min-height: unset; }
+    .projectsNote{
+      color: var(--muted2);
+      font-size: 13px;
+      max-width: 62ch;
+      line-height: 1.5;
+      margin: 0;
     }
 
-    /* Project header alignment */
-    .proj-top{
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(14px, 2.6vw, 20px);
+      align-items: stretch; /* equal height */
+      margin-top: 18px;
+    }
+
+    .pCard{
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      display:flex;
+      flex-direction:column;
+      min-height: 540px; /* equalize overall card height on desktop */
+    }
+
+    /* Strict internal structure to prevent “up/down” text */
+    .pTop{
       display:grid;
       grid-template-columns: 1fr auto;
       gap: 12px;
-      align-items: start;
-      margin-bottom: 10px;
+      align-items:start;
     }
-    .proj h3{
+    .pTitle{
       margin: 0;
       font-size: 18px;
+      letter-spacing: -0.02em;
       line-height: 1.25;
-      letter-spacing: .2px;
     }
-    .proj .desc{
-      margin: 4px 0 10px;
-      color:#D7DCE2;
-      font-size: 13.5px;
-      line-height: 1.65;
+    .pDesc{
+      margin: 8px 0 0;
+      color: var(--muted2);
+      line-height: 1.6;
+      font-size: 14.2px;
+      min-height: 68px; /* keeps consistent desc block height */
     }
 
     .metric{
-      justify-self: end;
-      align-self: start;
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap: 8px;
-      padding: 8px 10px;
-      min-height: var(--tap);
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      color: #E6EBF0;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    .metric .k{ font-weight: 800; color: var(--text); }
-
-    .tag-row{
-      display:flex; flex-wrap:wrap; gap: 10px;
-      margin: 10px 0 12px;
-    }
-    .tag{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 8px 12px;
+      padding: 10px 12px;
       min-height: var(--tap);
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      color: #DCE2E9;
-      font-size: 12px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted2);
+      font-size: 13px;
+      white-space: nowrap;
+      min-width: 148px; /* makes all metric pills visually consistent */
+      text-align:center;
     }
+    .metric b{ color: var(--text); }
 
-    .codebox{
-      margin-top: 10px;
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px dashed rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: #DCE2E9;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      line-height: 1.55;
-      flex: 1 1 auto;
-      min-height: 160px;
-      overflow:auto;
-    }
-
-    .proj-actions{
-      display:flex; gap: 10px; flex-wrap:wrap;
+    .tagRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
       margin-top: 14px;
+      min-height: calc(var(--tap) * 2 + 10px); /* consistent wrap space */
+      align-content:flex-start;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      min-height: var(--tap);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(255,255,255,.035);
+      color: var(--muted2);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .diagram{
+      margin-top: 14px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(255,255,255,.16);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      min-height: 170px; /* consistent box size */
+      display:flex;
+      align-items:flex-start;
+    }
+    .diagram pre{
+      margin:0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #D4DCE6; /* a bit brighter for readability */
+    }
+
+    .pCtas{
+      margin-top: auto; /* pins buttons to bottom */
+      display:flex;
+      gap: 10px;
+      padding-top: 16px;
+    }
+    .pCtas .btn{
+      width: 100%;
+      justify-content:center;
     }
 
     /* Skills */
-    .skills-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-      align-items: stretch;
+    .skillsGrid{ margin-top: 18px; }
+
+    .skillCard h3{
+      font-size: 16px;
+      margin: 0 0 10px;
     }
-    @media (max-width: 980px){
-      .skills-grid{ grid-template-columns: 1fr; }
-    }
-    .skills h3{ margin: 0 0 8px; font-size: 16px; }
-    .bullets{
+    .skillCard ul{
       margin: 0;
       padding-left: 18px;
-      color:#D7DCE2;
-      font-size: 13.5px;
+      color: var(--muted2);
       line-height: 1.65;
+      font-size: 14px;
     }
-    .bullets li{ margin: 6px 0; }
+    .skillCard li{ margin: 6px 0; }
 
     /* Contact */
-    .contact-row{
-      display:flex; align-items:center; justify-content:space-between;
+    .contactRow{
+      margin-top: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+    }
+    .contactRow p{
+      margin:0;
+      color: var(--muted2);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: var(--tap);
+      display:flex;
+      align-items:center;
+    }
+    .contactRow strong{ color: var(--text); font-weight: 600; }
+
+    footer{
+      padding: 22px 0 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       gap: 14px;
       flex-wrap: wrap;
     }
-    .contact-row .left{
-      color: #D7DCE2;
-      font-size: 13.5px;
+    .footLinks{
+      display:flex;
+      gap: 10px;
+      align-items:center;
     }
-    .footer{
-      margin-top: 36px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      display:flex; justify-content:space-between; gap: 14px; flex-wrap:wrap;
+    .footLinks a{
       color: var(--muted2);
-      font-size: 12px;
+      text-decoration:none;
+      padding: 10px 12px;
+      min-height: var(--tap);
+      display:inline-flex;
+      align-items:center;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
     }
-    .footer a{ color: var(--muted); }
-    .footer a:hover{ color: var(--text); }
+    .footLinks a:hover{ background: rgba(255,255,255,.06); }
+    .footLinks a:focus-visible{ box-shadow: var(--focusShadow); }
 
-    /* Reveal animation */
-    .reveal{
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .reveal.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
-    @media (prefers-reduced-motion: reduce){
-      html{ scroll-behavior: auto; }
-      .reveal{ transition: none; transform:none; opacity:1; }
-      .reveal.show{ transform:none; }
-      .btn, .nav-links a{ transition:none; }
-      .btn:hover{ transform:none; }
-    }
-
-    /* To top */
+    /* ToTop */
     .toTop{
       position: fixed;
       right: 16px;
-      bottom: 16px;
-      z-index: 1500;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toTop.show{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Reveal animations */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       Modal (Case Study)
+       ========================= */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
       display:none;
+      z-index: 80;
     }
-    .toTop.show{ display:block; }
+    .overlay.show{ display:block; }
 
-    /* Modal (dialog) */
     dialog{
-      border: none;
-      padding: 0;
-      background: transparent;
-    }
-    dialog::backdrop{
-      background: rgba(0,0,0,.6);
-    }
-    .modal{
-      width: min(860px, calc(100vw - 24px));
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.08));
-      border: 1px solid rgba(255,255,255,.16);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      backdrop-filter: blur(16px);
-    }
-    .modal-head{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap: 12px;
-      padding: 16px 16px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .modal-head b{ font-size: 14px; color: var(--muted); display:block; margin-top: 2px; }
-    .modal-title{
-      margin: 0;
-      font-size: 18px;
-      line-height: 1.25;
-    }
-    .modal-body{
-      padding: 16px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 860px){
-      .modal-body{ grid-template-columns: 1fr; }
-    }
-    .panel{
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-    }
-    .panel h4{
-      margin: 0 0 6px;
-      font-size: 13px;
-      letter-spacing: .2px;
-      color: var(--text);
-    }
-    .panel p, .panel ul{
-      margin: 0;
-      color: #D7DCE2;
-      font-size: 13.5px;
-      line-height: 1.65;
-    }
-    .panel ul{ padding-left: 18px; margin-top: 6px; }
-    .panel li{ margin: 6px 0; }
-
-    .icon-btn{
-      height: var(--tap);
-      width: var(--tap);
-      display:grid; place-items:center;
-      border-radius: 14px;
+      width: min(860px, calc(100% - 2*var(--pad)));
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.16);
+      border-radius: var(--radius-lg);
+      padding: 0;
+      background: rgba(10,14,24,.90);
+      color: var(--text);
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+    }
+    dialog::backdrop{ background: transparent; }
+    .modalHead{
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+    }
+    .modalHead strong{ font-size: 15px; letter-spacing: -0.01em; }
+    .closeBtn{
+      min-height: var(--tap);
+      min-width: var(--tap);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
       color: var(--text);
       cursor:pointer;
-      user-select:none;
     }
-    .icon-btn:hover{ background: rgba(255,255,255,.08); }
+    .closeBtn:hover{ background: rgba(255,255,255,.08); }
+    .closeBtn:focus-visible{ box-shadow: var(--focusShadow); }
+    .modalBody{
+      padding: 18px;
+    }
+    .modalGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .modalBlock{
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .modalBlock h4{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+    .modalBlock p{
+      margin: 0;
+      color: var(--muted2);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .modalFooter{
+      padding: 14px 18px 18px;
+      display:flex;
+      justify-content:flex-end;
+      gap: 10px;
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    /* =========================
+       Mobile Drawer
+       ========================= */
+    .drawerOverlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(5px);
+      display:none;
+      z-index: 90;
+    }
+    .drawerOverlay.show{ display:block; }
+    .drawer{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: -100%;
+      z-index: 95;
+      background: rgba(10,14,24,.92);
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 -20px 60px rgba(0,0,0,.65);
+      padding: 14px 14px calc(14px + env(safe-area-inset-bottom));
+      transition: bottom .22s ease;
+    }
+    .drawer.show{ bottom: 0; }
+    .grab{
+      width: 42px;
+      height: 5px;
+      margin: 0 auto 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.20);
+    }
+    .drawerNav{
+      display:grid;
+      gap: 10px;
+    }
+    .drawerNav a{
+      text-decoration:none;
+      color: var(--text);
+      padding: 12px 14px;
+      min-height: var(--tap);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      outline:none;
+    }
+    .drawerNav a span{ color: var(--muted2); font-size: 13px; }
+    .drawerNav a:focus-visible{ box-shadow: var(--focusShadow); }
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .aboutGrid{ grid-template-columns: 1fr; }
+      .grid3{ grid-template-columns: 1fr; }
+      .pCard{ min-height: auto; }
+      .modalGrid{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+      .menuBtn{ display:inline-flex; }
+      .brand{ min-width: 0; }
+    }
   </style>
 </head>
 
 <body>
-  <a class="skip" href="#home">Skip to content</a>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <header class="nav" role="banner">
-    <div class="nav-inner">
-      <a class="brand" href="#home" aria-label="Go to top">
+  <header>
+    <div class="container nav">
+      <div class="brand" aria-label="Site identity">
         <div class="avatar" aria-hidden="true"></div>
         <div>
-          <b>GowriShankar</b>
-          <span>DevOps Engineer · CI/CD · Kubernetes · Terraform</span>
+          <h1>GowriShankar</h1>
+          <p>DevOps Engineer · CI/CD · Kubernetes · Terraform</p>
         </div>
-      </a>
+      </div>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#about" data-link="about">About</a>
-        <a href="#projects" data-link="projects">Projects</a>
-        <a href="#skills" data-link="skills">Skills</a>
-        <a href="#contact" data-link="contact">Contact</a>
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="#about" data-spy="about">About</a>
+        <a href="#projects" data-spy="projects">Projects</a>
+        <a href="#skills" data-spy="skills">Skills</a>
+        <a href="#contact" data-spy="contact">Contact</a>
       </nav>
 
-      <div class="nav-cta">
-        <button class="btn ghost menu-btn" id="menuBtn" type="button"
-          aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">
-          Menu
+      <div class="actions">
+        <button class="btn ghost menuBtn" id="openMenu" aria-haspopup="dialog" aria-controls="mobileDrawer" aria-label="Open menu">
+          <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
 
-        <!-- TODO: replace URLs -->
-        <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        <a class="btn ghost" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn in a new tab">
+          LinkedIn
+        </a>
+        <a class="btn primary" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume PDF in a new tab">
+          Resume
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Mobile drawer -->
-  <div class="overlay" id="overlay" hidden></div>
-  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu" aria-hidden="true">
-    <div class="drawer-head">
-      <b>Navigate</b>
-      <button class="icon-btn" id="drawerClose" type="button" aria-label="Close menu">✕</button>
-    </div>
-    <div class="drawer-grid">
-      <a href="#about" data-drawerlink>About</a>
-      <a href="#projects" data-drawerlink>Projects</a>
-      <a href="#skills" data-drawerlink>Skills</a>
-      <a href="#contact" data-drawerlink>Contact</a>
-    </div>
-  </div>
-
-  <main class="wrap" id="home" tabindex="-1">
+  <main id="main">
     <!-- HERO -->
-    <section class="section hero reveal" aria-label="Hero">
-      <div class="grid-2">
-        <div class="card">
-          <div class="pill" aria-label="Positioning statement">
-            <span class="dot" aria-hidden="true"></span>
-            <span>Production-minded DevOps • measurable outcomes • clean architecture</span>
-          </div>
-
-          <h1>Building reliable delivery pipelines and cloud platforms that scale.</h1>
-
-          <p class="lead">
+    <section class="hero">
+      <div class="container heroGrid">
+        <div class="glass texture heroCard reveal">
+          <div class="kicker"><span class="dot" aria-hidden="true"></span> Production-minded DevOps • measurable outcomes • clean architecture</div>
+          <h2>Building reliable delivery pipelines and cloud platforms that scale.</h2>
+          <p>
             I focus on CI/CD, Kubernetes operations, and Infrastructure as Code (Terraform) with an engineering-first mindset:
             fast feedback loops, safe rollouts, and observability-driven reliability.
           </p>
 
-          <div class="btn-row">
-            <a class="btn primary" href="#projects">View projects →</a>
+          <div class="ctaRow" role="group" aria-label="Primary calls to action">
+            <a class="btn primary" href="#projects">View projects <span aria-hidden="true">→</span></a>
             <a class="btn" href="#contact">Contact me</a>
-            <!-- TODO: replace GitHub -->
-            <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           </div>
 
-          <div class="proof-strip" aria-label="Proof points">
-            <div class="proof"><span class="check" aria-hidden="true">✓</span>Hands-on repos</div>
-            <div class="proof"><span class="check" aria-hidden="true">✓</span>Realistic architectures</div>
-            <div class="proof"><span class="check" aria-hidden="true">✓</span>Case studies</div>
-            <div class="tag">Kubernetes</div>
-            <div class="tag">Terraform</div>
-            <div class="tag">Jenkins</div>
-            <div class="tag">AWS</div>
+          <div class="proofStrip" aria-label="Proof strip">
+            <span class="proof"><span class="check" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
+            </span> Hands-on repos</span>
+            <span class="proof"><span class="check" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
+            </span> Realistic architectures</span>
+            <span class="proof"><span class="check" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M7.8 13.9 4.4 10.5l1.3-1.3 2.1 2.1 6.5-6.5 1.3 1.3-7.8 7.8z"/></svg>
+            </span> Case studies</span>
           </div>
         </div>
 
-        <aside class="card" aria-label="Snapshot panel">
-          <div class="section-head" style="margin-bottom:8px;">
-            <h2 style="font-size:16px;">Snapshot</h2>
-            <p class="tiny" style="max-width:none;">what I deliver</p>
+        <aside class="glass texture snapshot reveal" aria-label="Snapshot">
+          <div class="snapHead">
+            <strong>Snapshot</strong>
+            <span>what I deliver</span>
           </div>
 
-          <div class="chips" aria-label="Capabilities">
-            <div class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</div>
-            <div class="chip">Kubernetes deployments + ops</div>
-            <div class="chip">Terraform IaC baselines</div>
-            <div class="chip">Cloud fundamentals (AWS)</div>
-            <div class="chip">Observability mindset</div>
-            <div class="chip">Security-by-default</div>
+          <div class="chips" aria-label="Core capabilities">
+            <span class="chip">CI/CD pipelines (Jenkins, GitHub Actions)</span>
+            <span class="chip">Kubernetes deployments + ops</span>
+            <span class="chip">Terraform IaC baselines</span>
+            <span class="chip">Cloud fundamentals (AWS)</span>
+            <span class="chip">Observability mindset</span>
+            <span class="chip">Security-by-default</span>
           </div>
 
-          <div class="mini-grid" aria-label="Highlights">
+          <div class="snapGrid" aria-label="Delivery principles">
             <div class="mini">
-              <b>Clean Docs</b>
+              <strong>Clean Docs</strong>
               <span>README + screenshots + steps</span>
             </div>
             <div class="mini">
-              <b>Case Studies</b>
+              <strong>Case Studies</strong>
               <span>Problem → Architecture → Results</span>
             </div>
             <div class="mini">
-              <b>Safe Delivery</b>
+              <strong>Safe Delivery</strong>
               <span>repeatable, auditable deployments</span>
             </div>
             <div class="mini">
-              <b>Ops Thinking</b>
+              <strong>Ops Thinking</strong>
               <span>failure modes + runbooks</span>
             </div>
           </div>
@@ -799,142 +956,162 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section reveal" id="about" aria-label="About">
-      <div class="section-head">
-        <h2>About</h2>
-        <p>Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
-      </div>
+    <div class="divider"></div>
 
-      <div class="about-grid">
-        <div class="card">
-          <h3 style="margin:0 0 8px; font-size:16px;">What I’m focused on</h3>
-          <p class="muted" style="margin:0; font-size:13.5px; line-height:1.65; color:#D7DCE2;">
-            Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments that are easy to run,
-            easy to audit, and safe to change.
-          </p>
-          <ul class="list">
-            <li>Automate “boring” but critical reliability steps.</li>
-            <li>Prefer small, reversible changes with fast feedback.</li>
-            <li>Document decisions so teams move faster.</li>
-          </ul>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="projectsHead">
+          <div>
+            <h3 class="section-title">About</h3>
+          </div>
+          <p class="projectsNote">Short, specific, and recruiter-friendly. Crisp + outcome-oriented.</p>
         </div>
 
-        <div class="card">
-          <h3 style="margin:0 0 8px; font-size:16px;">How I work</h3>
-          <p class="muted" style="margin:0; font-size:13.5px; line-height:1.65; color:#D7DCE2;">
-            I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
-          </p>
-          <ul class="list">
-            <li><span class="bold">Architecture clarity:</span> diagrams + clean repo structure.</li>
-            <li><span class="bold">Proof-driven:</span> screenshots, outputs, and repeatable steps.</li>
-            <li><span class="bold">Production mindset:</span> security, rollback, drift, and cost awareness.</li>
-          </ul>
+        <div class="aboutGrid">
+          <div class="glass texture card reveal">
+            <h3>What I’m focused on</h3>
+            <p>
+              Designing repeatable delivery systems: infrastructure baselines, CI/CD pipelines, and Kubernetes deployments
+              that are easy to run, easy to audit, and safe to change.
+            </p>
+            <ul class="bullets">
+              <li>Automate “boring” but critical reliability steps.</li>
+              <li>Prefer small, reversible changes with fast feedback.</li>
+              <li>Document decisions so teams move faster.</li>
+            </ul>
+          </div>
+
+          <div class="glass texture card reveal">
+            <h3>How I work</h3>
+            <p>
+              I build like an operator: define success metrics, bake in observability, and treat failure modes as design inputs.
+            </p>
+            <ul class="bullets">
+              <li><b>Architecture clarity:</b> diagrams + clean repo structure.</li>
+              <li><b>Proof-driven:</b> screenshots, outputs, and repeatable steps.</li>
+              <li><b>Production mindset:</b> security, rollback, drift, and cost awareness.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- PROJECTS -->
-    <section class="section reveal" id="projects" aria-label="Projects">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <p>Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
-      </div>
-
-      <div class="proj-grid">
-        <!-- Project 1 -->
-        <article class="card proj">
-          <div class="proj-top">
-            <div>
-              <h3>DevOps CI/CD — Jenkins Pipeline</h3>
-              <p class="desc">End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.</p>
-            </div>
-            <div class="metric" aria-label="Metric: deployment time improvement">
-              <span class="k">↓ 60%</span> <span class="muted">deploy time</span>
-            </div>
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="projectsHead">
+          <div>
+            <h3 class="section-title">Projects</h3>
           </div>
+          <p class="projectsNote">Each project has micro-proof + a case study. Replace metrics with real numbers as you validate.</p>
+        </div>
 
-          <div class="tag-row" aria-label="Tags">
-            <div class="tag">Jenkins</div>
-            <div class="tag">Docker</div>
-            <div class="tag">CI/CD</div>
-            <div class="tag">Quality Gates</div>
-          </div>
+        <div class="grid3">
+          <!-- Project 1 -->
+          <article class="glass texture pCard reveal">
+            <div class="pTop">
+              <div>
+                <h4 class="pTitle">DevOps CI/CD — Jenkins Pipeline</h4>
+                <p class="pDesc">
+                  End-to-end pipeline: build → test → artifact → deploy. Designed for repeatability and safety.
+                </p>
+              </div>
+              <div class="metric" aria-label="Deploy time improvement">
+                <b>↓ 60%</b> <span>deploy time</span>
+              </div>
+            </div>
 
-          <div class="codebox" aria-label="Architecture sketch">
+            <div class="tagRow" aria-label="Project tags">
+              <span class="tag">Jenkins</span>
+              <span class="tag">Docker</span>
+              <span class="tag">CI/CD</span>
+              <span class="tag">Quality Gates</span>
+            </div>
+
+            <div class="diagram" aria-label="Architecture sketch">
+              <pre>
 Developer → Git Push
   ↓
 Jenkins (Pipeline)
   ↓
-Build    Tests
+Build + Tests
   ↓
 Artifact/Image → Deploy (staged)
   ↓
-Rollback-ready releases
-          </div>
-
-          <div class="proj-actions">
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
-            <button class="btn" type="button" data-open-modal="case-jenkins" aria-haspopup="dialog">Case Study</button>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="card proj">
-          <div class="proj-top">
-            <div>
-              <h3>Kubernetes Deployments + Ops</h3>
-              <p class="desc">Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.</p>
+Health checks → Rollback-ready releases
+              </pre>
             </div>
-            <div class="metric" aria-label="Metric: uptime goal">
-              <span class="k">99.9%</span> <span class="muted">uptime goal</span>
+
+            <div class="pCtas" role="group" aria-label="Project actions">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" data-case="jenkins" type="button">Case Study</button>
             </div>
-          </div>
+          </article>
 
-          <div class="tag-row" aria-label="Tags">
-            <div class="tag">Kubernetes</div>
-            <div class="tag">Rollouts</div>
-            <div class="tag">Health Probes</div>
-            <div class="tag">Ops</div>
-          </div>
+          <!-- Project 2 -->
+          <article class="glass texture pCard reveal">
+            <div class="pTop">
+              <div>
+                <h4 class="pTitle">Kubernetes Deployments + Ops</h4>
+                <p class="pDesc">
+                  Operational-ready manifests: deployments, services, config/secrets, readiness, and rollout strategy.
+                </p>
+              </div>
+              <div class="metric" aria-label="Uptime goal">
+                <b>99.9%</b> <span>uptime goal</span>
+              </div>
+            </div>
 
-          <div class="codebox" aria-label="Architecture sketch">
+            <div class="tagRow" aria-label="Project tags">
+              <span class="tag">Kubernetes</span>
+              <span class="tag">Rollouts</span>
+              <span class="tag">Health Probes</span>
+              <span class="tag">Ops</span>
+            </div>
+
+            <div class="diagram" aria-label="Architecture sketch">
+              <pre>
 Client → Ingress/Service
   ↓
 Deployment
- /  |  \
+ / | \
 Pod A Pod B Pod C
-  ↓
+  ↓    ↓    ↓
 Readiness/Liveness probes
 Rolling updates + rollback
-          </div>
-
-          <div class="proj-actions">
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
-            <button class="btn" type="button" data-open-modal="case-k8s" aria-haspopup="dialog">Case Study</button>
-          </div>
-        </article>
-
-        <!-- Project 3 -->
-        <article class="card proj">
-          <div class="proj-top">
-            <div>
-              <h3>Terraform AWS Baseline</h3>
-              <p class="desc">Opinionated baseline: networking + IAM + foundational resources with safe defaults.</p>
+              </pre>
             </div>
-            <div class="metric" aria-label="Metric: setup time improvement">
-              <span class="k">↓ 40%</span> <span class="muted">setup time</span>
+
+            <div class="pCtas" role="group" aria-label="Project actions">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" data-case="k8s" type="button">Case Study</button>
             </div>
-          </div>
+          </article>
 
-          <div class="tag-row" aria-label="Tags">
-            <div class="tag">Terraform</div>
-            <div class="tag">AWS</div>
-            <div class="tag">IaC</div>
-            <div class="tag">Drift-safe</div>
-          </div>
+          <!-- Project 3 -->
+          <article class="glass texture pCard reveal">
+            <div class="pTop">
+              <div>
+                <h4 class="pTitle">Terraform AWS Baseline</h4>
+                <p class="pDesc">
+                  Opinionated baseline: networking + IAM + foundational resources with safe defaults.
+                </p>
+              </div>
+              <div class="metric" aria-label="Setup time reduction">
+                <b>↓ 40%</b> <span>setup time</span>
+              </div>
+            </div>
 
-          <div class="codebox" aria-label="Architecture sketch">
+            <div class="tagRow" aria-label="Project tags">
+              <span class="tag">Terraform</span>
+              <span class="tag">AWS</span>
+              <span class="tag">IaC</span>
+              <span class="tag">Drift-safe</span>
+            </div>
+
+            <div class="diagram" aria-label="Architecture sketch">
+              <pre>
 Terraform Modules
   ↓
 VPC + Subnets + Routing
@@ -942,404 +1119,394 @@ VPC + Subnets + Routing
 IAM (least privilege)
   ↓
 Reusable baseline outputs
-          </div>
+              </pre>
+            </div>
 
-          <div class="proj-actions">
-            <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
-            <button class="btn" type="button" data-open-modal="case-tf" aria-haspopup="dialog">Case Study</button>
-          </div>
-        </article>
+            <div class="pCtas" role="group" aria-label="Project actions">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn" data-case="tf" type="button">Case Study</button>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- SKILLS -->
-    <section class="section reveal" id="skills" aria-label="Skills">
-      <div class="section-head">
-        <h2>Skills</h2>
-        <p>Grouped like a product spec: what you can reliably ship.</p>
-      </div>
-
-      <div class="skills-grid skills">
-        <div class="card">
-          <h3>Delivery & Automation</h3>
-          <ul class="bullets">
-            <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
-            <li>Build/test orchestration</li>
-            <li>Artifact/versioning discipline</li>
-            <li>Rollback-friendly releases</li>
-          </ul>
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="projectsHead">
+          <div>
+            <h3 class="section-title">Skills</h3>
+          </div>
+          <p class="projectsNote">Grouped like a product spec: what you can reliably ship.</p>
         </div>
 
-        <div class="card">
-          <h3>Kubernetes & Operations</h3>
-          <ul class="bullets">
-            <li>Deployments, services, ingress basics</li>
-            <li>Readiness/liveness probes</li>
-            <li>Rollouts, scaling, failure modes</li>
-            <li>Ops documentation & runbooks</li>
-          </ul>
-        </div>
+        <div class="grid3 skillsGrid">
+          <div class="glass texture card skillCard reveal">
+            <h3>Delivery & Automation</h3>
+            <ul>
+              <li>CI/CD pipelines (Jenkins / GitHub Actions)</li>
+              <li>Build/test orchestration</li>
+              <li>Artifact/versioning discipline</li>
+              <li>Rollback-friendly releases</li>
+            </ul>
+          </div>
 
-        <div class="card">
-          <h3>Infrastructure as Code</h3>
-          <ul class="bullets">
-            <li>Terraform modules and environments</li>
-            <li>AWS fundamentals (networking, IAM)</li>
-            <li>Least-privilege thinking</li>
-            <li>Drift + state awareness</li>
-          </ul>
+          <div class="glass texture card skillCard reveal">
+            <h3>Kubernetes & Operations</h3>
+            <ul>
+              <li>Deployments, services, ingress basics</li>
+              <li>Readiness/liveness probes</li>
+              <li>Rollouts, scaling, failure modes</li>
+              <li>Ops documentation & runbooks</li>
+            </ul>
+          </div>
+
+          <div class="glass texture card skillCard reveal">
+            <h3>Infrastructure as Code</h3>
+            <ul>
+              <li>Terraform modules and environments</li>
+              <li>AWS fundamentals (networking, IAM)</li>
+              <li>Least-privilege thinking</li>
+              <li>Drift + state awareness</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section class="section reveal" id="contact" aria-label="Contact">
-      <div class="section-head">
-        <h2>Contact</h2>
-        <p>Make it easy to act in 10 seconds.</p>
-      </div>
-
-      <div class="card">
-        <div class="contact-row">
-          <div class="left">
-            <!-- TODO: replace -->
-            Email: <span class="bold">YOUR_EMAIL_HERE</span> · GitHub: <span class="bold">gowrishankar-infra</span>
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="projectsHead">
+          <div>
+            <h3 class="section-title">Contact</h3>
           </div>
-          <div class="btn-row" style="margin:0;">
+          <p class="projectsNote">Make it easy to act in 10 seconds.</p>
+        </div>
+
+        <div class="glass texture contactRow reveal" role="region" aria-label="Contact strip">
+          <p>
+            Email: <strong>&nbsp;YOUR_EMAIL_HERE&nbsp;</strong> · GitHub: <strong>&nbsp;gowrishankar-infra</strong>
+          </p>
+          <div class="ctaRow" role="group" aria-label="Contact actions">
             <a class="btn primary" href="YOUR_LINKEDIN_URL_HERE" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
             <a class="btn" href="./assets/GowriShankar-DevOps-Resume.pdf" target="_blank" rel="noopener noreferrer">Open Resume</a>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="footer">
-        <div>© <span id="year"></span> GowriShankar</div>
-        <div>
-          <a href="#home">Back to top</a> ·
+    <div class="divider"></div>
+
+    <footer>
+      <div class="container footRow">
+        <div>© 2025 GowriShankar</div>
+        <div class="footLinks">
+          <a href="#top" id="backToTopLink">Back to top</a>
           <a href="https://github.com/gowrishankar-infra/portfolio" target="_blank" rel="noopener noreferrer">Portfolio repo</a>
         </div>
       </div>
-    </section>
+    </footer>
+
+    <!-- Floating ToTop -->
+    <div class="toTop" id="toTop">
+      <button class="btn primary" type="button" id="toTopBtn" aria-label="Scroll back to top">↑ Top</button>
+    </div>
   </main>
 
-  <!-- To top -->
-  <div class="toTop" id="toTop">
-    <button class="btn" type="button" id="toTopBtn" aria-label="Back to top">↑ Top</button>
+  <!-- Modal overlay for browsers that don’t dim dialog nicely -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <!-- Case Study Modal -->
+  <dialog id="caseDialog" aria-labelledby="caseTitle" aria-describedby="caseDesc">
+    <div class="modalHead">
+      <strong id="caseTitle">Case Study</strong>
+      <button class="closeBtn" type="button" id="closeDialog" aria-label="Close dialog">✕</button>
+    </div>
+    <div class="modalBody">
+      <p id="caseDesc" class="section-sub" style="margin:0 0 12px;">Problem → Architecture → What I built → Results → Failure modes</p>
+
+      <div class="modalGrid">
+        <div class="modalBlock">
+          <h4>Problem</h4>
+          <p id="mProblem"></p>
+        </div>
+        <div class="modalBlock">
+          <h4>Architecture</h4>
+          <p id="mArch"></p>
+        </div>
+        <div class="modalBlock">
+          <h4>What I built</h4>
+          <p id="mBuilt"></p>
+        </div>
+        <div class="modalBlock">
+          <h4>Results</h4>
+          <p id="mResults"></p>
+        </div>
+        <div class="modalBlock" style="grid-column: 1 / -1;">
+          <h4>Failure modes + runbook notes</h4>
+          <p id="mFailure"></p>
+        </div>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn" type="button" id="closeDialog2">Close</button>
+      <a class="btn primary" id="modalRepo" href="#" target="_blank" rel="noopener noreferrer">Open Repo</a>
+    </div>
+  </dialog>
+
+  <!-- Mobile Drawer -->
+  <div class="drawerOverlay" id="drawerOverlay" aria-hidden="true"></div>
+  <div class="drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="drawerNav">
+      <a href="#about" data-drawerlink><b>About</b><span>overview</span></a>
+      <a href="#projects" data-drawerlink><b>Projects</b><span>work</span></a>
+      <a href="#skills" data-drawerlink><b>Skills</b><span>stack</span></a>
+      <a href="#contact" data-drawerlink><b>Contact</b><span>reach out</span></a>
+      <button class="btn" type="button" id="closeMenu" style="width:100%;">Close</button>
+    </div>
   </div>
 
-  <!-- Case Study Modals -->
-  <dialog id="case-jenkins" aria-label="Case study: Jenkins Pipeline">
-    <div class="modal" role="document">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title">Case Study — Jenkins CI/CD Pipeline</div>
-          <b>Problem → Architecture → What I built → Results → Failure modes</b>
-        </div>
-        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="panel">
-          <h4>Problem</h4>
-          <p>Slow and inconsistent deployments; hard to trust artifacts; manual steps caused drift.</p>
-        </div>
-        <div class="panel">
-          <h4>Architecture</h4>
-          <p>Pipeline stages with quality gates; artifact versioning; staged deployment with rollback hooks.</p>
-        </div>
-        <div class="panel">
-          <h4>What I built</h4>
-          <ul>
-            <li>Build/test separation + cached dependencies</li>
-            <li>Artifact/image promotion model</li>
-            <li>Repeatable deploy steps + audit-friendly logs</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Results</h4>
-          <ul>
-            <li>↓ deploy time (placeholder metric)</li>
-            <li>More consistent release flow</li>
-            <li>Clear rollback path</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Failure modes + mitigations</h4>
-          <ul>
-            <li>Bad config → validate early</li>
-            <li>Test flakiness → quarantine + rerun strategy</li>
-            <li>Rollback safety → versioned artifacts</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Links</h4>
-          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="case-k8s" aria-label="Case study: Kubernetes Ops">
-    <div class="modal" role="document">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title">Case Study — Kubernetes Deployments + Ops</div>
-          <b>Problem → Architecture → What I built → Results → Failure modes</b>
-        </div>
-        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="panel">
-          <h4>Problem</h4>
-          <p>Deployments lacked readiness gates and repeatable rollout patterns; ops lacked clarity.</p>
-        </div>
-        <div class="panel">
-          <h4>Architecture</h4>
-          <p>Services + Deployments with probes; safe rollout settings; rollback strategy; config separation.</p>
-        </div>
-        <div class="panel">
-          <h4>What I built</h4>
-          <ul>
-            <li>Readiness/liveness probes + resource requests/limits</li>
-            <li>Rollout patterns + verification steps</li>
-            <li>Ops notes/runbook style docs</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Results</h4>
-          <ul>
-            <li>Improved rollout reliability</li>
-            <li>Clearer operational behavior</li>
-            <li>Uptime target framing (placeholder)</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Failure modes + mitigations</h4>
-          <ul>
-            <li>CrashLoopBackOff → probes + logs</li>
-            <li>Bad rollout → maxUnavailable tuning</li>
-            <li>Config drift → versioned manifests</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Links</h4>
-          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/kubernetes-deployments-ops" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="case-tf" aria-label="Case study: Terraform AWS Baseline">
-    <div class="modal" role="document">
-      <div class="modal-head">
-        <div>
-          <div class="modal-title">Case Study — Terraform AWS Baseline</div>
-          <b>Problem → Architecture → What I built → Results → Failure modes</b>
-        </div>
-        <button class="icon-btn" type="button" data-close-dialog aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="panel">
-          <h4>Problem</h4>
-          <p>Infrastructure setup was inconsistent; IAM/network defaults were unsafe; environments drifted.</p>
-        </div>
-        <div class="panel">
-          <h4>Architecture</h4>
-          <p>Module-based baseline producing reusable outputs; least-privilege IAM; environment separation.</p>
-        </div>
-        <div class="panel">
-          <h4>What I built</h4>
-          <ul>
-            <li>Networking baseline + routing</li>
-            <li>IAM with secure defaults</li>
-            <li>Outputs designed for downstream stacks</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Results</h4>
-          <ul>
-            <li>↓ setup time (placeholder metric)</li>
-            <li>More consistent environments</li>
-            <li>Reduced drift risk</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Failure modes + mitigations</h4>
-          <ul>
-            <li>State mismatch → workflow discipline</li>
-            <li>IAM mistakes → least privilege patterns</li>
-            <li>Drift → plan checks + review gates</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4>Links</h4>
-          <p><a class="btn primary" style="display:inline-flex;" href="https://github.com/gowrishankar-infra/terraform-aws-baseline" target="_blank" rel="noopener noreferrer">Open Repo</a></p>
-        </div>
-      </div>
-    </div>
-  </dialog>
-
   <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Smooth scroll (safe)
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const smooth = !prefersReduced;
 
-    // Reveal on scroll
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReduced) {
-      const revealEls = document.querySelectorAll('.reveal');
-      const io = new IntersectionObserver((entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) e.target.classList.add('show');
-        }
-      }, { threshold: 0.12 });
-      revealEls.forEach(el => io.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
-    }
-
-    // Scrollspy
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const sectionIds = ['about','projects','skills','contact'];
-    const sections = sectionIds.map(id => document.getElementById(id));
-
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const id = entry.target.id;
-        navLinks.forEach(a => a.classList.toggle('active', a.dataset.link === id));
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          const id = a.getAttribute('href');
+          if(!id || id === '#') return;
+          const el = document.querySelector(id);
+          if(!el) return;
+          e.preventDefault();
+          el.scrollIntoView({behavior: smooth ? 'smooth' : 'auto', block: 'start'});
+          // Move focus for a11y
+          el.setAttribute('tabindex', '-1');
+          el.focus({preventScroll:true});
+          setTimeout(()=> el.removeAttribute('tabindex'), 300);
+        });
       });
-    }, { rootMargin: '-35% 0px -60% 0px', threshold: 0.01 });
+    })();
 
-    sections.forEach(sec => sec && spy.observe(sec));
+    // Reveal animations
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced){
+        els.forEach(el => el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.12});
+      els.forEach(el=> io.observe(el));
+    })();
 
-    // ToTop visibility
-    const toTopWrap = document.getElementById('toTop');
-    const toTopBtn = document.getElementById('toTopBtn');
-    window.addEventListener('scroll', () => {
-      const show = window.scrollY > 700;
-      toTopWrap.classList.toggle('show', show);
-    }, { passive:true });
+    // Scrollspy (top nav active)
+    (function(){
+      const links = Array.from(document.querySelectorAll('[data-spy]'));
+      const sections = links
+        .map(a => document.querySelector('#' + a.dataset.spy))
+        .filter(Boolean);
 
-    toTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-    });
-
-    // Drawer (mobile menu) with focus trap
-    const overlay = document.getElementById('overlay');
-    const drawer = document.getElementById('drawer');
-    const menuBtn = document.getElementById('menuBtn');
-    const drawerClose = document.getElementById('drawerClose');
-    const drawerLinks = drawer.querySelectorAll('[data-drawerlink]');
-    let lastFocus = null;
-
-    function getFocusable(container){
-      return Array.from(container.querySelectorAll(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )).filter(el => !el.hasAttribute('disabled'));
-    }
-
-    function trapFocus(container, e){
-      if (e.key !== 'Tab') return;
-      const items = getFocusable(container);
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
-
-    function openDrawer(){
-      lastFocus = document.activeElement;
-      overlay.hidden = false;
-      overlay.classList.add('open');
-      drawer.classList.add('open');
-      drawer.setAttribute('aria-hidden','false');
-      menuBtn.setAttribute('aria-expanded','true');
-
-      // focus first link for clean keyboard order
-      setTimeout(() => drawerLinks[0]?.focus(), 0);
-
-      document.addEventListener('keydown', onDrawerKeydown);
-      overlay.addEventListener('click', closeDrawer, { once:true });
-    }
-
-    function closeDrawer(){
-      overlay.classList.remove('open');
-      drawer.classList.remove('open');
-      drawer.setAttribute('aria-hidden','true');
-      overlay.hidden = true;
-      menuBtn.setAttribute('aria-expanded','false');
-
-      document.removeEventListener('keydown', onDrawerKeydown);
-      if (lastFocus) lastFocus.focus();
-    }
-
-    function onDrawerKeydown(e){
-      if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
-      trapFocus(drawer, e);
-    }
-
-    menuBtn?.addEventListener('click', openDrawer);
-    drawerClose?.addEventListener('click', closeDrawer);
-    drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
-
-    // Dialog modals with focus trap
-    const openers = document.querySelectorAll('[data-open-modal]');
-    const closers = document.querySelectorAll('[data-close-dialog]');
-    let activeDialog = null;
-    let dialogLastFocus = null;
-
-    function openDialog(id){
-      const dlg = document.getElementById(id);
-      if (!dlg) return;
-
-      dialogLastFocus = document.activeElement;
-      activeDialog = dlg;
-
-      if (typeof dlg.showModal === 'function') {
-        dlg.showModal();
-      } else {
-        dlg.setAttribute('open','');
+      function setActive(id){
+        links.forEach(a=>{
+          const is = a.dataset.spy === id;
+          if(is) a.setAttribute('aria-current','page');
+          else a.removeAttribute('aria-current');
+        });
       }
 
-      // focus close button first for predictable order
-      const closeBtn = dlg.querySelector('[data-close-dialog]');
-      setTimeout(() => closeBtn?.focus(), 0);
+      const io = new IntersectionObserver((entries)=>{
+        const visible = entries.filter(e=> e.isIntersecting)
+          .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+        if(visible) setActive(visible.target.id);
+      }, {rootMargin: "-35% 0px -55% 0px", threshold: [0.2,0.35,0.5]});
 
-      dlg.addEventListener('keydown', onDialogKeydown);
-      dlg.addEventListener('click', (e) => {
-        // Click outside modal closes
-        const modal = dlg.querySelector('.modal');
-        if (!modal) return;
-        const rect = modal.getBoundingClientRect();
-        const inModal = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
-        if (!inModal) closeDialog(dlg);
+      sections.forEach(s=> io.observe(s));
+      setActive('about'); // default-ish
+    })();
+
+    // ToTop show/hide
+    (function(){
+      const toTop = document.getElementById('toTop');
+      const btn = document.getElementById('toTopBtn');
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function onScroll(){
+        const show = window.scrollY > 420;
+        toTop.classList.toggle('show', show);
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+
+      btn.addEventListener('click', ()=>{
+        window.scrollTo({top:0, behavior: prefersReduced ? 'auto' : 'smooth'});
       });
+    })();
+
+    // Focus trap helper
+    function trapFocus(container, onEscape){
+      const focusable = () => Array.from(container.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      )).filter(el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+
+      function handleKey(e){
+        if(e.key === 'Escape'){ onEscape && onEscape(); return; }
+        if(e.key !== 'Tab') return;
+        const items = focusable();
+        if(!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if(e.shiftKey && document.activeElement === first){
+          e.preventDefault(); last.focus();
+        } else if(!e.shiftKey && document.activeElement === last){
+          e.preventDefault(); first.focus();
+        }
+      }
+
+      container.addEventListener('keydown', handleKey);
+      return () => container.removeEventListener('keydown', handleKey);
     }
 
-    function closeDialog(dlg){
-      dlg.removeEventListener('keydown', onDialogKeydown);
-      if (typeof dlg.close === 'function') dlg.close();
-      else dlg.removeAttribute('open');
-      activeDialog = null;
-      if (dialogLastFocus) dialogLastFocus.focus();
-    }
+    // Case Studies data (edit these anytime)
+    const CASES = {
+      jenkins: {
+        title: "DevOps CI/CD — Jenkins Pipeline",
+        repo: "https://github.com/gowrishankar-infra/devops-cicd-jenkins-pipeline",
+        problem: "Manual builds/deploys were slow and error-prone; inconsistent environments led to rollbacks and firefighting.",
+        arch: "Pipeline with stages: lint/test → build artifact/image → publish → staged deploy → health checks; rollback-ready releases.",
+        built: "Jenkinsfile, quality gates, artifact versioning, deployment steps with repeatable commands and documentation.",
+        results: "Faster feedback loops, consistent releases, fewer manual mistakes. Replace with your real measured metrics.",
+        failure: "Common failures: flaky tests, bad env vars, deploy health check timeouts. Runbook: re-run stage, inspect logs, rollback stage."
+      },
+      k8s: {
+        title: "Kubernetes Deployments + Ops",
+        repo: "https://github.com/gowrishankar-infra/kubernetes-deployments-ops",
+        problem: "Apps deployed without readiness/liveness checks caused partial outages and slow incident resolution.",
+        arch: "Ingress/Service → Deployment → Pods with probes; rollout strategy that supports safe updates and rollback.",
+        built: "Manifests for deploy/service/ingress, config & secrets patterns, probes, rollout guidance and operational notes.",
+        results: "More predictable deploys, safer rollouts, better uptime posture (target 99.9%). Replace with your real results.",
+        failure: "Failure modes: bad probe thresholds, image pull errors, misconfigured ingress. Runbook: describe pod, events, logs, rollback."
+      },
+      tf: {
+        title: "Terraform AWS Baseline",
+        repo: "https://github.com/gowrishankar-infra/terraform-aws-baseline",
+        problem: "New environments took too long and drifted over time; IAM/networking often repeated with inconsistent defaults.",
+        arch: "Opinionated modules: VPC/subnets/routing + IAM least privilege + outputs for reuse across environments.",
+        built: "Terraform modules with variables/outputs, environment structure, state considerations and safe defaults.",
+        results: "Faster environment setup, consistency, and reduced drift risk. Replace with your real metrics and examples.",
+        failure: "Failure modes: state lock issues, IAM permission errors, drift. Runbook: plan/apply safely, inspect state, least-privilege fixes."
+      }
+    };
 
-    function onDialogKeydown(e){
-      if (!activeDialog) return;
-      if (e.key === 'Escape') return; // native dialog handles Escape close
-      trapFocus(activeDialog, e);
-    }
+    // Modal logic + focus trap
+    (function(){
+      const dialog = document.getElementById('caseDialog');
+      const overlay = document.getElementById('overlay');
+      const close1 = document.getElementById('closeDialog');
+      const close2 = document.getElementById('closeDialog2');
+      const modalRepo = document.getElementById('modalRepo');
 
-    openers.forEach(btn => {
-      btn.addEventListener('click', () => openDialog(btn.getAttribute('data-open-modal')));
-    });
+      const mProblem = document.getElementById('mProblem');
+      const mArch = document.getElementById('mArch');
+      const mBuilt = document.getElementById('mBuilt');
+      const mResults = document.getElementById('mResults');
+      const mFailure = document.getElementById('mFailure');
+      const title = document.getElementById('caseTitle');
 
-    closers.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const dlg = btn.closest('dialog');
-        if (dlg) closeDialog(dlg);
+      let lastFocus = null;
+      let untrap = null;
+
+      function openCase(key){
+        const data = CASES[key];
+        if(!data) return;
+        lastFocus = document.activeElement;
+
+        title.textContent = data.title;
+        mProblem.textContent = data.problem;
+        mArch.textContent = data.arch;
+        mBuilt.textContent = data.built;
+        mResults.textContent = data.results;
+        mFailure.textContent = data.failure;
+        modalRepo.href = data.repo;
+
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden','false');
+
+        dialog.showModal();
+        // Trap focus inside dialog
+        untrap = trapFocus(dialog, closeCase);
+
+        // Focus first interactive element
+        close1.focus();
+      }
+
+      function closeCase(){
+        try{ dialog.close(); } catch(e){}
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
+        if(untrap) untrap();
+        if(lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      document.querySelectorAll('[data-case]').forEach(btn=>{
+        btn.addEventListener('click', ()=> openCase(btn.dataset.case));
       });
-    });
+
+      overlay.addEventListener('click', closeCase);
+      close1.addEventListener('click', closeCase);
+      close2.addEventListener('click', closeCase);
+
+      dialog.addEventListener('cancel', (e)=>{
+        e.preventDefault();
+        closeCase();
+      });
+    })();
+
+    // Mobile drawer logic + focus trap
+    (function(){
+      const openBtn = document.getElementById('openMenu');
+      const closeBtn = document.getElementById('closeMenu');
+      const overlay = document.getElementById('drawerOverlay');
+      const drawer = document.getElementById('mobileDrawer');
+      const drawerLinks = drawer.querySelectorAll('[data-drawerlink]');
+      let lastFocus = null;
+      let untrap = null;
+
+      function openDrawer(){
+        lastFocus = document.activeElement;
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden','false');
+        drawer.classList.add('show');
+        // trap focus
+        untrap = trapFocus(drawer, closeDrawer);
+        // focus first link for keyboard order
+        (drawerLinks[0] || closeBtn).focus();
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer(){
+        drawer.classList.remove('show');
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden','true');
+        if(untrap) untrap();
+        document.body.style.overflow = '';
+        if(lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      openBtn.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
+    })();
   </script>
 </body>
 </html>
