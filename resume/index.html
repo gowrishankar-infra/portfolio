@@ -1,13 +1,391 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=/resume.pdf" />
-    <link rel="canonical" href="/resume.pdf" />
-    <title>Resume</title>
-  </head>
-  <body>
-    <p>If you are not redirected, <a href="/resume.pdf">open resume</a>.</p>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>Resume — GowriShankar</title>
+  <meta name="description" content="GowriShankar — DevOps Engineer Resume (PDF viewer)." />
+
+  <style>
+    :root{
+      --bg0:#070B12;
+      --bg1:#0B1322;
+      --bg2:#0D182B;
+
+      --panel: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.14);
+
+      --text: #EAF0F8;
+      --muted:#C9D2DE;
+      --muted2:#AEB9C9;
+
+      --accent:#BFDFFF;
+      --accent2:#8CC7FF;
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+
+      --r-xl: 26px;
+      --r-lg: 20px;
+      --r-md: 14px;
+
+      --container: min(1120px, calc(100% - 28px));
+      --navH: 72px;
+
+      --focus: 0 0 0 3px rgba(140,199,255,.30), 0 0 0 1px rgba(140,199,255,.70) inset;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 18% 12%, rgba(140,199,255,.12), transparent 55%),
+        radial-gradient(900px 600px at 70% 20%, rgba(191,223,255,.10), transparent 55%),
+        radial-gradient(700px 500px at 50% 85%, rgba(54,211,153,.07), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
+      min-height:100dvh;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    p{ color:var(--muted); line-height:1.55; margin:0; }
+    h1,h2,h3{ margin:0; letter-spacing:-0.02em; }
+
+    :focus-visible{ outline:none; box-shadow: var(--focus); border-radius: 14px; }
+
+    .container{ width:var(--container); margin:0 auto; }
+
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .glass::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.045) 0,
+          rgba(255,255,255,.045) 1px,
+          transparent 12px,
+          transparent 18px
+        );
+      opacity:.22;
+      pointer-events:none;
+    }
+    .glass > *{ position:relative; }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: linear-gradient(180deg, rgba(6,10,18,.92), rgba(6,10,18,.70));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav{
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .avatar{
+      width:42px;
+      height:42px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .brand strong{
+      display:block;
+      font-size: 15px;
+      letter-spacing: -.01em;
+    }
+    .brand span{
+      display:block;
+      font-size: 12.5px;
+      color: var(--muted2);
+      margin-top:2px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .btn:active{ transform: translateY(0px); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(191,223,255,.22), rgba(255,255,255,.07));
+      border-color: rgba(191,223,255,.30);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.12);
+    }
+
+    main{
+      padding: 18px 0 60px 0;
+    }
+
+    .hero{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      padding: 18px;
+      border-radius: var(--r-xl);
+    }
+
+    .hero-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .title h1{
+      font-size: clamp(22px, 2.7vw, 30px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .title p{
+      color: var(--muted2);
+      font-size: 13.5px;
+      max-width: 70ch;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .viewer{
+      margin-top: 10px;
+      border-radius: var(--r-xl);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      min-height: clamp(560px, 78vh, 920px);
+      position: relative;
+    }
+
+    .viewer iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      background: rgba(255,255,255,.02);
+    }
+
+    .loading{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      color: var(--muted2);
+      font-size: 13.5px;
+      pointer-events:none;
+      opacity:1;
+      transition: opacity .2s ease;
+      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.20));
+    }
+    .loading.hide{ opacity:0; }
+
+    .dotPulse{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(140,199,255,.95);
+      box-shadow: 0 0 0 4px rgba(140,199,255,.12);
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%{ transform: scale(1); opacity:.65; }
+      50%{ transform: scale(1.35); opacity:1; }
+      100%{ transform: scale(1); opacity:.65; }
+    }
+
+    .fallback{
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      display:none;
+      gap: 10px;
+      flex-direction:column;
+    }
+    .fallback.show{ display:flex; }
+
+    footer{
+      margin-top: 22px;
+      padding: 18px 0 26px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 640px){
+      .brand{ min-width:auto; }
+      .actions{ width:100%; justify-content:flex-start; }
+      .btn{ flex: 1 1 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav class="nav" aria-label="Resume navigation">
+        <a class="brand" id="backHome" href="/" aria-label="Back to portfolio home">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>GowriShankar</strong>
+            <span>Resume · PDF viewer</span>
+          </div>
+        </a>
+
+        <div class="actions" role="group" aria-label="Resume actions">
+          <a class="btn ghost" id="btnBack" href="/">← Back</a>
+          <a class="btn ghost" id="btnOpen" href="#" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+          <a class="btn primary" id="btnDownload" href="#" download>Download PDF ↓</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="glass hero" aria-label="Resume viewer">
+        <div class="hero-top">
+          <div class="title">
+            <h1>Resume</h1>
+            <p>Fast view for recruiters: embedded PDF + one-click open/download. If preview doesn’t load, use the buttons above.</p>
+          </div>
+        </div>
+
+        <div class="viewer" aria-label="Embedded resume PDF">
+          <div class="loading" id="loading">
+            <span class="dotPulse" aria-hidden="true"></span>
+            <span>Loading resume…</span>
+          </div>
+          <iframe id="pdfFrame" title="Resume PDF viewer"></iframe>
+        </div>
+
+        <div class="fallback" id="fallback" role="status" aria-live="polite">
+          <p><strong>Preview didn’t load?</strong> Some browsers block PDF embeds. Use:</p>
+          <div class="actions">
+            <a class="btn ghost" id="btnOpen2" href="#" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+            <a class="btn primary" id="btnDownload2" href="#" download>Download PDF ↓</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-row">
+          <span>© <span id="year"></span> GowriShankar</span>
+          <span class="muted2">Direct file: <a id="directLink" href="#" target="_blank" rel="noopener noreferrer">resume.pdf</a></span>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Make it work on both:
+    // - Custom domain: /
+    // - Project pages: /portfolio/
+    const isProjectPages = location.pathname.startsWith('/portfolio/');
+    const base = isProjectPages ? '/portfolio' : '';
+    const pdfUrl = base + '/resume.pdf';
+
+    // Back links should go to correct home depending on base
+    const homeUrl = base + '/';
+
+    // Wire up links/buttons
+    document.getElementById('backHome').setAttribute('href', homeUrl);
+    document.getElementById('btnBack').setAttribute('href', homeUrl);
+
+    const open = document.getElementById('btnOpen');
+    const down = document.getElementById('btnDownload');
+    const open2 = document.getElementById('btnOpen2');
+    const down2 = document.getElementById('btnDownload2');
+    const direct = document.getElementById('directLink');
+
+    [open, open2, direct].forEach(a => a.setAttribute('href', pdfUrl));
+    [down, down2].forEach(a => a.setAttribute('href', pdfUrl));
+
+    // Embed PDF
+    const frame = document.getElementById('pdfFrame');
+    const loading = document.getElementById('loading');
+    const fallback = document.getElementById('fallback');
+
+    // Some browsers render better with #view=FitH
+    frame.src = pdfUrl + '#view=FitH';
+
+    // Hide loader when iframe loads
+    frame.addEventListener('load', () => {
+      loading.classList.add('hide');
+      // If the iframe loads an error page, user still has buttons; show fallback after short delay.
+      setTimeout(() => fallback.classList.add('show'), 700);
+    });
+
+    // Safety fallback if load never fires (adblock/csp/etc.)
+    setTimeout(() => {
+      loading.classList.add('hide');
+      fallback.classList.add('show');
+    }, 2500);
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
