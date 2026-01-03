@@ -5,34 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
   <title>Resume — GowriShankar</title>
-  <meta name="description" content="GowriShankar — Resume PDF viewer" />
 
   <style>
     :root{
       --bg0:#070B12;
       --bg1:#0B1322;
-      --panel: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.10);
-      --border2: rgba(255,255,255,.14);
       --text:#EAF0F8;
       --muted:#AEB9C9;
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.14);
       --shadow: 0 18px 60px rgba(0,0,0,.45);
-      --r-xl: 26px;
-      --r-lg: 18px;
       --focus: 0 0 0 3px rgba(140,199,255,.30), 0 0 0 1px rgba(140,199,255,.70) inset;
     }
 
     *{ box-sizing:border-box; }
-    html, body { height: 100%; } /* IMPORTANT: enables full-height iframe */
+    html, body { height: 100%; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
       background:
         radial-gradient(1200px 700px at 18% 12%, rgba(140,199,255,.12), transparent 55%),
         radial-gradient(900px 600px at 70% 20%, rgba(191,223,255,.10), transparent 55%),
         linear-gradient(180deg, var(--bg1), var(--bg0));
-      overflow: hidden; /* we scroll inside the viewer area if needed */
     }
 
     a{ color:inherit; text-decoration:none; }
@@ -43,17 +38,9 @@
       margin: 0 auto;
     }
 
-    /* App layout */
-    .app{
-      min-height: 100vh;
-      display:flex;
-      flex-direction:column;
-    }
-
-    /* Top bar */
     header{
-      position: sticky;
-      top:0;
+      position: fixed;
+      top:0; left:0; right:0;
       z-index:10;
       background: linear-gradient(180deg, rgba(6,10,18,.92), rgba(6,10,18,.70));
       border-bottom: 1px solid rgba(255,255,255,.06);
@@ -76,33 +63,22 @@
       min-width: 220px;
     }
     .avatar{
-      width:42px;
-      height:42px;
+      width:42px; height:42px;
       border-radius: 16px;
       background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
       flex: 0 0 auto;
     }
-    .brand strong{
-      display:block;
-      font-size: 15px;
-      letter-spacing: -.01em;
-    }
-    .brand span{
-      display:block;
-      font-size: 12.5px;
-      color: var(--muted);
-      margin-top:2px;
-    }
+    .brand strong{ display:block; font-size:15px; letter-spacing:-.01em; }
+    .brand span{ display:block; font-size:12.5px; color:var(--muted); margin-top:2px; }
 
     .actions{
       display:flex;
-      gap: 10px;
+      gap:10px;
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-
     .btn{
       display:inline-flex;
       align-items:center;
@@ -116,38 +92,23 @@
       color: var(--text);
       cursor:pointer;
       user-select:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: transform .12s ease, background .12s ease;
       white-space: nowrap;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
-    .btn:active{ transform: translateY(0px); }
     .btn.primary{
       background: linear-gradient(180deg, rgba(191,223,255,.22), rgba(255,255,255,.07));
       border-color: rgba(191,223,255,.30);
     }
 
-    /* Viewer area */
-    main{
-      flex: 1 1 auto;
-      min-height: 0; /* IMPORTANT: allows iframe to size properly inside flex */
+    /* Viewer takes full remaining height (no flex tricks, no surprises) */
+    .viewer{
+      position: fixed;
+      top: 72px;              /* header height */
+      left: 0;
+      right: 0;
+      bottom: 0;
       padding: 16px 0 18px 0;
-    }
-
-    .frame-wrap{
-      height: 100%;
-      border-radius: var(--r-xl);
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      overflow: hidden; /* keeps rounded corners */
-    }
-
-    iframe{
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display:block;
-      background: #0b0f18;
     }
 
     .hint{
@@ -156,53 +117,62 @@
       margin: 0 0 10px 0;
     }
 
+    .frame{
+      height: calc(100% - 22px);  /* subtract hint line */
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* KEY: embed works more reliably than iframe for PDFs */
+    embed{
+      width: 100%;
+      height: 100%;
+      display:block;
+      border:0;
+      background: #0b0f18;
+    }
+
     @media (max-width: 640px){
-      body{ overflow: hidden; }
-      .bar{ height: auto; padding: 12px 0; }
+      header{ position: sticky; }
+      .viewer{ top: 72px; }
+      .bar{ height:auto; padding: 12px 0; }
       .actions{ justify-content:flex-start; }
-      main{ padding-top: 10px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="app">
-    <header>
-      <div class="container">
-        <div class="bar">
-          <div class="brand">
-            <div class="avatar" aria-hidden="true"></div>
-            <div>
-              <strong>GowriShankar</strong>
-              <span>Resume · PDF viewer</span>
-            </div>
-          </div>
-
-          <div class="actions">
-            <a class="btn" href="/" aria-label="Back to portfolio">← Back</a>
-            <a class="btn" href="../resume.pdf" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
-            <a class="btn primary" href="../resume.pdf" download>Download PDF ↓</a>
+  <header>
+    <div class="container">
+      <div class="bar">
+        <div class="brand">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>GowriShankar</strong>
+            <span>Resume · PDF viewer</span>
           </div>
         </div>
-      </div>
-    </header>
 
-    <main>
-      <div class="container" style="height:100%; display:flex; flex-direction:column; min-height:0;">
-        <p class="hint">
-          If the embedded viewer doesn’t load in your browser, use <strong>Open in new tab</strong> or <strong>Download PDF</strong>.
-        </p>
-
-        <div class="frame-wrap" style="flex:1; min-height:0;">
-          <!-- IMPORTANT: PDF is at repo root, this page is /resume/ -->
-          <iframe
-            title="Resume PDF"
-            src="../resume.pdf#view=FitH&zoom=page-width"
-            loading="eager"
-          ></iframe>
+        <div class="actions">
+          <a class="btn" href="/" aria-label="Back to portfolio">← Back</a>
+          <a class="btn" href="../resume.pdf" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+          <a class="btn primary" href="../resume.pdf" download>Download PDF ↓</a>
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </header>
+
+  <section class="viewer">
+    <div class="container" style="height:100%;">
+      <p class="hint">If embed doesn’t load in your browser, use <strong>Open in new tab</strong> or <strong>Download PDF</strong>.</p>
+
+      <div class="frame">
+        <embed src="../resume.pdf#view=FitH&zoom=page-width" type="application/pdf" />
+      </div>
+    </div>
+  </section>
 </body>
 </html>
