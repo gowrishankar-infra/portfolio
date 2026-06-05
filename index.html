@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>GowriShankar — DevOps Engineer</title>
+  <meta name="description" content="DevOps Engineer with 4+ years of hands-on experience supporting CI/CD automation and cloud-native delivery on Azure — Docker, Kubernetes, Terraform, Jenkins, and Git/GitHub — with a strong focus on stable releases, Kubernetes cluster maintenance, and production reliability through incident triage." />
+
+  <style>
+    /* =========================
+       Base + Theme
+    ========================== */
+    :root{
+      --bg0:#070B12;
+      --bg1:#0B1322;
+      --bg2:#0D182B;
+
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.14);
+
+      --text: #EAF0F8;
+      --muted:#C9D2DE;
+      --muted2:#AEB9C9;
+
+      --accent:#BFDFFF;
+      --accent2:#8CC7FF;
+
+      --ok:#36D399;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+
+      --r-xl: 26px;
+      --r-lg: 20px;
+      --r-md: 14px;
+
+      --gap: clamp(14px, 2vw, 22px);
+      --pad: clamp(14px, 2.2vw, 24px);
+      --container: min(1120px, calc(100% - 28px));
+      --navH: 72px;
+
+      --focus: 0 0 0 3px rgba(140,199,255,.30), 0 0 0 1px rgba(140,199,255,.70) inset;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 18% 12%, rgba(140,199,255,.12), transparent 55%),
+        radial-gradient(900px 600px at 70% 20%, rgba(191,223,255,.10), transparent 55%),
+        radial-gradient(700px 500px at 50% 85%, rgba(54,211,153,.07), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 55%, var(--bg2));
+      min-height:100dvh;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    p{ color:var(--muted); line-height:1.55; margin:0; }
+    h1,h2,h3{ margin:0; letter-spacing:-0.02em; }
+    h2{ font-size: clamp(22px, 3vw, 30px); }
+    h3{ font-size: 18px; }
+    .muted{ color:var(--muted); }
+    .muted2{ color:var(--muted2); }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      *{ animation:none !important; transition:none !important; }
+    }
+
+    /* =========================
+       Accessibility helpers
+    ========================== */
+    .skip-link{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      z-index:1000;
+      padding:10px 12px;
+      border-radius:12px;
+      background: rgba(0,0,0,.65);
+      border:1px solid var(--border2);
+      color:var(--text);
+    }
+    .skip-link:focus{ left:10px; outline:none; box-shadow:var(--focus); }
+
+    :focus-visible{ outline:none; box-shadow: var(--focus); border-radius: 14px; }
+    .sr-only{
+      position:absolute; width:1px; height:1px;
+      padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* =========================
+       Layout
+    ========================== */
+    .container{ width:var(--container); margin:0 auto; }
+    main{ padding-bottom: 80px; }
+
+    .section{
+      padding: clamp(30px, 5vw, 56px) 0;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin-bottom: clamp(18px, 3vw, 26px);
+    }
+
+    .section-kicker{
+      margin-top: 8px;
+      color: var(--muted2);
+      font-size: 14px;
+    }
+
+    /* =========================
+       Glass components
+    ========================== */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .glass::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,.045) 0,
+          rgba(255,255,255,.045) 1px,
+          transparent 12px,
+          transparent 18px
+        );
+      opacity:.25;
+      pointer-events:none;
+    }
+    .glass > *{ position:relative; }
+
+    .card{
+      padding: var(--pad);
+      border-radius: var(--r-xl);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background: rgba(140,199,255,.95);
+      box-shadow: 0 0 0 4px rgba(140,199,255,.12);
+      flex: 0 0 auto;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 14px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      min-height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border2);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+    .btn:active{ transform: translateY(0px); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(191,223,255,.22), rgba(255,255,255,.07));
+      border-color: rgba(191,223,255,.30);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.12);
+    }
+    .btn .icon{
+      width:16px; height:16px; display:inline-block;
+    }
+
+    /* =========================
+       Top Nav (desktop) + Drawer (mobile)
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background: linear-gradient(180deg, rgba(6,10,18,.92), rgba(6,10,18,.70));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .nav{
+      height: var(--navH);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .avatar{
+      width:42px;
+      height:42px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .brand strong{
+      display:block;
+      font-size: 15px;
+      letter-spacing: -.01em;
+    }
+    .brand span{
+      display:block;
+      font-size: 12.5px;
+      color: var(--muted2);
+      margin-top:2px;
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .navlinks a{
+      padding: 10px 14px;
+      min-height: 44px;
+      display:inline-flex;
+      align-items:center;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13.5px;
+      transition: background .12s ease, color .12s ease;
+    }
+    .navlinks a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .navlinks a[aria-current="page"]{
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .nav-cta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content:flex-end;
+    }
+
+    .hamburger{
+      display:none;
+    }
+
+    /* Drawer dialog */
+    dialog{
+      border:none;
+      padding:0;
+      background: transparent;
+    }
+    dialog::backdrop{
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(2px);
+    }
+
+    .drawer{
+      width:min(420px, calc(100vw - 18px));
+      margin: 10px;
+      border-radius: var(--r-xl);
+    }
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 14px 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .drawer-body{
+      padding: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .drawer a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height: 46px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+    }
+    .drawer a span{ color: var(--muted2); font-size: 12.5px; }
+
+    /* =========================
+       Hero
+    ========================== */
+    .hero{
+      padding-top: clamp(18px, 3vw, 28px);
+      padding-bottom: clamp(26px, 4vw, 44px);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: var(--gap);
+      align-items:stretch;
+    }
+
+    .hero-left{
+      padding: clamp(16px, 3vw, 26px);
+      min-height: 420px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .hero-title{
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-top: 14px;
+    }
+    .hero-sub{
+      margin-top: 12px;
+      max-width: 62ch;
+      font-size: clamp(14px, 1.4vw, 16px);
+      color: var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-proof{
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .proof-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+    }
+    .proof-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 40px;
+    }
+    .check{
+      width:18px; height:18px; border-radius: 6px;
+      background: rgba(54,211,153,.16);
+      border: 1px solid rgba(54,211,153,.35);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+    }
+    .check svg{ width:12px; height:12px; fill: rgba(54,211,153,.95); }
+
+    .hero-right{
+      padding: clamp(16px, 3vw, 22px);
+      min-height: 420px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .hero-right-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .hero-right-head h3{
+      font-size: 16px;
+      color: var(--text);
+    }
+    .hero-right-head span{
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    .snapshot-grid{
+      margin-top: 2px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items:stretch;
+    }
+    .snap-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .mini{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      min-height: 76px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 6px;
+    }
+    .mini strong{ font-size: 14px; }
+    .mini p{ font-size: 13px; color: var(--muted2); }
+
+    /* =========================
+       About
+    ========================== */
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+    }
+
+    .bullets{
+      margin-top: 10px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .bullets li{ margin: 8px 0; }
+
+    /* =========================
+       Projects (fix: equal heights + aligned inner blocks)
+    ========================== */
+    .projects-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      align-items:stretch;
+    }
+
+    .project{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      padding: var(--pad);
+      min-height: 560px;
+    }
+
+    .project-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .project-title{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-width: min(340px, 100%);
+    }
+    .project-title h3{
+      font-size: 18px;
+      line-height: 1.15;
+    }
+    .project-title p{
+      font-size: 13.5px;
+      color: var(--muted2);
+    }
+
+    .metric{
+      flex: 0 0 auto;
+      align-self:flex-start;
+    }
+
+    .project-body{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      flex: 1 1 auto; /* makes footer stick bottom */
+      min-height: 0;
+    }
+
+    .diagram{
+      flex: 1 1 auto;
+      min-height: 160px;
+      border-radius: 18px;
+      border: 1px dashed rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      overflow:auto;
+    }
+    .diagram pre{
+      margin:0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #D8E2EF;
+      white-space: pre-wrap;
+    }
+
+    .project-footer{
+      display:flex;
+      gap: 10px;
+      margin-top:auto;
+    }
+    .project-footer .btn{
+      flex: 1 1 0;
+      width:100%;
+    }
+
+    /* =========================
+       Skills
+    ========================== */
+    .skills-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+
+    .skills ul{
+      margin: 10px 0 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .skills li{ margin: 8px 0; }
+
+    /* =========================
+       Contact
+    ========================== */
+    .contact{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: var(--pad);
+    }
+    .contact-left{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-width: 260px;
+    }
+    .contact-right{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    /* =========================
+       Footer + ToTop
+    ========================== */
+    footer{
+      padding: 24px 0 40px 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+
+    .toTop{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      display:none;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      min-height: 44px;
+    }
+    .toTop.show{ display:flex; }
+
+    /* =========================
+       Modal (Case Study)
+    ========================== */
+    .modal{
+      width: min(760px, calc(100vw - 18px));
+      margin: 10px;
+      border-radius: var(--r-xl);
+    }
+    .modal-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 16px 16px 10px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .modal-title{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+    }
+    .modal-title h3{ font-size: 18px; }
+    .modal-title p{ font-size: 13px; color: var(--muted2); }
+    .modal-body{
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .modal-block{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .modal-block strong{
+      display:block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .modal-body p{ font-size: 13.5px; }
+    .modal-actions{
+      padding: 0 16px 16px 16px;
+      display:flex;
+      gap: 10px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+
+    /* =========================
+       Responsive breakpoints
+    ========================== */
+    /* Tablet */
+    @media (max-width: 1024px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-left, .hero-right{ min-height: auto; }
+      .about-grid{ grid-template-columns: 1fr; }
+      .projects-grid{ grid-template-columns: repeat(2, 1fr); }
+      .skills-grid{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+      .hamburger{ display:inline-flex; }
+      .brand{ min-width: auto; }
+      .nav-cta{ min-width: auto; }
+    }
+    /* Mobile */
+    @media (max-width: 640px){
+      .projects-grid{ grid-template-columns: 1fr; }
+      .project{ min-height: 560px; }
+      .snapshot-grid{ grid-template-columns: 1fr; }
+      .contact{ flex-direction:column; align-items:flex-start; }
+      .contact-right{ width:100%; justify-content:flex-start; }
+      .hero-title{ font-size: clamp(30px, 9vw, 44px); }
+      .pill{ white-space: normal; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#top">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>GowriShankar</strong>
+            <span>DevOps Engineer · CI/CD · Kubernetes · Azure</span>
+          </div>
+        </a>
+
+        <div class="navlinks" role="navigation" aria-label="Sections">
+          <a href="#about" data-nav>About</a>
+          <a href="#projects" data-nav>Projects</a>
+          <a href="#skills" data-nav>Skills</a>
+          <a href="#contact" data-nav>Contact</a>
+        </div>
+
+        <div class="nav-cta">
+          <button class="btn ghost hamburger" id="openDrawer" type="button" aria-haspopup="dialog" aria-controls="navDrawer">
+            ☰ <span class="sr-only">Open menu</span>
+          </button>
+
+          <!-- Update these -->
+          <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+
+          <!-- CHANGED: Resume href to resume/ -->
+          <a class="btn primary" href="resume/" target="_blank" rel="noopener noreferrer">Resume</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <dialog id="navDrawer" aria-label="Navigation menu">
+    <div class="glass drawer" role="document">
+      <div class="drawer-head">
+        <strong>Menu</strong>
+        <button class="btn ghost" id="closeDrawer" type="button">Close</button>
+      </div>
+      <div class="drawer-body">
+        <a href="#about" data-drawer-link>About <span>What I’m focused on</span></a>
+        <a href="#projects" data-drawer-link>Projects <span>Repos + case studies</span></a>
+        <a href="#skills" data-drawer-link>Skills <span>What I can ship</span></a>
+        <a href="#contact" data-drawer-link>Contact <span>Fast reach-out</span></a>
+      </div>
+    </div>
+  </dialog>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="section hero" id="top">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="glass hero-left">
+            <div>
+              <div class="pill">
+                <span class="dot" aria-hidden="true"></span>
+                <span>Stable releases • Kubernetes maintenance • production reliability</span>
+              </div>
+
+              <h1 class="hero-title">Shipping stable releases with CI/CD automation on Azure.</h1>
+              <p class="hero-sub">
+                DevOps Engineer with 4+ years of hands-on experience supporting CI/CD automation and cloud-native delivery on Azure at Mphasis, including multi-year delivery for a Fortune 500 logistics client (FedEx).
+                Comfortable owning release execution across environments, maintaining Kubernetes clusters, and supporting production reliability through incident triage — with Docker, Kubernetes, Terraform, Jenkins, and Git/GitHub.
+              </p>
+
+              <div class="hero-actions" role="group" aria-label="Primary actions">
+                <a class="btn primary" href="#projects">View projects →</a>
+                <a class="btn ghost" href="#contact">Contact me</a>
+                <a class="btn ghost" href="https://github.com/gowrishankar-infra" target="_blank" rel="noopener noreferrer">
+                  GitHub ↗
+                </a>
+              </div>
+
+              <div class="hero-proof" aria-label="Highlights">
+                <div class="proof-row">
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    CI/CD pipelines with Jenkins
+                  </span>
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    Kubernetes upgrades + health checks
+                  </span>
+                  <span class="proof-item">
+                    <span class="check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="M7.6 13.2 4.8 10.4 3.4 11.8l4.2 4.2L16.8 6.8l-1.4-1.4z"/></svg>
+                    </span>
+                    Terraform on Azure VMs + RGs
+                  </span>
+                </div>
+
+                <div class="chips" aria-label="Core stack">
+                  <span class="chip">Docker</span>
+                  <span class="chip">Kubernetes</span>
+                  <span class="chip">Terraform</span>
+                  <span class="chip">Jenkins</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass hero-right">
+            <div class="hero-right-head">
+              <h3>Snapshot</h3>
+              <span>what I deliver</span>
+            </div>
+
+            <div class="snap-pills" aria-label="Deliverables">
+              <span class="pill">CI/CD across dev/pre-live/prod</span>
+              <span class="pill">Jenkins pipelines + Git triggers</span>
+              <span class="pill">Kubernetes upgrades + patching</span>
+              <span class="pill">Docker + Kubernetes deployments</span>
+              <span class="pill">Terraform provisioning on Azure</span>
+              <span class="pill">Production incident triage</span>
+            </div>
+
+            <div class="snapshot-grid" aria-label="Proof areas">
+              <div class="mini">
+                <strong>Release Management</strong>
+                <p>Dev, pre-live, and prod rollouts</p>
+              </div>
+              <div class="mini">
+                <strong>Kubernetes Ops</strong>
+                <p>Upgrades, patching, health checks</p>
+              </div>
+              <div class="mini">
+                <strong>Infra as Code</strong>
+                <p>Terraform on Azure VMs + RGs</p>
+              </div>
+              <div class="mini">
+                <strong>Reliability</strong>
+                <p>Incident triage + clean handoffs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>About</h2>
+            <div class="section-kicker">Short, specific, and recruiter-friendly. Ownership + outcomes + collaboration.</div>
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="glass card">
+            <h3>Professional summary</h3>
+            <p style="margin-top:10px;">
+              DevOps Engineer with 9 years of total experience — including 4+ years supporting CI/CD automation and cloud-native delivery on Azure at Mphasis for a Fortune 500 logistics client (FedEx).
+              Comfortable owning release execution across environments, maintaining Kubernetes clusters (upgrades, patching, and health checks), and supporting production reliability through incident triage.
+              Known for steady execution, clear communication, and keeping deployments predictable and safe with Docker, Kubernetes, Terraform, Jenkins, and Git/GitHub.
+            </p>
+            <ul class="bullets">
+              <li>Maintained stable release cycles across dev/pre-live/prod using Jenkins pipelines and consistent deployment routines.</li>
+              <li>Supported Kubernetes operations including upgrades, maintenance activities, and day-to-day cluster health monitoring.</li>
+              <li>Used Terraform for repeatable infrastructure provisioning and standard changes on Azure Virtual Machines and Resource Groups.</li>
+            </ul>
+          </div>
+
+          <div class="glass card">
+            <h3>How I work</h3>
+            <p style="margin-top:10px;">
+              I focus on predictable, low-risk releases — consistent deployment routines across environments, Kubernetes maintenance kept current, and infrastructure provisioned repeatably with Terraform — backed by quick incident triage and clean handoffs.
+            </p>
+            <ul class="bullets">
+              <li><strong>Stable releases</strong>: consistent deployment routines across dev/pre-live/prod with Jenkins pipelines and Git/GitHub triggers.</li>
+              <li><strong>Kubernetes operations</strong>: cluster upgrades, patching, maintenance activities, and day-to-day workload health monitoring.</li>
+              <li><strong>Reliability</strong>: production incident triage and resolution with stakeholders, ensuring quick recovery and clean handoffs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Projects</h2>
+            <div class="section-kicker">Portfolio repos + production experience summaries aligned to my resume experience.</div>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>FedEx — DevOps / CI-CD / Azure / Kubernetes (2021 – Nov 2023)</h3>
+                <p>Supported DevOps automation for a FedEx web application — kept build and deploy workflows consistent across environments, supported Kubernetes platform maintenance, and assisted production reliability through timely incident response.</p>
+              </div>
+              <span class="pill metric" aria-label="Metric">CI/CD · Kubernetes · Azure</span>
+            </div>
+
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Jenkins</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Kubernetes</span>
+                <span class="chip">Azure</span>
+                <span class="chip">Git/GitHub</span>
+              </div>
+
+              <div class="diagram" aria-label="Architecture sketch">
+<pre>Build &amp; deploy workflows (multi-env)
+    ↓
+Jenkins pipelines (Git/GitHub triggers)
+    ↓
+Docker + Kubernetes deployments
+    ↓
+Kubernetes upgrades + workload health checks
+    ↓
+Production incident response + recovery</pre>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/fedex-cicd-kubernetes" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="FedEx — DevOps / CI-CD / Azure / Kubernetes"
+                data-problem="Keep build and deploy workflows consistent across multiple environments for a global Fortune 500 web application, while maintaining the Kubernetes platform and protecting production reliability."
+                data-architecture="Jenkins-based CI/CD pipelines triggered from Git/GitHub, Docker images deployed to Kubernetes with environment-specific configuration, regular Kubernetes upgrades and maintenance, and continuous workload health monitoring on Azure."
+                data-results="Maintained stable release cycles across environments, kept Kubernetes clusters current through upgrades and maintenance, and supported quick recovery during production incidents with clean handoffs.">
+                Case Study
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>GEMINI — ACCS Modernization for FedEx (Dec 2023 – Jan 2026)</h3>
+                <p>GEMINI tracks shipment flow for customs clearance. Supported ongoing releases and CI/CD routines, maintained Git/GitHub workflow practices, and contributed to stable deployments on Azure-backed environments.</p>
+              </div>
+              <span class="pill metric" aria-label="Metric">CI/CD · Git/GitHub · Azure</span>
+            </div>
+
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Jenkins</span>
+                <span class="chip">Git/GitHub</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Kubernetes</span>
+                <span class="chip">Azure</span>
+              </div>
+
+              <div class="diagram" aria-label="Architecture sketch">
+<pre>Git/GitHub workflow (branch + triggers)
+    ↓
+Jenkins-based CI/CD routines
+    ↓
+Build + environment rollouts (coordinated)
+    ↓
+Deployments on Azure-backed environments
+    ↓
+Stable, predictable releases</pre>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/gemini-accs-cicd" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="GEMINI — ACCS Modernization for FedEx"
+                data-problem="Keep ongoing releases stable for a customs-clearance shipment-tracking tool, with consistent CI/CD routines and clean Git/GitHub workflow practices across Azure-backed environments."
+                data-architecture="Jenkins-based CI/CD routines triggered from Git/GitHub, coordinated environment rollouts with delivery teams, and deployments onto Azure infrastructure components for predictable delivery."
+                data-results="Supported reliable release execution, maintained consistent Git/GitHub pipeline practices, and contributed to stable, predictable deployments across environments.">
+                Case Study
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="glass project">
+            <div class="project-top">
+              <div class="project-title">
+                <h3>Infrastructure Automation — Terraform + Jenkins + Docker</h3>
+                <p>Provisioned repeatable infrastructure with Terraform on Azure Virtual Machines and Resource Groups, and standardized build/deploy routines with Jenkins, Docker, and Shell scripting.</p>
+              </div>
+              <span class="pill metric" aria-label="Metric">Terraform · Jenkins · Docker</span>
+            </div>
+
+            <div class="project-body">
+              <div class="chips" aria-label="Tags">
+                <span class="chip">Terraform</span>
+                <span class="chip">Jenkins</span>
+                <span class="chip">Docker</span>
+                <span class="chip">Shell Script</span>
+              </div>
+
+              <div class="diagram" aria-label="Architecture sketch">
+<pre>Terraform (Azure VMs + Resource Groups)
+    ↓
+Repeatable infrastructure provisioning
+    ↓
+Jenkins pipelines + Shell scripting
+    ↓
+Docker + Kubernetes deployments
+    ↓
+Consistent, environment-specific config</pre>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a class="btn primary" href="https://github.com/gowrishankar-infra/devops-iac-toolkit" target="_blank" rel="noopener noreferrer">View Repo</a>
+              <button class="btn ghost"
+                type="button"
+                data-open-case
+                data-title="Infrastructure Automation — Terraform + Jenkins"
+                data-problem="Manual, one-off infrastructure changes and inconsistent deployment steps were slow and error-prone across environments."
+                data-architecture="Terraform for repeatable provisioning and standard changes on Azure Virtual Machines and Resource Groups, with Jenkins pipelines, Docker, and Shell scripts standardizing build and deploy routines."
+                data-results="Repeatable, predictable infrastructure changes, consistent environment-specific configuration, and reduced manual effort across deployments.">
+                Case Study
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Skills</h2>
+            <div class="section-kicker">Skills aligned to my resume: tools I use for CI/CD, containers, and cloud delivery.</div>
+          </div>
+        </div>
+
+        <div class="skills-grid skills">
+          <div class="glass card">
+            <h3>CI/CD &amp; Release</h3>
+            <ul>
+              <li>Jenkins pipelines (build/deploy automation)</li>
+              <li>Git/GitHub workflows and pipeline triggers</li>
+              <li>Stable release cycles across dev/pre-live/prod</li>
+              <li>Environment-specific configuration practices</li>
+              <li>Coordinated environment rollouts with teams</li>
+            </ul>
+          </div>
+
+          <div class="glass card">
+            <h3>Containers &amp; Kubernetes</h3>
+            <ul>
+              <li>Docker image builds and deployments</li>
+              <li>Kubernetes deployments and configuration</li>
+              <li>Cluster upgrades, patching, and maintenance</li>
+              <li>Day-to-day cluster health monitoring</li>
+              <li>Production incident triage and recovery</li>
+            </ul>
+          </div>
+
+          <div class="glass card">
+            <h3>Infra, Cloud &amp; Tooling</h3>
+            <ul>
+              <li>Terraform for repeatable provisioning</li>
+              <li>Azure Virtual Machines and Resource Groups</li>
+              <li>Linux administration and Shell scripting</li>
+              <li>Git/GitHub version control</li>
+              <li>Predictable, safe deployment routines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contact</h2>
+            <div class="section-kicker">Make it easy to reach out in 10 seconds.</div>
+          </div>
+        </div>
+
+        <div class="glass contact">
+          <div class="contact-left">
+            <p>Email: <strong style="color:var(--text)">gowrishankar0827@gmail.com</strong> · Phone: <strong style="color:var(--text)">+91 9618510658</strong></p>
+            <p class="muted2">GitHub: <strong style="color:var(--text)">gowrishankar-infra</strong> · I respond fastest on LinkedIn.</p>
+          </div>
+          <div class="contact-right">
+            <a class="btn primary" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">Message on LinkedIn</a>
+
+            <!-- CHANGED: Open Resume href to resume/ -->
+            <a class="btn ghost" href="resume/" target="_blank" rel="noopener noreferrer">Open Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDY MODAL -->
+    <dialog id="caseModal" aria-label="Case study dialog">
+      <div class="glass modal" role="document">
+        <div class="modal-head">
+          <div class="modal-title">
+            <h3 id="caseTitle">Case Study</h3>
+            <p id="caseKicker">Problem → Architecture → Results</p>
+          </div>
+          <button class="btn ghost" id="closeCase" type="button">Close</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-block">
+            <strong>Problem</strong>
+            <p id="caseProblem"></p>
+          </div>
+          <div class="modal-block">
+            <strong>Architecture</strong>
+            <p id="caseArchitecture"></p>
+          </div>
+          <div class="modal-block">
+            <strong>Results</strong>
+            <p id="caseResults"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn primary" id="caseOk" type="button">Done</button>
+        </div>
+      </div>
+    </dialog>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <span>© <span id="year"></span> GowriShankar</span>
+        <a class="muted2" href="#top">Back to top · Portfolio repo</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="toTop" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
+
+  <script>
+    // =========================
+    // Helpers: focus trap for dialog
+    // =========================
+    function trapFocus(dialogEl) {
+      const focusable = dialogEl.querySelectorAll(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      function onKeydown(e){
+        if(e.key !== 'Tab') return;
+        if(focusable.length === 0) return;
+
+        if(e.shiftKey && document.activeElement === first){
+          e.preventDefault(); last.focus();
+        } else if(!e.shiftKey && document.activeElement === last){
+          e.preventDefault(); first.focus();
+        }
+      }
+
+      dialogEl.addEventListener('keydown', onKeydown);
+      return () => dialogEl.removeEventListener('keydown', onKeydown);
+    }
+
+    function openDialog(dialogEl, focusSelector){
+      const supports = typeof dialogEl.showModal === 'function';
+      if(!supports){
+        // minimal fallback: show as block
+        dialogEl.setAttribute('open', '');
+        dialogEl.style.display = 'block';
+      } else {
+        dialogEl.showModal();
+      }
+      const cleanupTrap = trapFocus(dialogEl);
+      setTimeout(() => {
+        const toFocus = focusSelector ? dialogEl.querySelector(focusSelector) : null;
+        (toFocus || dialogEl.querySelector('button, a, [tabindex]'))?.focus();
+      }, 0);
+
+      const onClickOutside = (e) => {
+        const rect = dialogEl.getBoundingClientRect();
+        const clickedOutside =
+          e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom;
+        // For native dialog, clicking backdrop triggers click on dialog
+        if(clickedOutside){
+          closeDialog(dialogEl);
+        }
+      };
+
+      dialogEl.addEventListener('click', onClickOutside);
+      dialogEl._cleanup = () => {
+        cleanupTrap();
+        dialogEl.removeEventListener('click', onClickOutside);
+      };
+    }
+
+    function closeDialog(dialogEl){
+      if(dialogEl._cleanup) dialogEl._cleanup();
+      const supports = typeof dialogEl.close === 'function';
+      if(dialogEl.hasAttribute('open') && !supports){
+        dialogEl.removeAttribute('open');
+        dialogEl.style.display = 'none';
+      } else {
+        dialogEl.close();
+      }
+    }
+
+    // =========================
+    // Nav active state
+    // =========================
+    const navLinks = document.querySelectorAll('[data-nav]');
+    const sections = ['about','projects','skills','contact'].map(id => document.getElementById(id));
+
+    const setCurrent = () => {
+      const y = window.scrollY + 120;
+      let current = 'about';
+      for (const s of sections) {
+        if (s && s.offsetTop <= y) current = s.id;
+      }
+      navLinks.forEach(a => a.removeAttribute('aria-current'));
+      const active = [...navLinks].find(a => a.getAttribute('href') === '#' + current);
+      if(active) active.setAttribute('aria-current','page');
+    };
+    window.addEventListener('scroll', setCurrent, { passive:true });
+    setCurrent();
+
+    // =========================
+    // Drawer (mobile nav)
+    // =========================
+    const navDrawer = document.getElementById('navDrawer');
+    const openDrawer = document.getElementById('openDrawer');
+    const closeDrawerBtn = document.getElementById('closeDrawer');
+    const drawerLinks = document.querySelectorAll('[data-drawer-link]');
+
+    let lastFocus = null;
+
+    openDrawer?.addEventListener('click', () => {
+      lastFocus = document.activeElement;
+      openDialog(navDrawer, '#closeDrawer');
+    });
+    closeDrawerBtn?.addEventListener('click', () => {
+      closeDialog(navDrawer);
+      lastFocus?.focus?.();
+    });
+    navDrawer?.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeDialog(navDrawer);
+      lastFocus?.focus?.();
+    });
+    drawerLinks.forEach(a => {
+      a.addEventListener('click', () => {
+        closeDialog(navDrawer);
+        lastFocus?.focus?.();
+      });
+    });
+
+    // =========================
+    // Case Study Modal
+    // =========================
+    const caseModal = document.getElementById('caseModal');
+    const closeCase = document.getElementById('closeCase');
+    const caseOk = document.getElementById('caseOk');
+    const caseTitle = document.getElementById('caseTitle');
+    const caseProblem = document.getElementById('caseProblem');
+    const caseArchitecture = document.getElementById('caseArchitecture');
+    const caseResults = document.getElementById('caseResults');
+
+    document.querySelectorAll('[data-open-case]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        lastFocus = document.activeElement;
+        caseTitle.textContent = btn.dataset.title || 'Case Study';
+        caseProblem.textContent = btn.dataset.problem || '';
+        caseArchitecture.textContent = btn.dataset.architecture || '';
+        caseResults.textContent = btn.dataset.results || '';
+        openDialog(caseModal, '#closeCase');
+      });
+    });
+
+    function closeCaseModal(){
+      closeDialog(caseModal);
+      lastFocus?.focus?.();
+    }
+    closeCase?.addEventListener('click', closeCaseModal);
+    caseOk?.addEventListener('click', closeCaseModal);
+    caseModal?.addEventListener('cancel', (e) => {
+      e.preventDefault();
+      closeCaseModal();
+    });
+
+    // =========================
+    // ToTop button
+    // =========================
+    const toTop = document.getElementById('toTop');
+    const toggleTop = () => {
+      if(window.scrollY > 700) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    };
+    window.addEventListener('scroll', toggleTop, { passive:true });
+    toggleTop();
+
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+
+    // =========================
+    // Footer year
+    // =========================
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
